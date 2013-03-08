@@ -20,7 +20,19 @@ namespace PSWinCom.Gateway.Client
 
         public int Tariff { get; set; }
 
-
-        public string MyReference { get; set; }
+        private string _MyReference;
+        public string UserReference
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_MyReference))
+                    return NumInSession.ToString();
+                return _MyReference;
+            }
+            set
+            {
+                _MyReference = value;
+            }
+        }
     }
 }

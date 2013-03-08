@@ -6,7 +6,8 @@ namespace PSWinCom.Gateway.Client
 {
     public class MessageResult
     {
-        public string MyReference { get; set; }
+        public string GatewayReference { get; set; }
+        public string UserReference { get; set; }
         public string Status { get; set; }
     }
 }

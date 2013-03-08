@@ -32,7 +32,7 @@ namespace PSWinCom.Gateway.Client
                 )
             );
 
-            var idLink = messages.ToDictionary((m) => m.NumInSession, m => m.MyReference);
+            var idLink = messages.ToDictionary((m) => m.NumInSession, m => m.UserReference);
 
             var transportResult = Transport.Send(doc);
 
@@ -42,7 +42,7 @@ namespace PSWinCom.Gateway.Client
                     .Descendants("MSG")
                     .Select((el) => new MessageResult
                     {
-                        MyReference = idLink[int.Parse(el.Element("ID").Value)],
+                        UserReference = idLink[int.Parse(el.Element("ID").Value)],
                         Status = el.Element("STATUS").Value
                     });
 

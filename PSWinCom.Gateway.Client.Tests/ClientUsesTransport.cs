@@ -18,18 +18,6 @@ namespace PSWinCom.Gateway.Client.Tests
         private XDocument last_doc;
 
         [Test]
-        public void Should_send_xml_to_transport()
-        {
-            var client = new MessageClient();
-            var mockTransport = new Mock<Transport>();
-            client.Transport = mockTransport.Object;
-
-            client.Send(new Message[] { });
-
-            mockTransport.Verify((t) => t.Send(It.IsAny<XDocument>()), Times.Once());
-        }
-
-        [Test]
         public void Should_include_username_and_password()
         {
             client.Username = "test";
@@ -104,26 +92,12 @@ namespace PSWinCom.Gateway.Client.Tests
         [Test]
         public void Should_return_status_on_messages()
         {
-            var msg1 = new Message { MyReference = "message1" };
-            var msg2 = new Message { MyReference = "message2" };
+            var msg1 = new Message { UserReference = "message1" };
+            var msg2 = new Message { UserReference = "message2" };
 
-            mockTransport.Setup((t) => t.Send(It.IsAny<XDocument>())).Returns(new TransportResult
-            {
-                Content = new XDocument(
-                    new XElement("SESSION",
-                        new XElement("MSGLST",
-                            new XElement("MSG",
-                                new XElement("ID", "2"),
-                                new XElement("STATUS", "OK")
-                            ),
-                            new XElement("MSG",
-                                new XElement("ID", "1"),
-                                new XElement("STATUS", "FAIL")
-                            )
-                        )
-                    )
-                )
-            });
+            Transport_returns(
+                message_result("2", "OK"), 
+                message_result("1", "FAIL"));
 
             var result = client.Send(new[] {
                 msg1,
@@ -131,8 +105,32 @@ namespace PSWinCom.Gateway.Client.Tests
             });
 
             result.Results.Count().ShouldEqual(2);
-            result.Results.First((m) => m.MyReference == "message1").Status.ShouldEqual("FAIL");
-            result.Results.First((m) => m.MyReference == "message2").Status.ShouldEqual("OK");
+            result.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual("FAIL");
+            result.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual("OK");
+        }
+
+        private void Transport_returns(params XElement[] results)
+        {
+            mockTransport
+                .Setup((t) => t.Send(It.IsAny<XDocument>()))
+                .Returns(new TransportResult
+                {
+                    Content = new XDocument(
+                        new XElement("SESSION",
+                            new XElement("MSGLST",
+                                results
+                            )
+                        )
+                    )
+                });
+        }
+
+        private static XElement message_result(string numInSession, string status)
+        {
+            return new XElement("MSG",
+                new XElement("ID", numInSession),
+                new XElement("STATUS", status)
+            );
         }
 
         [SetUp]
@@ -149,7 +147,10 @@ namespace PSWinCom.Gateway.Client.Tests
                 .Returns<XDocument>((xml) =>
                 {
                     last_doc = xml;
-                    return new TransportResult();
+                    return new TransportResult()
+                    {
+                        Content = new XDocument()
+                    };
                 });
         }
     }
