@@ -7,6 +7,6 @@ namespace PSWinCom.Gateway.Client
 {
     public abstract class Transport
     {
-        public abstract SendResult Send(XDocument document);
+        public abstract TransportResult Send(XDocument document);
     }
 }

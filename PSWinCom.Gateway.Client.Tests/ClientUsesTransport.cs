@@ -84,6 +84,57 @@ namespace PSWinCom.Gateway.Client.Tests
             last_doc.Descendants("MSG").First().Element("TARIFF").Value.ShouldEqual("100");
         }
 
+        [Test]
+        public void Should_set_num_in_session()
+        {
+            var msg1 = new Message();
+            var msg2 = new Message();
+
+            client.Send(
+                new[] { 
+                    msg1,
+                    msg2
+                }
+            );
+
+            msg1.NumInSession.ShouldEqual(1);
+            msg2.NumInSession.ShouldEqual(2);
+        }
+
+        [Test]
+        public void Should_return_status_on_messages()
+        {
+            var msg1 = new Message { MyReference = "message1" };
+            var msg2 = new Message { MyReference = "message2" };
+
+            mockTransport.Setup((t) => t.Send(It.IsAny<XDocument>())).Returns(new TransportResult
+            {
+                Content = new XDocument(
+                    new XElement("SESSION",
+                        new XElement("MSGLST",
+                            new XElement("MSG",
+                                new XElement("ID", "2"),
+                                new XElement("STATUS", "OK")
+                            ),
+                            new XElement("MSG",
+                                new XElement("ID", "1"),
+                                new XElement("STATUS", "FAIL")
+                            )
+                        )
+                    )
+                )
+            });
+
+            var result = client.Send(new[] {
+                msg1,
+                msg2
+            });
+
+            result.Results.Count().ShouldEqual(2);
+            result.Results.First((m) => m.MyReference == "message1").Status.ShouldEqual("FAIL");
+            result.Results.First((m) => m.MyReference == "message2").Status.ShouldEqual("OK");
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -98,7 +149,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 .Returns<XDocument>((xml) =>
                 {
                     last_doc = xml;
-                    return new SendResult();
+                    return new TransportResult();
                 });
         }
     }

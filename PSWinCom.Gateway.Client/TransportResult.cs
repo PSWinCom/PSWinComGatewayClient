@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class SendResult
+    public class TransportResult
     {
-        public IEnumerable<MessageResult> Results { get; set; }
+        public XDocument Content { get; set; }
+        
     }
 }

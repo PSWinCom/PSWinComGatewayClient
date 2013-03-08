@@ -9,6 +9,8 @@ namespace PSWinCom.Gateway.Client
     [XmlRoot("MSG")]
     public class Message
     {
+        internal int NumInSession { get; set; }
+
         [XmlElement("TEXT")]
         public string Text { get; set; }
         [XmlElement("RCV")]
@@ -17,5 +19,8 @@ namespace PSWinCom.Gateway.Client
         public string SenderNumber { get; set; }
 
         public int Tariff { get; set; }
+
+
+        public string MyReference { get; set; }
     }
 }
