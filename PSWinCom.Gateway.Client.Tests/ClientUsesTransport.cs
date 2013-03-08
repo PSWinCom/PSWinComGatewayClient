@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace PSWinCom.Gateway.Client.Tests
 {
     [TestFixture]
-    public class ClientUsesTransport
+    public class SendingMessages
     {
         private Mock<Transport> mockTransport;
         private MessageClient client;
@@ -43,15 +43,12 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
-        public void Should_build_message_list()
+        public void Should_build_message_list_with_minimum_information()
         {
-            client.Username = "test";
-            client.Password = "pass";
-
             client.Send(
                 new[] { 
-                    new Message { Text = "some text", Recipient = "4799999999", Sender = "tester" },
-                    new Message { Text = "some text 2", Recipient = "4799999998", Sender = "tester2" } 
+                    new Message { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
+                    new Message { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
 
@@ -60,9 +57,31 @@ namespace PSWinCom.Gateway.Client.Tests
 
             var elements = last_doc.Root.Element("MSGLST").Elements("MSG");
             elements.Count().ShouldEqual(2);
+            
             elements.First().Element("TEXT").Value.ShouldEqual("some text");
             elements.First().Element("SND").Value.ShouldEqual("tester");
             elements.First().Element("RCV").Value.ShouldEqual("4799999999");
+
+            elements.Last().Element("TEXT").Value.ShouldEqual("some text 2");
+            elements.Last().Element("SND").Value.ShouldEqual("tester2");
+            elements.Last().Element("RCV").Value.ShouldEqual("4799999998");
+        }
+
+        [Test]
+        public void Should_support_tariff()
+        {
+            client.Send(
+                new[] { 
+                    new Message { 
+                        Tariff = 100,
+                        Text = "some text", 
+                        ReceiverNumber = "4799999999", 
+                        SenderNumber = "tester" 
+                    },
+                }
+            );
+
+            last_doc.Descendants("MSG").First().Element("TARIFF").Value.ShouldEqual("100");
         }
 
         [SetUp]

@@ -32,16 +32,26 @@ namespace PSWinCom.Gateway.Client
             );
             Transport.Send(doc);
         }
+
         private IEnumerable<XElement> GetMessageElements(IEnumerable<Message> messages)
         {
             foreach (var msg in messages)
             {
-                yield return new XElement("MSG",
-                    new XElement("TEXT", msg.Text),
-                    new XElement("SND", msg.Sender),
-                    new XElement("RCV", msg.Recipient)
-                );
+                XElement msgElement = 
+                    new XElement("MSG",
+                        GetMessagePropertyElements(msg)
+                    );
+                yield return msgElement;
             }
+        }
+
+        private IEnumerable<XElement> GetMessagePropertyElements(Message msg)
+        {
+            yield return new XElement("TEXT", msg.Text);
+            yield return new XElement("SND", msg.SenderNumber);
+            yield return new XElement("RCV", msg.ReceiverNumber);
+            if (msg.Tariff > 0)
+                yield return new XElement("TARIFF", msg.Tariff);
         }
     }
 }
