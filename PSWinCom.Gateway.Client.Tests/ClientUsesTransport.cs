@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Should;
 using Moq;
 using System.Xml.Linq;
+using System.Net;
 
 namespace PSWinCom.Gateway.Client.Tests
 {

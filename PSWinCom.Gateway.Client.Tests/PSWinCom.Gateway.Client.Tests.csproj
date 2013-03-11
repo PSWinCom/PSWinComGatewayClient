@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientUsesTransport.cs" />
+    <Compile Include="HttpTransportTests.cs" />
     <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PSWinCom.Gateway.Client\PSWinCom.Gateway.Client.csproj">
-      <Project>{125c8606-7d44-4d10-8135-32067e355af9}</Project>
+      <Project>{8bfb0221-2d4b-4268-9df5-eb899211510a}</Project>
       <Name>PSWinCom.Gateway.Client</Name>
     </ProjectReference>
   </ItemGroup>
