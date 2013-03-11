@@ -8,6 +8,5 @@ namespace PSWinCom.Gateway.Client
     public class TransportResult
     {
         public XDocument Content { get; set; }
-        
     }
 }
