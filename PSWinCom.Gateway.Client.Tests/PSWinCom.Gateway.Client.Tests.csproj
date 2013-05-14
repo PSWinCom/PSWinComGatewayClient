@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientUsesTransport.cs" />
+    <Compile Include="SendingMessages.cs" />
     <Compile Include="HttpTransportTests.cs" />
     <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

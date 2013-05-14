@@ -14,7 +14,7 @@ namespace PSWinCom.Gateway.Client.Tests
     [TestFixture]
     public class SendingMessages
     {
-        private Mock<Transport> mockTransport;
+        private Mock<ITransport> mockTransport;
         private MessageClient client;
         private XDocument last_doc;
 
@@ -138,7 +138,7 @@ namespace PSWinCom.Gateway.Client.Tests
         public void Setup()
         {
             client = new MessageClient();
-            mockTransport = new Mock<Transport>();
+            mockTransport = new Mock<ITransport>();
             client.Transport = mockTransport.Object;
 
             last_doc = new XDocument();

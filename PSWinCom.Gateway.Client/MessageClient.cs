@@ -6,12 +6,12 @@ using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class MessageClient
+    public class MessageClient : IMessageClient
     {
         public string Username { get; set; }
         public string Password { get; set; }
 
-        public Transport Transport { get; set; }
+        public ITransport Transport { get; set; }
 
         public SendResult Send(IEnumerable<Message> messages)
         {

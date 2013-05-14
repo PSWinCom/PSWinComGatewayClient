@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class HttpTransport : Transport
+    public class HttpTransport : ITransport
     {
         private readonly Uri _uri;
         public static ManualResetEvent allDone = new ManualResetEvent(false);
@@ -27,10 +27,15 @@ namespace PSWinCom.Gateway.Client
 
             document.Save(ms);
             ms.Seek(0, SeekOrigin.Begin);
+            var content = new StreamContent(ms);
 
-            client.PostAsync(_uri, new StreamContent(ms));
+            var request = client.PostAsync(_uri, content);
+            var res = request.Result;
 
-            return null;
+            var result = new TransportResult();
+            result.Success = (res.StatusCode == HttpStatusCode.OK);
+
+            return result;
         }
     }
 }
