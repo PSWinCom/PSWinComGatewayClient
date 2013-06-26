@@ -5,8 +5,8 @@ using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public abstract class ITransport
+    public interface ITransport
     {
-        public abstract TransportResult Send(XDocument document);
+        TransportResult Send(XDocument document);
     }
 }

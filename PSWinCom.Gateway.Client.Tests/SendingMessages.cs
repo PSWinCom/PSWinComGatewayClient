@@ -59,6 +59,33 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
+        public void Should_have_DOCTYPE()
+        {
+            client.Send(
+                new[] { 
+                    new Message { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
+                    new Message { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
+                }
+            );
+            last_doc.FirstNode.NodeType.ShouldEqual(System.Xml.XmlNodeType.DocumentType);
+            var type = last_doc.FirstNode as XDocumentType;
+            type.Name.ShouldEqual("SESSION");
+            type.SystemId.ShouldEqual("pswincom_submit.dtd");
+        }
+
+        [Test]
+        public void Should_set_encoding_in_declaration()
+        {
+            client.Send(
+                new[] { 
+                    new Message { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
+                    new Message { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
+                }
+            );
+            last_doc.Declaration.Encoding.ShouldEqual("iso-8859-1");
+        }
+
+        [Test]
         public void Should_support_tariff()
         {
             client.Send(
