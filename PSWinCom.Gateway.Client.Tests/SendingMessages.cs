@@ -46,11 +46,13 @@ namespace PSWinCom.Gateway.Client.Tests
 
             var elements = last_doc.Root.Element("MSGLST").Elements("MSG");
             elements.Count().ShouldEqual(2);
-            
+
+            elements.First().Element("ID").Value.ShouldEqual("1");
             elements.First().Element("TEXT").Value.ShouldEqual("some text");
             elements.First().Element("SND").Value.ShouldEqual("tester");
             elements.First().Element("RCV").Value.ShouldEqual("4799999999");
 
+            elements.Last().Element("ID").Value.ShouldEqual("2");
             elements.Last().Element("TEXT").Value.ShouldEqual("some text 2");
             elements.Last().Element("SND").Value.ShouldEqual("tester2");
             elements.Last().Element("RCV").Value.ShouldEqual("4799999998");
@@ -137,9 +139,8 @@ namespace PSWinCom.Gateway.Client.Tests
         [SetUp]
         public void Setup()
         {
-            client = new MessageClient();
             mockTransport = new Mock<ITransport>();
-            client.Transport = mockTransport.Object;
+            client = new MessageClient(mockTransport.Object);
 
             last_doc = new XDocument();
 

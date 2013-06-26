@@ -55,6 +55,22 @@ namespace PSWinCom.Gateway.Client.Tests
             );
         }
 
+        [Test]
+        public void Should_return_response_content_of_successful_request()
+        {
+            with_listener(at: "http://localhost:56123/listener/ok/",
+                that_returns: 200,
+                with_body: new XDocument(new XElement("ROOT")),
+                ensure: (transport, server) =>
+                {
+                    transport
+                        .Send(new XDocument(new XElement("TEST")))
+                        .Content.Root.Name.ShouldEqual("ROOT");
+                        
+                }
+            );
+        }
+
         private static void with_listener(string at, int that_returns, XDocument with_body, Action<HttpTransport, Task<string>> ensure) {
 
             var endpoint = new Uri(at);

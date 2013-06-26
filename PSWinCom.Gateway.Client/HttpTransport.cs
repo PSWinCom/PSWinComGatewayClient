@@ -29,11 +29,14 @@ namespace PSWinCom.Gateway.Client
             ms.Seek(0, SeekOrigin.Begin);
             var content = new StreamContent(ms);
 
+            content.Headers.Add("Content-Type", "text/xml");
+
             var request = client.PostAsync(_uri, content);
             var res = request.Result;
 
             var result = new TransportResult();
             result.Success = (res.StatusCode == HttpStatusCode.OK);
+            result.Content = XDocument.Parse(res.Content.ReadAsStringAsync().Result);
 
             return result;
         }

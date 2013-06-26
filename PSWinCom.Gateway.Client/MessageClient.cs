@@ -13,6 +13,20 @@ namespace PSWinCom.Gateway.Client
 
         public ITransport Transport { get; set; }
 
+        public MessageClient(ITransport transport)
+        {
+            Transport = transport;
+        }
+
+        public static IMessageClient GetHttpClient()
+        {
+            return GetHttpClient("https://sms3.pswin.com/sms");
+        }
+
+        public static IMessageClient GetHttpClient(string url) {
+            return new MessageClient(new HttpTransport(new Uri(url)));
+        }
+
         public SendResult Send(IEnumerable<Message> messages)
         {
             var result = new SendResult();
@@ -59,7 +73,7 @@ namespace PSWinCom.Gateway.Client
 
         private IEnumerable<XElement> GetMessagePropertyElements(Message msg)
         {
-            
+            yield return new XElement("ID", msg.NumInSession);
             yield return new XElement("TEXT", msg.Text);
             yield return new XElement("SND", msg.SenderNumber);
             yield return new XElement("RCV", msg.ReceiverNumber);
