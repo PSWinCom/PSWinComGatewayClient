@@ -40,11 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PSWinCom.Gateway.Client\IMessageClient.cs">
-      <Link>IMessageClient.cs</Link>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IMessageClient.cs">
+      <Link>Interfaces\IMessageClient.cs</Link>
     </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\ITransport.cs">
-      <Link>ITransport.cs</Link>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\ITransport.cs">
+      <Link>Interfaces\ITransport.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\Message.cs">
       <Link>Message.cs</Link>

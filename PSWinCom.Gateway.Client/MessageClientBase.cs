@@ -6,8 +6,21 @@ using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class MessageClientBase
+    public abstract class MessageClientBase
     {
+        public ITransport Transport { get; set; }
+
+        public static IMessageClient GetHttpClient(string url)
+        {
+            return new MessageClient(new HttpTransport(new Uri(url)));
+        }
+        public static IMessageClient GetHttpClient()
+        {
+            return GetHttpClient("https://sms3.pswin.com/sms");
+        }
+
+        public abstract SendResult Send(IEnumerable<Message> messages);
+
         protected XDocument BuildPayload(IEnumerable<Message> messages)
         {
             XDocument doc;
