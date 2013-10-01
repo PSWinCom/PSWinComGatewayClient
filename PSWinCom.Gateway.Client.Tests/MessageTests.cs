@@ -28,7 +28,6 @@ namespace PSWinCom.Gateway.Client.Tests
             msg.NumInSession = 3;
             msg.UserReference = "something";
             msg.UserReference.ShouldEqual("something");
-            
         }
     }
 }

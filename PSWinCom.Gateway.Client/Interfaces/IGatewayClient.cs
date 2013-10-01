@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public interface IMessageClient
+    public interface IGatewayClient
     {
         string Username { get; set; }
         string Password { get; set; }

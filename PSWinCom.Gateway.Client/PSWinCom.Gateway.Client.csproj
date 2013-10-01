@@ -43,18 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TcpTransport.cs" />
+    <Compile Include="ClientFactory.cs" />
     <Compile Include="HttpTransport.cs" />
     <Compile Include="Interfaces\IAsyncTransport.cs" />
-    <Compile Include="Interfaces\IMessageClient.cs" />
-    <Compile Include="Interfaces\IAsyncMessageClient.cs" />
+    <Compile Include="Interfaces\IGatewayClient.cs" />
+    <Compile Include="Interfaces\IAsyncGatewayClient.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="MessageClient.cs" />
-    <Compile Include="MessageClientBase.cs" />
+    <Compile Include="GatewayClient.cs" />
+    <Compile Include="GatewayClientBase.cs" />
     <Compile Include="MessageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendResult.cs" />
     <Compile Include="SMSException.cs" />
     <Compile Include="Interfaces\ITransport.cs" />
+    <Compile Include="TcpTransportAsync.cs" />
     <Compile Include="TransportResult.cs" />
   </ItemGroup>
   <ItemGroup>

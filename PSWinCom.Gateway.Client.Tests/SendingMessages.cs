@@ -15,7 +15,7 @@ namespace PSWinCom.Gateway.Client.Tests
     public class SendingMessages
     {
         private Mock<ITransport> mockTransport;
-        private MessageClient client;
+        private GatewayClient client;
         private XDocument last_doc;
 
         [Test]
@@ -167,7 +167,7 @@ namespace PSWinCom.Gateway.Client.Tests
         public void Setup()
         {
             mockTransport = new Mock<ITransport>();
-            client = new MessageClient(mockTransport.Object);
+            client = new GatewayClient(mockTransport.Object);
 
             last_doc = new XDocument();
 

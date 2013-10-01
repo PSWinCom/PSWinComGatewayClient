@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PSWinCom.Gateway.Client
 {
-    public interface IAsyncMessageClient : IMessageClient
+    public interface IAsyncGatewayClient : IGatewayClient
     {
         Task<SendResult> SendAsync(IEnumerable<Message> messages);
     }

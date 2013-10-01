@@ -6,26 +6,37 @@ using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public abstract class MessageClientBase
+    public abstract class GatewayClientBase : IGatewayClient
     {
         public ITransport Transport { get; set; }
 
-        public static IMessageClient GetHttpClient(string url)
+        public GatewayClientBase(ITransport transport)
         {
-            return new MessageClient(new HttpTransport(new Uri(url)));
-        }
-        public static IMessageClient GetHttpClient()
-        {
-            return GetHttpClient("https://sms3.pswin.com/sms");
+            Transport = transport;
         }
 
-        public abstract SendResult Send(IEnumerable<Message> messages);
+        public SendResult Send(params Message[] messages)
+        {
+            return Send(messages.AsEnumerable());
+        }
+
+        public virtual SendResult Send(IEnumerable<Message> messages)
+        {
+            var transportResult = Transport.Send(BuildPayload(messages));
+            return GetSendResult(messages, transportResult);
+        }
 
         protected XDocument BuildPayload(IEnumerable<Message> messages)
         {
             XDocument doc;
             doc = new XDocument(new XDeclaration("1.0", "iso-8859-1", null));
-            doc.Add(new XDocumentType("SESSION", null, "pswincom_submit.dtd", null), new XElement("SESSION", new XElement("CLIENT", Username), new XElement("PW", Password), new XElement("MSGLST", GetMessageElements(messages))));
+            doc.Add(
+                new XDocumentType("SESSION", null, "pswincom_submit.dtd", null), 
+                new XElement("SESSION", 
+                    new XElement("CLIENT", Username), 
+                    new XElement("PW", Password), 
+                    new XElement("MSGLST", 
+                        GetMessageElements(messages))));
             return doc;
         }
 

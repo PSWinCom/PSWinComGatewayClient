@@ -35,25 +35,24 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IMessageClient.cs">
-      <Link>Interfaces\IMessageClient.cs</Link>
+    <Compile Include="..\PSWinCom.Gateway.Client\ClientFactory.cs">
+      <Link>ClientFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayClientBase.cs">
+      <Link>GatewayClientBase.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IGatewayClient.cs">
+      <Link>Interfaces\IGatewayClient.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\ITransport.cs">
       <Link>Interfaces\ITransport.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\Message.cs">
       <Link>Message.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\MessageClient.cs">
-      <Link>MessageClient.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\MessageClientBase.cs">
-      <Link>MessageClientBase.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\MessageResult.cs">
       <Link>MessageResult.cs</Link>
@@ -64,10 +63,14 @@
     <Compile Include="..\PSWinCom.Gateway.Client\SMSException.cs">
       <Link>SMSException.cs</Link>
     </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\TcpTransport.cs">
+      <Link>TcpTransport.cs</Link>
+    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\TransportResult.cs">
       <Link>TransportResult.cs</Link>
     </Compile>
     <Compile Include="HttpTransport.cs" />
+    <Compile Include="GatewayClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
