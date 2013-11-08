@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Net35", "PSWinCom.Gateway.Client.Net35\PSWinCom.Gateway.Client.Net35.csproj", "{CF0EA6F6-8921-4AE4-BF2D-26E05885D2D9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MMS", "MMS", "{17CB41B5-8E38-4C39-A408-7572AFFFB239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Mms", "PSWinCom.Gateway.Client.Mms\PSWinCom.Gateway.Client.Mms.csproj", "{6B46BCB7-D1F6-4EF1-A4E2-3A62DDAFFFD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +37,15 @@ Global
 		{CF0EA6F6-8921-4AE4-BF2D-26E05885D2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF0EA6F6-8921-4AE4-BF2D-26E05885D2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF0EA6F6-8921-4AE4-BF2D-26E05885D2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B46BCB7-D1F6-4EF1-A4E2-3A62DDAFFFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B46BCB7-D1F6-4EF1-A4E2-3A62DDAFFFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B46BCB7-D1F6-4EF1-A4E2-3A62DDAFFFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B46BCB7-D1F6-4EF1-A4E2-3A62DDAFFFD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B46BCB7-D1F6-4EF1-A4E2-3A62DDAFFFD4} = {17CB41B5-8E38-4C39-A408-7572AFFFB239}
 	EndGlobalSection
 EndGlobal
