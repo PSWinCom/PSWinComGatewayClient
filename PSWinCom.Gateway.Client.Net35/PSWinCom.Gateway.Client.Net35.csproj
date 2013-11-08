@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PSWinCom.Gateway.Client\ClientFactory.cs">
-      <Link>ClientFactory.cs</Link>
+    <Compile Include="..\PSWinCom.Gateway.Client\Gateway.cs">
+      <Link>Gateway.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\GatewayClientBase.cs">
       <Link>GatewayClientBase.cs</Link>

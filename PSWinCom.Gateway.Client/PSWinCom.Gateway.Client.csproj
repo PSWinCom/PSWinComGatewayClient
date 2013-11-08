@@ -47,7 +47,7 @@
     <Compile Include="MmsMessage.cs" />
     <Compile Include="NetworkSpecification.cs" />
     <Compile Include="TcpTransport.cs" />
-    <Compile Include="ClientFactory.cs" />
+    <Compile Include="Gateway.cs" />
     <Compile Include="HttpTransport.cs" />
     <Compile Include="Interfaces\IAsyncTransport.cs" />
     <Compile Include="Interfaces\IGatewayClient.cs" />

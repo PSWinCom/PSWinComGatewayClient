@@ -7,7 +7,7 @@ namespace PSWinCom.Gateway.Client
     public static class Gateway
     {
         private static string _defaultGateway = "https://sms3.pswin.com/sms";
-        public static string DefaultGateway
+        public static string DefaultAddress
         {
             get
             {
@@ -19,32 +19,32 @@ namespace PSWinCom.Gateway.Client
             }
         }
 
-        public static IGatewayClient GetClient()
+        public static IGatewayClient Client()
         {
-            return GetClient(_defaultGateway);
+            return Client(_defaultGateway);
         }
 
-        public static IGatewayClient GetClient(string username, string password)
+        public static IGatewayClient Client(string username, string password)
         {
-            return GetClient().WithLogin(username, password);
+            return Client().WithLogin(username, password);
         }
 
-        public static IGatewayClient GetClient(string uri)
+        public static IGatewayClient Client(string uri)
         {
-            return GetClient(new Uri(uri));
+            return Client(new Uri(uri));
         }
 
-        public static IGatewayClient GetClient(string uri, string username, string password)
+        public static IGatewayClient Client(string uri, string username, string password)
         {
-            return GetClient(uri).WithLogin(username, password);
+            return Client(uri).WithLogin(username, password);
         }
 
-        public static IGatewayClient GetClient(Uri uri, string username, string password)
+        public static IGatewayClient Client(Uri uri, string username, string password)
         {
-            return GetClient(uri).WithLogin(username, password);
+            return Client(uri).WithLogin(username, password);
         }
 
-        public static IGatewayClient GetClient(Uri uri)
+        public static IGatewayClient Client(Uri uri)
         {
             switch (uri.Scheme)
             {
