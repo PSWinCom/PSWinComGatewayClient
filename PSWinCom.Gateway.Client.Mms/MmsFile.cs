@@ -18,6 +18,17 @@ namespace PSWinCom.Gateway.Client
             Parts = new List<MmsPart>();
         }
 
+        public MmsFile(params MmsPart[] parts)
+            : this(parts.AsEnumerable())
+        {
+
+        }
+
+        public MmsFile(IEnumerable<MmsPart> parts)
+        {
+            Parts = parts.ToList();
+        }
+
         internal byte[] GetBytes()
         {
             using (MemoryStream msZipOutput = new MemoryStream())
