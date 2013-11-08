@@ -19,6 +19,9 @@ namespace PSWinCom.Gateway.Client
         public string SenderNumber { get; set; }
 
         public int Tariff { get; set; }
+        public bool RequestReceipt { get; set; }
+        public NetworkSpecification Network { get; set; }
+        public byte[] MmsFile { get; set; }
 
         private string _useryReference;
         public string UserReference

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>PSWinCom.Gateway.Client</id>
+        <version>1.0.0</version>
+        <title>PSWinCom Gateway Client</title>
+        <authors>PSWinCom AS</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>.net gateway client for the PSWinCom XML api</description>
+        <dependencies>
+            <group targetFramework=".NETFramework4.5">
+                <dependency id="Microsoft.Net.Http" version="2.2.15" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="PSWinCom.Gateway.Client\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net45\PSWinCom.Gateway.Client.dll" />
+        <file src="PSWinCom.Gateway.Client.Net35\bin\Release\PSWinCom.Gateway.Client.Net35.dll" target="lib\net35\PSWinCom.Gateway.Client.Net35.dll" />
+    </files>
+</package>

@@ -57,6 +57,9 @@
     <Compile Include="..\PSWinCom.Gateway.Client\MessageResult.cs">
       <Link>MessageResult.cs</Link>
     </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\NetworkSpecification.cs">
+      <Link>NetworkSpecification.cs</Link>
+    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\SendResult.cs">
       <Link>SendResult.cs</Link>
     </Compile>

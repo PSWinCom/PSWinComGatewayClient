@@ -22,8 +22,9 @@ namespace PSWinCom.Gateway.Client
 
         public virtual SendResult Send(IEnumerable<Message> messages)
         {
-            var transportResult = Transport.Send(BuildPayload(messages));
-            return GetSendResult(messages, transportResult);
+            var messageList = messages.ToList();
+            var transportResult = Transport.Send(BuildPayload(messageList));
+            return GetSendResult(messageList, transportResult);
         }
 
         protected XDocument BuildPayload(IEnumerable<Message> messages)
@@ -59,13 +60,24 @@ namespace PSWinCom.Gateway.Client
             yield return new XElement("RCV", msg.ReceiverNumber);
             if (msg.Tariff > 0)
                 yield return new XElement("TARIFF", msg.Tariff);
+            if (msg.RequestReceipt)
+                yield return new XElement("RCPREQ", "Y");
+            if (msg.Network != null)
+                yield return new XElement("NET", msg.Network.ToString());
         }
 
         protected static SendResult GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
         {
             var result = new SendResult();
             var userReferences = messages.ToDictionary((m) => m.NumInSession, m => m.UserReference);
-            result.Results = transportResult.Content.Descendants("MSG").Select((el) => new MessageResult { UserReference = userReferences[int.Parse(el.Element("ID").Value)], Status = el.Element("STATUS").Value });
+            result.Results = transportResult
+                .Content
+                .Descendants("MSG")
+                .Select((el) => new MessageResult { 
+                    UserReference = userReferences[int.Parse(el.Element("ID").Value)], 
+                    Status = el.Element("STATUS").Value, 
+                    Message = el.Element("INFO") != null ? el.Element("INFO").Value : null
+                });
             return result;
         }
 

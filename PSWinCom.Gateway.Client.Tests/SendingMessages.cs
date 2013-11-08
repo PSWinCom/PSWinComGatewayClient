@@ -59,6 +59,32 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
+        public void Should_support_all_possible_message_properties()
+        {
+            client.Send(
+                new[] { 
+                    new Message { 
+                        Text = "some text", 
+                        ReceiverNumber = "4799999999", 
+                        SenderNumber = "tester",
+                        RequestReceipt = true,
+                        Tariff = 100,
+                        Network = "012:03",
+                    },
+                }
+            );
+
+            var message = last_doc.Root.Element("MSGLST").Elements("MSG").First();
+
+            message.Element("TEXT").Value.ShouldEqual("some text");
+            message.Element("SND").Value.ShouldEqual("tester");
+            message.Element("RCV").Value.ShouldEqual("4799999999");
+            message.Element("RCPREQ").Value.ShouldEqual("Y");
+            message.Element("TARIFF").Value.ShouldEqual("100");
+            message.Element("NET").Value.ShouldEqual("012:03");
+        }
+
+        [Test]
         public void Should_have_DOCTYPE()
         {
             client.Send(

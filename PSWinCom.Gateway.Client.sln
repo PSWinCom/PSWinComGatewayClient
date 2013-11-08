@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8889F3
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+		PSWinCom.Gateway.Client.nupkg = PSWinCom.Gateway.Client.nupkg
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client", "PSWinCom.Gateway.Client\PSWinCom.Gateway.Client.csproj", "{8BFB0221-2D4B-4268-9DF5-EB899211510A}"

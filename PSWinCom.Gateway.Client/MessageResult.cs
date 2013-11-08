@@ -9,5 +9,6 @@ namespace PSWinCom.Gateway.Client
         public string GatewayReference { get; set; }
         public string UserReference { get; set; }
         public string Status { get; set; }
+        public string Message { get; set; }
     }
 }
