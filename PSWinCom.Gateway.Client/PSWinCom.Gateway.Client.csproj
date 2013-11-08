@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageBase.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MmsMessage.cs" />
     <Compile Include="NetworkSpecification.cs" />
     <Compile Include="TcpTransport.cs" />
     <Compile Include="ClientFactory.cs" />
@@ -51,7 +52,7 @@
     <Compile Include="Interfaces\IAsyncTransport.cs" />
     <Compile Include="Interfaces\IGatewayClient.cs" />
     <Compile Include="Interfaces\IAsyncGatewayClient.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="SmsMessage.cs" />
     <Compile Include="GatewayClient.cs" />
     <Compile Include="GatewayClientBase.cs" />
     <Compile Include="MessageResult.cs" />

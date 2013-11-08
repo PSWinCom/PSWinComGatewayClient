@@ -20,7 +20,7 @@ namespace PSWinCom.Gateway.Client.Tests
             var client = new Gateway.Client.GatewayClient(mockTransport.Object);
             try
             {
-                var result = client.SendAsync(new[] { new Message { Text = "Test", ReceiverNumber = "4790871951" } }).Result;
+                var result = client.SendAsync(new[] { new SmsMessage { Text = "Test", ReceiverNumber = "4790871951" } }).Result;
             }
             catch (AggregateException ex)
             {

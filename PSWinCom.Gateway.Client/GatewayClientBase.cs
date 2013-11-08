@@ -54,34 +54,56 @@ namespace PSWinCom.Gateway.Client
 
         private IEnumerable<XElement> GetMessagePropertyElements(Message msg)
         {
+            var sms = msg as SmsMessage;
+            var mms = msg as MmsMessage;
+
             yield return new XElement("ID", msg.NumInSession);
             yield return new XElement("TEXT", msg.Text);
             yield return new XElement("SND", msg.SenderNumber);
             yield return new XElement("RCV", msg.ReceiverNumber);
-            if (msg.Tariff > 0)
-                yield return new XElement("TARIFF", msg.Tariff);
-            if (msg.RequestReceipt)
-                yield return new XElement("RCPREQ", "Y");
-            if (msg.Network != null)
-                yield return new XElement("NET", msg.Network.ToString());
-            if (msg.TimeToLive.HasValue)
-                yield return new XElement("TTL", msg.TimeToLive.Value.TotalMinutes.ToString("0"));
-            if (!string.IsNullOrEmpty(msg.CpaTag))
-                yield return new XElement("CPATAG", msg.CpaTag);
-            if (msg.AgeLimit.HasValue)
-                yield return new XElement("AGELIMIT", msg.AgeLimit.Value.ToString("0"));
+
             if (!string.IsNullOrEmpty(msg.ShortCode))
                 yield return new XElement("SHORTCODE", msg.ShortCode);
-            if (!string.IsNullOrEmpty(msg.ServiceCode))
-                yield return new XElement("SERVICECODE", msg.ServiceCode);
-            if (msg.DeliveryTime.HasValue)
-                yield return new XElement("DELIVERYTIME", msg.DeliveryTime.Value.ToString("yyyyMMddHHmm"));
-            if (msg.Replace.HasValue)
-                yield return new XElement("REPLACE", msg.Replace.Value.ToString("D"));
-            if (msg.FlashMessage)
-                yield return new XElement("CLASS", "0");
+
+            if (msg.Tariff > 0)
+                yield return new XElement("TARIFF", msg.Tariff);
+
+            if (msg.RequestReceipt)
+                yield return new XElement("RCPREQ", "Y");
+
+            if (!string.IsNullOrEmpty(msg.CpaTag))
+                yield return new XElement("CPATAG", msg.CpaTag);
+
             if (msg.Type.HasValue)
                 yield return new XElement("OP", msg.Type.Value.ToString("D"));
+
+            if (msg.TimeToLive.HasValue)
+                yield return new XElement("TTL", msg.TimeToLive.Value.TotalMinutes.ToString("0"));
+
+            if (msg.DeliveryTime.HasValue)
+                yield return new XElement("DELIVERYTIME", msg.DeliveryTime.Value.ToString("yyyyMMddHHmm"));
+
+            if (sms != null)
+            {
+                if (sms.Network != null)
+                    yield return new XElement("NET", sms.Network.ToString());
+                if (sms.AgeLimit.HasValue)
+                    yield return new XElement("AGELIMIT", sms.AgeLimit.Value.ToString("0"));
+                if (!string.IsNullOrEmpty(sms.ServiceCode))
+                    yield return new XElement("SERVICECODE", sms.ServiceCode);
+                if (sms.Replace.HasValue)
+                    yield return new XElement("REPLACE", sms.Replace.Value.ToString("D"));
+                if (sms != null && sms.IsFlashMessage)
+                    yield return new XElement("CLASS", "0");
+            }
+
+            if (mms != null)
+            {
+                if (mms.MmsData != null && mms.MmsData.Length > 0)
+                {
+                    yield return new XElement("MMSFILE", System.Convert.ToBase64String(mms.MmsData));
+                }
+            }
         }
 
         protected static SendResult GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)

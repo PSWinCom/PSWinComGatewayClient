@@ -24,7 +24,7 @@ namespace PSWinCom.Gateway.Client.Tests
             client.Username = "test";
             client.Password = "pass";
 
-            client.Send(new Message[] { });
+            client.Send(new SmsMessage[] { });
 
             last_doc.Root.Name.ShouldEqual("SESSION");
             last_doc.Root.Element("CLIENT").Value.ShouldEqual("test");
@@ -36,8 +36,8 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             client.Send(
                 new[] { 
-                    new Message { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
-                    new Message { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
+                    new SmsMessage { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
+                    new SmsMessage { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
 
@@ -63,7 +63,7 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             client.Send(
                 new[] { 
-                    new Message { 
+                    new SmsMessage { 
                         Text = "some text", 
                         ReceiverNumber = "4799999999", 
                         SenderNumber = "tester",
@@ -77,7 +77,7 @@ namespace PSWinCom.Gateway.Client.Tests
                         ServiceCode = "10001",
                         DeliveryTime = new DateTime(2099, 12, 31, 23, 59, 59),
                         Replace = Replace.Set7,
-                        FlashMessage = true,
+                        IsFlashMessage = true,
                         Type = MessageType.vCard,
                     },
                 }
@@ -103,12 +103,60 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
+        public void Sending_mms()
+        {
+            client.Send(
+                new[] { 
+                    new MmsMessage { 
+                        Text = "some text", 
+                        ReceiverNumber = "4799999999", 
+                        SenderNumber = "tester",
+                        RequestReceipt = true,
+                        Tariff = 100,
+                        TimeToLive = TimeSpan.FromMinutes(60.3),
+                        CpaTag = "Something",
+                        ShortCode = "2027",
+                        DeliveryTime = new DateTime(2099, 12, 31, 23, 59, 59),
+                        MmsData = System.Text.Encoding.UTF8.GetBytes("Test zip data")
+                    },
+                    new MmsMessage {
+                        Text = "some text", 
+                        ReceiverNumber = "4799999999", 
+                        SenderNumber = "tester",
+                        RequestReceipt = true,
+                        Tariff = 100,
+                        TimeToLive = TimeSpan.FromMinutes(60.3),
+                        CpaTag = "Something",
+                        ShortCode = "2027",
+                        DeliveryTime = new DateTime(2099, 12, 31, 23, 59, 59),
+                    }
+                }
+            );
+
+            var message = last_doc.Root.Element("MSGLST").Elements("MSG").First();
+
+            message.Element("TEXT").Value.ShouldEqual("some text");
+            message.Element("SND").Value.ShouldEqual("tester");
+            message.Element("RCV").Value.ShouldEqual("4799999999");
+            message.Element("RCPREQ").Value.ShouldEqual("Y");
+            message.Element("TARIFF").Value.ShouldEqual("100");
+            message.Element("TTL").Value.ShouldEqual("60");
+            message.Element("CPATAG").Value.ShouldEqual("Something");
+            message.Element("SHORTCODE").Value.ShouldEqual("2027");
+            message.Element("DELIVERYTIME").Value.ShouldEqual("209912312359");
+            message.Element("OP").Value.ShouldEqual("13");
+            message.Element("MMSFILE").Value.ShouldEqual("VGVzdCB6aXAgZGF0YQ==");
+
+            last_doc.Root.Element("MSGLST").Elements("MSG").Last().Element("MMSFILE").ShouldBeNull();
+        }
+
+        [Test]
         public void Should_have_DOCTYPE()
         {
             client.Send(
                 new[] { 
-                    new Message { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
-                    new Message { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
+                    new SmsMessage { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
+                    new SmsMessage { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
             last_doc.FirstNode.NodeType.ShouldEqual(System.Xml.XmlNodeType.DocumentType);
@@ -122,8 +170,8 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             client.Send(
                 new[] { 
-                    new Message { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
-                    new Message { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
+                    new SmsMessage { Text = "some text", ReceiverNumber = "4799999999", SenderNumber = "tester" },
+                    new SmsMessage { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
             last_doc.Declaration.Encoding.ShouldEqual("iso-8859-1");
@@ -134,7 +182,7 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             client.Send(
                 new[] { 
-                    new Message { 
+                    new SmsMessage { 
                         Tariff = 100,
                         Text = "some text", 
                         ReceiverNumber = "4799999999", 
@@ -149,8 +197,8 @@ namespace PSWinCom.Gateway.Client.Tests
         [Test]
         public void Should_set_num_in_session()
         {
-            var msg1 = new Message();
-            var msg2 = new Message();
+            var msg1 = new SmsMessage();
+            var msg2 = new SmsMessage();
 
             client.Send(
                 new[] { 
@@ -166,8 +214,8 @@ namespace PSWinCom.Gateway.Client.Tests
         [Test]
         public void Should_return_status_on_messages()
         {
-            var msg1 = new Message { UserReference = "message1" };
-            var msg2 = new Message { UserReference = "message2" };
+            var msg1 = new SmsMessage { UserReference = "message1" };
+            var msg2 = new SmsMessage { UserReference = "message2" };
 
             Transport_returns(
                 message_result("2", "OK"), 
