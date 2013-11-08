@@ -50,7 +50,7 @@ This is Henrik's entry to the Gateway Client competition.
 	);
 ```
 
-### Sending multiple messages
+### Sending multiple/mixed messages
 ```
 	Gateway
 	    .Client("username", "password");
@@ -58,7 +58,7 @@ This is Henrik's entry to the Gateway Client competition.
     	    new MmsMessage { 
     	        Text = "Test æøå", 
     	        ReceiverNumber = "4799999999", 
-    	        SenderNumber = "2077", 
+    	        SenderNumber = "26112", 
     	        MmsData = new MmsFile(
     	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
     	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
@@ -66,8 +66,8 @@ This is Henrik's entry to the Gateway Client competition.
     	    },
     	    new SmsMessage { 
     	        Text = "Test æøå", 
-    	        ReceiverNumber = "4799999999", 
-    	        SenderNumber = "2077"
+    	        ReceiverNumber = "4799999998", 
+    	        SenderNumber = "26112"
     	    }
 	    )
 	);
@@ -78,22 +78,18 @@ This is Henrik's entry to the Gateway Client competition.
     Gateway
         .Client("http://sms3.pswin.com/sms", "grotle", "prosyna3")
         .Send(
-            new MmsMessage
+            new SmsMessage
             {
                 Text = "Test æøå",
-                ReceiverNumber = "4790871951",
-                SenderNumber = "Test æøå",
-                MmsData = new MmsFile(
-                    MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
-                    MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
-                ),
+                ReceiverNumber = "4799999999",
+                SenderNumber = "26112",
                 UserReference = "my-ref-1"
             },
             new SmsMessage
             {
                 Text = "Test æøå",
-                ReceiverNumber = "4790871951",
-                SenderNumber = "2077",
+                ReceiverNumber = "4799999998",
+                SenderNumber = "26112",
                 UserReference = "my-ref-2"
             }
         )
