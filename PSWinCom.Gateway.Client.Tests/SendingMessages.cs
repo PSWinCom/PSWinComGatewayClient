@@ -70,6 +70,15 @@ namespace PSWinCom.Gateway.Client.Tests
                         RequestReceipt = true,
                         Tariff = 100,
                         Network = "012:03",
+                        TimeToLive = TimeSpan.FromMinutes(60.3),
+                        CpaTag = "Something",
+                        AgeLimit = 17,
+                        ShortCode = "2027",
+                        ServiceCode = "10001",
+                        DeliveryTime = new DateTime(2099, 12, 31, 23, 59, 59),
+                        Replace = Replace.Set7,
+                        FlashMessage = true,
+                        MessageType = MessageType.vCard,
                     },
                 }
             );
@@ -82,6 +91,15 @@ namespace PSWinCom.Gateway.Client.Tests
             message.Element("RCPREQ").Value.ShouldEqual("Y");
             message.Element("TARIFF").Value.ShouldEqual("100");
             message.Element("NET").Value.ShouldEqual("012:03");
+            message.Element("TTL").Value.ShouldEqual("60");
+            message.Element("CPATAG").Value.ShouldEqual("Something");
+            message.Element("AGELIMIT").Value.ShouldEqual("17");
+            message.Element("SHORTCODE").Value.ShouldEqual("2027");
+            message.Element("SERVICECODE").Value.ShouldEqual("10001");
+            message.Element("DELIVERYTIME").Value.ShouldEqual("209912312359");
+            message.Element("REPLACE").Value.ShouldEqual("7");
+            message.Element("CLASS").Value.ShouldEqual("0");
+            message.Element("OP").Value.ShouldEqual("6");
         }
 
         [Test]

@@ -21,6 +21,15 @@ namespace PSWinCom.Gateway.Client
         public int Tariff { get; set; }
         public bool RequestReceipt { get; set; }
         public NetworkSpecification Network { get; set; }
+        public TimeSpan? TimeToLive { get; set; }
+        public string CpaTag { get; set; }
+        public int? AgeLimit { get; set; }
+        public string ShortCode { get; set; }
+        public string ServiceCode { get; set; }
+        public DateTime? DeliveryTime { get; set; }
+        public Replace? Replace { get; set; }
+        public bool FlashMessage { get; set; }
+        public MessageType? MessageType { get; set; }
         public byte[] MmsFile { get; set; }
 
         private string _useryReference;
@@ -37,5 +46,31 @@ namespace PSWinCom.Gateway.Client
                 _useryReference = value;
             }
         }
+
     }
+
+    public enum Replace
+    {
+        Set1 = 1,
+        Set2 = 2,
+        Set3 = 3,
+        Set4 = 4,
+        Set5 = 5,
+        Set6 = 6,
+        Set7 = 7
+    }
+
+    public enum MessageType
+    {
+        Text = 1,
+        Ringtone = 2,
+        OperatorLogo = 3,
+        CallerGroupGraphic = 4,
+        Picture = 5,
+        vCard = 6,
+        vCalendar = 7,
+        RawBinaryUDH = 8,
+        Unicode = 9
+    }
+
 }

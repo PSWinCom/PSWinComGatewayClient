@@ -64,6 +64,24 @@ namespace PSWinCom.Gateway.Client
                 yield return new XElement("RCPREQ", "Y");
             if (msg.Network != null)
                 yield return new XElement("NET", msg.Network.ToString());
+            if (msg.TimeToLive.HasValue)
+                yield return new XElement("TTL", msg.TimeToLive.Value.TotalMinutes.ToString("0"));
+            if (!string.IsNullOrEmpty(msg.CpaTag))
+                yield return new XElement("CPATAG", msg.CpaTag);
+            if (msg.AgeLimit.HasValue)
+                yield return new XElement("AGELIMIT", msg.AgeLimit.Value.ToString("0"));
+            if (!string.IsNullOrEmpty(msg.ShortCode))
+                yield return new XElement("SHORTCODE", msg.ShortCode);
+            if (!string.IsNullOrEmpty(msg.ServiceCode))
+                yield return new XElement("SERVICECODE", msg.ServiceCode);
+            if (msg.DeliveryTime.HasValue)
+                yield return new XElement("DELIVERYTIME", msg.DeliveryTime.Value.ToString("yyyyMMddHHmm"));
+            if (msg.Replace.HasValue)
+                yield return new XElement("REPLACE", msg.Replace.Value.ToString("D"));
+            if (msg.FlashMessage)
+                yield return new XElement("CLASS", "0");
+            if (msg.MessageType.HasValue)
+                yield return new XElement("OP", msg.MessageType.Value.ToString("D"));
         }
 
         protected static SendResult GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
