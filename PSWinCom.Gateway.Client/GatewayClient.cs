@@ -15,6 +15,14 @@ namespace PSWinCom.Gateway.Client
 
         }
 
+        public GatewayClient(ITransport transport, string username, string password)
+            : base(transport)
+        {
+            Username = username;
+            Password = password;
+        }
+
+
         public async Task<SendResult> SendAsync(IEnumerable<Message> messages)
         {
             var transport = Transport as IAsyncTransport;

@@ -6,24 +6,32 @@ namespace PSWinCom.Gateway.Client
 {
     public static class ClientFactory
     {
-        public static IGatewayClient GetHttpClient(string url)
+        public static IGatewayClient GetClient()
         {
-            return new GatewayClient(new HttpTransport(new Uri(url)));
-        }
-
-        public static IGatewayClient GetHttpClient()
-        {
-            return GetHttpClient("https://sms3.pswin.com/sms");
-        }
-
-        public static IGatewayClient GetTcpClient()
-        {
-            return new GatewayClient(new TcpTransport());
+            return GetClient("https://sms3.pswin.com/sms");
         }
 
         public static IGatewayClient GetClient(string uri)
         {
-            return GetClient(new Uri(uri));
+            return GetClient("https://sms3.pswin.com/sms");
+        }
+
+        public static IGatewayClient GetClient(string username, string password)
+        {
+            return GetClient("https://sms3.pswin.com/sms", username, password);
+        }
+
+        public static IGatewayClient GetClient(string uri, string username, string password)
+        {
+            return GetClient(new Uri(uri), username, password);
+        }
+
+        public static IGatewayClient GetClient(Uri uri, string username, string password)
+        {
+            var client = GetClient(uri);
+            client.Username = username;
+            client.Password = password;
+            return client;
         }
 
         public static IGatewayClient GetClient(Uri uri)
