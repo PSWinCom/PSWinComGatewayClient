@@ -80,8 +80,8 @@ namespace PSWinCom.Gateway.Client
                 yield return new XElement("REPLACE", msg.Replace.Value.ToString("D"));
             if (msg.FlashMessage)
                 yield return new XElement("CLASS", "0");
-            if (msg.MessageType.HasValue)
-                yield return new XElement("OP", msg.MessageType.Value.ToString("D"));
+            if (msg.Type.HasValue)
+                yield return new XElement("OP", msg.Type.Value.ToString("D"));
         }
 
         protected static SendResult GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)

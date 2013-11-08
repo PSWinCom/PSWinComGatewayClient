@@ -78,7 +78,7 @@ namespace PSWinCom.Gateway.Client.Tests
                         DeliveryTime = new DateTime(2099, 12, 31, 23, 59, 59),
                         Replace = Replace.Set7,
                         FlashMessage = true,
-                        MessageType = MessageType.vCard,
+                        Type = MessageType.vCard,
                     },
                 }
             );

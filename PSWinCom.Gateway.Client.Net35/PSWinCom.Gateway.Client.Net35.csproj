@@ -54,6 +54,9 @@
     <Compile Include="..\PSWinCom.Gateway.Client\Message.cs">
       <Link>Message.cs</Link>
     </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MessageBase.cs">
+      <Link>MessageBase.cs</Link>
+    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\MessageResult.cs">
       <Link>MessageResult.cs</Link>
     </Compile>
