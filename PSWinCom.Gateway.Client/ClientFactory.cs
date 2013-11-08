@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public static class ClientFactory
+    public static class Gateway
     {
         private static string _defaultGateway = "https://sms3.pswin.com/sms";
         public static string DefaultGateway

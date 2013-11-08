@@ -17,7 +17,7 @@ namespace PSWinCom.Gateway.Client.Tests
         public void Should_throw_exception_when_trying_to_call_async_send_with_no_async_transport()
         {
             var mockTransport = new Mock<ITransport>();
-            var client = new Gateway.Client.GatewayClient(mockTransport.Object);
+            var client = new PSWinCom.Gateway.Client.GatewayClient(mockTransport.Object);
             try
             {
                 var result = client.SendAsync(new[] { new SmsMessage { Text = "Test", ReceiverNumber = "4790871951" } }).Result;
