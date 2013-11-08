@@ -49,6 +49,10 @@ namespace PSWinCom.Gateway.Client
             Parts.Add(MmsPart.FromStream(stream, name));
         }
 
+        public void AddTextPart(string message, string name)
+        {
+            Parts.Add(MmsPart.FromText(message, name));
+        }
         /// <summary>
         /// Save all MMS message parts as one compressed file. Suitable for packing content
         /// for storing and later sending.

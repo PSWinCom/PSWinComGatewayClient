@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace PSWinCom.Gateway.Client
 {
@@ -70,6 +71,11 @@ namespace PSWinCom.Gateway.Client
         {
             var name = new FileInfo(filename).Name;
             return MmsPart.FromFile(filename, name);
+        }
+
+        public static MmsPart FromText(string message, string name)
+        {
+            return new MmsPart(Encoding.GetEncoding("ISO-8859-1").GetBytes(message), name);
         }
 
         /// <summary>
