@@ -19,98 +19,100 @@ This is Henrik's entry to the Gateway Client competition.
 ## Samples
 
 ### Sending SMS
+
 ```
-    Gateway
-	    .Client("http://sms3.pswin.com/sms", "username", "password");
-    	.Send(
-    	    new SmsMessage { 
-    	        Text = "Test æøå", 
-    	        ReceiverNumber = "4799999999", 
-    	        SenderNumber = "2077"
-    	    }
-    	)
+Gateway
+    .Client("http://sms3.pswin.com/sms", "username", "password");
+	.Send(
+	    new SmsMessage { 
+	        Text = "Test æøå", 
+	        ReceiverNumber = "4799999999", 
+	        SenderNumber = "2077"
+	    }
 	);
 ```
 
 ### Sending MMS
+
 ```
-	Gateway
-	    .Client("tcp://sms3.pswin.com:1111", "username", "password");
-    	.Send(
-    	    new MmsMessage { 
-    	        Text = "Test æøå", 
-    	        ReceiverNumber = "4799999999", 
-    	        SenderNumber = "2077", 
-    	        MmsData = new MmsFile(
-    	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
-    	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
-    	        )
-    	    }
-	    )
-	);
+Gateway
+    .Client("tcp://sms3.pswin.com:1111", "username", "password");
+	.Send(
+	    new MmsMessage { 
+	        Text = "Test æøå", 
+	        ReceiverNumber = "4799999999", 
+	        SenderNumber = "2077", 
+	        MmsData = new MmsFile(
+	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
+	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
+	        )
+	    }
+    );
 ```
 
 ### Sending multiple/mixed messages
+
 ```
-	Gateway
-	    .Client("username", "password");
-    	.Send(
-    	    new MmsMessage { 
-    	        Text = "Test æøå", 
-    	        ReceiverNumber = "4799999999", 
-    	        SenderNumber = "26112", 
-    	        MmsData = new MmsFile(
-    	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
-    	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
-    	        )
-    	    },
-    	    new SmsMessage { 
-    	        Text = "Test æøå", 
-    	        ReceiverNumber = "4799999998", 
-    	        SenderNumber = "26112"
-    	    }
-	    )
-	);
+Gateway
+    .Client("username", "password");
+	.Send(
+	    new MmsMessage { 
+	        Text = "Test æøå", 
+	        ReceiverNumber = "4799999999", 
+	        SenderNumber = "26112", 
+	        MmsData = new MmsFile(
+	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
+	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
+	        )
+	    },
+	    new SmsMessage { 
+	        Text = "Test æøå", 
+	        ReceiverNumber = "4799999998", 
+	        SenderNumber = "26112"
+	    }
+    );
 ```
 
 ### Handling response
+
 ```
-    Gateway
-        .Client("http://sms3.pswin.com/sms", "grotle", "prosyna3")
-        .Send(
-            new SmsMessage
-            {
-                Text = "Test æøå",
-                ReceiverNumber = "4799999999",
-                SenderNumber = "26112",
-                UserReference = "my-ref-1"
-            },
-            new SmsMessage
-            {
-                Text = "Test æøå",
-                ReceiverNumber = "4799999998",
-                SenderNumber = "26112",
-                UserReference = "my-ref-2"
-            }
-        )
-        .Results
-        .Each((r) =>
+Gateway
+    .Client("http://sms3.pswin.com/sms", "grotle", "prosyna3")
+    .Send(
+        new SmsMessage
         {
-            Console.WriteLine("My ref: {0} Gateway ref: {1} Status: {2} Message: {3}",
-                r.UserReference,
-                r.GatewayReference,
-                r.Status,
-                r.Message);
-        });
+            Text = "Test æøå",
+            ReceiverNumber = "4799999999",
+            SenderNumber = "26112",
+            UserReference = "my-ref-1"
+        },
+        new SmsMessage
+        {
+            Text = "Test æøå",
+            ReceiverNumber = "4799999998",
+            SenderNumber = "26112",
+            UserReference = "my-ref-2"
+        }
+    )
+    .Results
+    .Each((r) =>
+    {
+        Console.WriteLine("My ref: {0} Gateway ref: {1} Status: {2} Message: {3}",
+            r.UserReference,
+            r.GatewayReference,
+            r.Status,
+            r.Message);
+    });
 ```
 
 ### Expressive client creation
+
 ```
-	Gateway
-		.Client("http://sms.pswin.com/sms")
-		.WithLogin("username", "password"
-		.Send(
-			...
-		);
+Gateway
+	.Client("http://sms.pswin.com/sms")
+	.WithLogin("username", "password"
+	.Send(
+		...
+	);
 ```
 
