@@ -1,7 +1,7 @@
-#PSWinCom Gateway Client V2
+# PSWinCom Gateway Client V2
 This is Henrik's entry to the Gateway Client competition. 
 
-##Features
+## Features
 - Supports Framework 3.5 and up (we could event throw in the original client for 2.0 support)
   - Maximum code reuse between framework versions
 - Enumerable messages and results
@@ -16,9 +16,10 @@ This is Henrik's entry to the Gateway Client competition.
   - Optional MMS generating helper through separate NuGet
 
 
-##Samples
+## Samples
 
-###Sending SMS
+### Sending SMS
+```
     Gateway
 	    .Client("http://sms3.pswin.com/sms", "username", "password");
     	.Send(
@@ -29,8 +30,10 @@ This is Henrik's entry to the Gateway Client competition.
     	    }
     	)
 	);
+```
 
-###Sending MMS
+### Sending MMS
+```
 	Gateway
 	    .Client("tcp://sms3.pswin.com:1111", "username", "password");
     	.Send(
@@ -45,8 +48,10 @@ This is Henrik's entry to the Gateway Client competition.
     	    }
 	    )
 	);
+```
 
-###Sending multiple messages
+### Sending multiple messages
+```
 	Gateway
 	    .Client("username", "password");
     	.Send(
@@ -66,8 +71,10 @@ This is Henrik's entry to the Gateway Client competition.
     	    }
 	    )
 	);
+```
 
-###Handling response
+### Handling response
+```
     Gateway
         .Client("http://sms3.pswin.com/sms", "grotle", "prosyna3")
         .Send(
@@ -99,12 +106,15 @@ This is Henrik's entry to the Gateway Client competition.
                 r.Status,
                 r.Message);
         });
+```
 
-###Expressive client creation
+### Expressive client creation
+```
 	Gateway
 		.Client("http://sms.pswin.com/sms")
 		.WithLogin("username", "password"
 		.Send(
 			...
 		);
+```
 
