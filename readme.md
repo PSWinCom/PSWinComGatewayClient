@@ -97,11 +97,12 @@ Gateway
     .Results
     .Each((r) =>
     {
-        Console.WriteLine("My ref: {0} Gateway ref: {1} Status: {2} Message: {3}",
-            r.UserReference,
-            r.GatewayReference,
-            r.Status,
-            r.Message);
+		Console.WriteLine("My ref: {0} Gateway ref: {1} Status: {2} Message: {3} Receiver: {4}",
+			r.UserReference,
+			r.GatewayReference,
+			r.Status,
+			r.StatusText,
+			r.Message.ReceiverNumber);
     });
 ```
 

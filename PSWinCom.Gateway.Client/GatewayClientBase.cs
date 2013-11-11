@@ -109,14 +109,15 @@ namespace PSWinCom.Gateway.Client
         protected static SendResult GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
         {
             var result = new SendResult();
-            var userReferences = messages.ToDictionary((m) => m.NumInSession, m => m.UserReference);
+            var userReferences = messages.ToDictionary((m) => m.NumInSession, m => m);
             result.Results = transportResult
                 .Content
                 .Descendants("MSG")
                 .Select((el) => new MessageResult { 
-                    UserReference = userReferences[int.Parse(el.Element("ID").Value)], 
+                    UserReference = userReferences[int.Parse(el.Element("ID").Value)].UserReference, 
+                    Message = userReferences[int.Parse(el.Element("ID").Value)],
                     Status = el.Element("STATUS").Value, 
-                    Message = el.Element("INFO") != null ? el.Element("INFO").Value : null
+                    StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
                 });
             return result;
         }
