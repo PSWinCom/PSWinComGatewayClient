@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>PSWinCom.Gateway.Client.Mms</id>
+        <version>1.0.0</version>
+        <title>PSWinCom Gateway Client Mms Helper</title>
+        <authors>PSWinCom AS</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>MMS helper for PSWinCom .net gateway client</description>
+        <dependencies>
+            <dependency id="SharpZipLib" version="2.2.15" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="PSWinCom.Gateway.Client.Mms\bin\Release\PSWinCom.Gateway.Client.Mms.dll" target="lib\net35\PSWinCom.Gateway.Client.Mms.dll" />
+    </files>
+</package>

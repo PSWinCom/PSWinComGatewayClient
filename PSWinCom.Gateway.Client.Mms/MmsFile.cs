@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace PSWinCom.Gateway.Client
 {
@@ -116,9 +113,20 @@ namespace PSWinCom.Gateway.Client
                 string fileName = entry.Name;
                 if (fileName != String.Empty)
                 {
-                    using (var mspart = new MemoryStream())
+                    int size = 2048;
+                    int len = 0;
+                    using (var mspart = new MemoryStream(size))
                     {
-                        stream.CopyTo(mspart);
+                        byte[] partData = new byte[size];
+                        while (true)
+                        {
+                            size = zip.Read(partData, 0, partData.Length);
+                            len += size;
+                            if (size > 0)
+                                mspart.Write(partData, 0, size);
+                            else
+                                break;
+                        }
                         file.Parts.Add(new MmsPart(mspart.ToArray(), fileName));
                     }
                 }

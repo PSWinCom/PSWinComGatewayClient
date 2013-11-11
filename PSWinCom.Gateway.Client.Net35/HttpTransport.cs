@@ -65,7 +65,7 @@ namespace PSWinCom.Gateway.Client
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 result.Success = false;
             }
