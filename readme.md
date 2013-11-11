@@ -22,7 +22,7 @@ This is Henrik's entry to the Gateway Client competition.
 
 ```
 Gateway
-    .Client("http://sms3.pswin.com/sms", "username", "password");
+    .Client("http://sms3.pswin.com/sms", "username", "password")
 	.Send(
 	    new SmsMessage { 
 	        Text = "Test æøå", 
@@ -36,7 +36,7 @@ Gateway
 
 ```
 Gateway
-    .Client("tcp://sms3.pswin.com:1111", "username", "password");
+    .Client("tcp://sms3.pswin.com:1111", "username", "password")
 	.Send(
 	    new MmsMessage { 
 	        Text = "Test æøå", 
@@ -54,7 +54,7 @@ Gateway
 
 ```
 Gateway
-    .Client("username", "password");
+    .Client("username", "password")
 	.Send(
 	    new MmsMessage { 
 	        Text = "Test æøå", 
