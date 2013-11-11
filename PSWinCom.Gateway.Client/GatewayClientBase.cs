@@ -29,16 +29,14 @@ namespace PSWinCom.Gateway.Client
 
         protected XDocument BuildPayload(IEnumerable<Message> messages)
         {
-            XDocument doc;
-            doc = new XDocument(new XDeclaration("1.0", "iso-8859-1", null));
-            doc.Add(
-                new XDocumentType("SESSION", null, "pswincom_submit.dtd", null), 
-                new XElement("SESSION", 
-                    new XElement("CLIENT", Username), 
-                    new XElement("PW", Password), 
-                    new XElement("MSGLST", 
-                        GetMessageElements(messages))));
-            return doc;
+            return 
+                new XDocument(
+                    new XDeclaration("1.0", "iso-8859-1", null),
+                    new XElement("SESSION",
+                        new XElement("CLIENT", Username),
+                        new XElement("PW", Password),
+                        new XElement("MSGLST",
+                            GetMessageElements(messages))));
         }
 
         private IEnumerable<XElement> GetMessageElements(IEnumerable<Message> messages)
@@ -116,6 +114,7 @@ namespace PSWinCom.Gateway.Client
                 .Select((el) => new MessageResult { 
                     UserReference = userReferences[int.Parse(el.Element("ID").Value)].UserReference, 
                     Message = userReferences[int.Parse(el.Element("ID").Value)],
+                    GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
                     Status = el.Element("STATUS").Value, 
                     StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
                 });

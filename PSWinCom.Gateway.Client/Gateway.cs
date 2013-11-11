@@ -6,7 +6,7 @@ namespace PSWinCom.Gateway.Client
 {
     public static class Gateway
     {
-        private static string _defaultGateway = "https://sms3.pswin.com/sms";
+        private static string _defaultGateway = "http://sms3.pswin.com/sms";
         public static string DefaultAddress
         {
             get
