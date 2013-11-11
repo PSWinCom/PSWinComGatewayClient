@@ -1,0 +1,531 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PSWinCom.Gateway.Client</name>
+    </assembly>
+    <members>
+        <member name="T:PSWinCom.Gateway.Client.MessageType">
+            <summary>
+            Enumeration of the various message types that are supported.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.MessageStatus">
+            <summary>
+            Enumeration of the various status values a message may have. Only applies to outgoing messages
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.MessageReplaceSet">
+            <summary>
+            Enumeration of settings for replacing SMS messages in Inbox.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.PositionRequestStatus">
+            <summary>
+            Enumeration of the various status values a position request may have. Applies only to incoming
+            messages with positioning enabled og Gateway.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.Message">
+            <summary>
+            A Message object holds all the settings and values of an SMS message. This class is used both for incoming
+            outgoing messages, but not all properties are valid for incoming messages.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.Message.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.RequestReceipt">
+            <summary>
+            Set to true to request a receipt (Delivery Report) for this message. The delivery report
+            will either be available on the account web or forwarded to your application depending
+            on your account settings on the SMS Gateway.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.MessageClass">
+            <summary>
+            Use the MessageClass property to send Flash messages by setting it to 0 (zero). A Flash message
+            is displayed immediately on the receivers handset. Default MessageClass is 2.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Text">
+            <summary>
+            The message/text to be sent. One SMS can be up to 160 characters long. If the text is longer,
+            it will be divided into several SMS messages by the Gateway and delivered and a concatinated
+            SMS to the receivers handset. When MessageType is a binary type, then this property holds
+            the hexadecimal string representation of the binary message.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.ReceiverNumber">
+            <summary>
+            The number of the receiver. The number must be an internationally formatted number. That is
+            a number that includes country prefix. Any spaces or leading "00" and "+" will be removed and should thus
+            be avoided.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.SenderNumber">
+            <summary>
+            The number or id of the sender. This should either be an internationally formatted number like
+            the ReceiverNumber or an alphanumeric string of up to 11 characters. Please note that no special
+            characters are allowed, only 7 bit ASCII.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.MessageType">
+            <summary>
+            The type of message to be sent. The MessageType enumeration holds the various types that are
+            supported. Default is Text.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Status">
+            <summary>
+            Indicates the status of the message. The MessageStatus enumeration holds the various states that
+            may occur. This property is read-only and is updated only as a result of a SendMessages() operation.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Reference">
+            <summary>
+            If RequestReceipt is set to true and your Gateway account has been enabled for delivery report
+            forwarding, then the Reference property will hold a unique Reference value for this particular
+            message after successfully issuing a SendMessages() operation. This Reference value can
+            later be used to correlate the Message with a Delivery Report received at a later time.
+            This property is read-only.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Network">
+            <summary>
+            Can be set to indicate a specific routing of this message. Should only be used for
+            sending of Premium SMS messages where specific routing is required. Other usage of
+            this may result in the message not being delivered.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Tariff">
+            <summary>
+            Indicated the Premium Price in cents/ører for a message sent as a Premium SMS. This
+            requires that the account has been enabled for CPA/Premium SMS usage.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.FailedReason">
+            <summary>
+            If a message was not accepted by the SMS Gateway you may find a more specific reason
+            for this by checking this property. It will be empty for successfully submitted messages.
+            This property is read-only and is updated only as a result of a SendMessages() operation.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Address">
+            <summary>
+            For incoming messages the Gateway may include information about the name and address of the
+            person that is registered to the SenderNumber. This is a value-added feature that will
+            require a separate agreement with PSWinCom.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.AgeLimit">
+            <summary>
+            You may specify an age limit when sending Premium SMS messages. If you set this property to a 
+            value larger than 0 (zero), then the value will be matched against the age of the subscriber.
+            The subscriber must then be at least the given age in order to receive the message.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.Position">
+            <summary>
+            It is possible to enable positioning services on the Gateway for incoming messages. When this is 
+            enabled for a given keyword or access number, the Gateway will retrieve position data for
+            the subscriber that sent the SMS. This property is read-only.
+            This is a value-added feature that will require a separate agreement with PSWinCom.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.CPATag">
+            <summary>
+            Premium SMS messages may have an additional description associated with itself. This value
+            will be shown on the subscribers phone bill to help identify the service purchased.
+            Please note that not all operators support this property, and it may be restrictions to
+            how it is formatted. Pelase consult PSWinCom technical support if you intend to use this
+            feature. Others should set it to null.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.TimeToLive">
+            <summary>
+            Specifies the number of minutes this message will be valid. The time is counted from the moment
+            the message has been received and stored on PSWinCom Gateway. Set to 0 to use default value.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.MessageReplaceSet">
+            <summary>
+            Specifies if the message should replace a previous message in the Inbox on the handset with same ReplaceSet and SenderNumber.
+            Default is NoReplace.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.ShortCode">
+            <summary>
+            Specifies a specific shortcode/accessnumber to use when sending this message. This is only
+            valid and required for MTU CPA usage.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.DeferredDelivery">
+            <summary>
+            Specifies if the message should be queued for delivery at a later time instead of being forwarded
+            to operator immediately. When set to true, the DeliveryTime parameter must also be set.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.DeliveryTime">
+            <summary>
+            When the DeferredDelivery parameter is set to true, the message will be queued for delivery at
+            this given time. The DeliveryTime must be between now and 7 days ahead. If outside this interval, the
+            message will be rejected. The delivery time must be given in CET time. The Gateway will queue the message
+            for delivery until the given date and time occurs. However the accuracy of delivery will depend on traffic
+            load and operator accessiblity at the time of delivery.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.Message.ServiceCode">
+            <summary>
+            ServiceCode must be specified when the message is a Premium CPA Goods and Services (GAS) message.
+            It is a 5-digit code specifying the type of service or goods that is being charged.
+            It should only be used together with Tariff, and also requires a separate CPA GAS agreement
+            with PSWinCom.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.DeliveryReport">
+            <summary>
+            A DeliveryReport object holds all the settings and values of a Delivery Report.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.DeliveryReport.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.DeliveryReport.State">
+            <summary>
+            This property indicates the final state of the message as given by the Network operator. Typical values are:
+            DELIVRD: Message was successfully delivered to destination. 
+            EXPIRED: Message validity period has expired. 
+            DELETED: Message has been deleted. 
+            UNDELIV: The SMS was undeliverable (not a valid number or no available route to destination).
+            ACCEPTD: Message was accepted (i.e. has been manually read on behalf of the subscriber by customer service). 
+            UNKNOWN: No information of delivery status available. 
+            REJECTD: Message was rejected. 
+            FAILED:  The SMS failed to be delivered because no operator accepted the message or due to internal Gateway error.
+            The following status codes will apply specially for Premium messages:
+            BARRED:  The receiver number is barred/blocked/not in use. Do not retry message, and remove number from any subscriber list. 
+            BARREDT: The receiver number is temporarily blocked. May be an empty pre-paid account or a subscriber that has extended his credit limit. 
+            BARREDC: The receiver has blocked for Premium (CPA) messages. Send a non-Premium message to inform the customer about this
+            BARREDA: The receiver could not receive the message because his/her age is below the specified AgeLimit.
+            ZERO_BAL: The receiver has an empty prepaid account.
+            INV_NET: Invalid network. Receiver number is not recognized by the target operator.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.DeliveryReport.ReceiverNumber">
+            <summary>
+            The number of the receiver that the message was originally sent to.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.DeliveryReport.SenderNumber">
+            <summary>
+            The sender number.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.DeliveryReport.Reference">
+            <summary>
+            A unique reference value that corresponds to the Reference value from the Message object
+            from the particular Message that this Delivery Report is related to.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.DeliveryReport.DeliveredDate">
+            <summary>
+            The Date and Time when the message was delivered to the handset (in local SMSC time)
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.PositionResult">
+            <summary>
+            The result of a position request.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.PositionResult.Status">
+            <summary>
+            Indicates the status of the position request. It will either be Ok og Failed depending on if the
+            Gateway was enable to retrieve the GSM Position information for the sender. Applies only to incoming
+            messages.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.PositionResult.FailedReason">
+            <summary>
+            If a message was not accepted by the SMS Gateway you may find a more specific reason
+            for this by checking this property. It will be empty for successfully submitted messages.
+            This property is read-only and is updated only as a result of a SendMessages() operation.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.PositionResult.PositionData">
+            <summary>
+            The position data as a GSMPosition object. This will be null unless PositionRequestStatus equals Ok.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.GSMPosition">
+            <summary>
+            Represents a geographical position/area as given by the GSM network
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.Longitude">
+            <summary>
+            Weighted center of gravity (COG) of the area where the subscriber is located to. 
+            The value is in Degree decimal (sample: -2.43121)
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.Latitude">
+            <summary>
+            Weighted center of gravity of the area where the subscriber is located to. 
+            The value is in Degree decimal (sample: 50.123732)
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.Radius">
+            <summary>
+            The radius from the COG where the subscriber may probably be. Distance is given in meters. Will be set to -1 if not supported by the subsribers operator.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.County">
+            <summary>
+            County name (Fylke)
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.Council">
+            <summary>
+            Council name (Kommune)
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.CouncilNumber">
+            <summary>
+            Council number (Kommunenummer), a 4 digit code. Will be set to -1 if not supported by the subsribers operator.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.Place">
+            <summary>
+            Place-name of the area where the subscriber is located to.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.SubPlace">
+            <summary>
+            An optional specification of a more precise sub-area.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.ZipCode">
+            <summary>
+            Zip-code of the area where the subscriber is located to. Will be set to -1 if not supported by the subsribers operator.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.GSMPosition.City">
+            <summary>
+            Name of the City/town where the subscriber is located to.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.ConnectionReceivedHandler">
+            <summary>
+            Delegate for ConnectionReceived event
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.ServerSocket">
+            <summary>
+            ServerSocket is a simple asynchronous Socket Server that can be configured to listen for
+            incoming connections on a given port. New connections generates an Event suitable for
+            use with the SMSClient for handling incoming messages and delivery reports.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.ServerSocket.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.ServerSocket.StartListening">
+            <summary>
+            Initiate listening on chosen local port. This is a non-blocking operation, and the
+            socket will keep listening until StopListening() is called. Each new connection will
+            generate ConnectionReceived events.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.ServerSocket.StopListening">
+            <summary>
+            Terminate the listening.
+            </summary>
+        </member>
+        <member name="E:PSWinCom.Gateway.Client.ServerSocket.ConnectionReceived">
+            <summary>
+            This event is fired whenever a connection is established on the port that the socket server
+            is listening on. The event has two parameters, one input stream and one output stream. They
+            should be used directly as parameters into the HandleIncomingMessages() method on your
+            SMSClient object.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.ServerSocket.Port">
+            <summary>
+            Local port to listen on.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.ServerSocket.IsListening">
+            <summary>
+            Flag indicating wether socket is listening or not.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.SMSClient">
+            <summary>
+            SMS Client implementation for PSWinCom SMS Gateway
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.#ctor">
+            <summary>
+            Default constructor. PrimaryGateway and SecondaryGateway will be default set to
+            http://sms3.pswin.com/sms and http://sms3-backup.pswin.com/sms
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.SendMessages">
+            <summary>
+            Send all messages in the Messages collection. This operation will block while communicating
+            with the Gateway. After it has been completed, the Message objects in the Messages collection
+            is updated with the Status, (and if applicable, also the Reference or FailedReason properties).
+            If both PrimaryGateway and SecondaryGateway is specified, then the SendMessage() method will
+            failover to SecondaryGateway if there is any communication exception from the main Gateway.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.HandleIncomingMessages(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            Reads Xml from given stream and retrieves incoming messages or delivery reports
+            within the XML document. The Messages or DeliveryReport are stored in the IncomingMessages
+            or DeliveryReports collection.
+            </summary>
+            <param name="inStream"></param>
+            <param name="outStream"></param>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.GetDocumentXml">
+            <summary>
+            Build XmlDocument with messages to send.
+            </summary>
+            <returns>XmlDocument according to DTD for SMS Gateway</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.GetMessageXml(System.Xml.XmlDocument,PSWinCom.Gateway.Client.Message,System.Int32)">
+            <summary>
+            Build Xml for a particular message
+            </summary>
+            <param name="doc">Root Xml Document</param>
+            <param name="m">Message object to transform</param>
+            <param name="id">index in collection</param>
+            <returns>Message as XmlElement</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.CreateElement(System.Xml.XmlDocument,System.String,System.String)">
+            <summary>
+            Create a XmlElement with given name and value
+            </summary>
+            <param name="doc">Xml Document context</param>
+            <param name="name">Name of element</param>
+            <param name="val">Content/value</param>
+            <returns>XmlElement as requested</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.CheckResponse(System.Xml.XmlDocument)">
+            <summary>
+            Check response from Gateway, update Message collection with status
+            </summary>
+            <param name="doc">XmlDocument with response from Gateway</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.CheckRequest(System.Xml.XmlDocument)">
+            <summary>
+            Check request for IncomingMessages/DeliveryReports from Gateway, 
+            update Message collection or DeliveryReport collection
+            </summary>
+            <param name="doc">XmlDocument containing request from gateway</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.GetNodeValue(System.Xml.XmlNode,System.String)">
+            <summary>
+            Return value of given node as by xpath expression, or null if not found
+            </summary>
+            <param name="doc">XmlNode to search from</param>
+            <param name="xpath">XPath expression of desired node</param>
+            <returns>Content of node as string or null if not found</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.HttpPost(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Send a HTTP Post request
+            </summary>
+            <param name="doc">XmlDocument to send</param>
+            <param name="url">Destination URL</param>
+            <returns>XmlDocument with response</returns>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Messages">
+            <summary>
+            Collection of outgoing Message objects. Add your Message objects to this collection before
+            sending the messages.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.ReceivedMessages">
+            <summary>
+            Collection of incoming Message objects. This collection will contain the received messages
+            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.DeliveryReports">
+            <summary>
+            Collection of received DeliveryReport objects. This collection will contain the received delivery reports
+            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Username">
+            <summary>
+            Username on SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Password">
+            <summary>
+            Password on SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.PrimaryGateway">
+            <summary>
+            URL to PSWinCom SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.SecondaryGateway">
+            <summary>
+            Backup URL to PSWinCom SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.SessionData">
+            <summary>
+            SessionData. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.AffiliateProgram">
+            <summary>
+             Affiliate program identificator. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Proxy">
+            <summary>
+            Set IWebProxy to be used when sending messages. Only required if you access internet through a Proxy.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.ConnectTimeout">
+            <summary>
+            Connect timeout value in seconds. If no response has been received within this time, SendMessages will try failover Gateway.
+            If failover also times out it will exit. Default value is 10 seconds.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.Client.SMSException">
+            <summary>
+            SMSException class for SMS Client related exceptions.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSException.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSException.#ctor(System.String)">
+            <summary>
+            Constructor taking string with error message as input
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor taking string with error message and an inner exception as input
+            </summary>
+            <param name="message">Error message</param>
+            <param name="inner">Inner exception</param>
+        </member>
+    </members>
+</doc>

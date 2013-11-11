@@ -1,0 +1,5 @@
+<!-- PSWinCom DTD SMS Receive Response-->
+<!ELEMENT ID (#PCDATA)>
+<!ELEMENT STATUS (#PCDATA)>
+<!ELEMENT MSG (ID, STATUS)>
+<!ELEMENT MSGLST (MSG+)>

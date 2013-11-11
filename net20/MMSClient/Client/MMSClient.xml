@@ -1,0 +1,398 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PSWinCom.Gateway.MMS.Client</name>
+    </assembly>
+    <members>
+        <member name="T:PSWinCom.Gateway.MMS.Client.DeliveryReport">
+            <summary>
+            A DeliveryReport object holds all the settings and values of a Delivery Report.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.DeliveryReport.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.DeliveryReport.State">
+            <summary>
+            This property indicates the final state of the message as given by the Network operator. Typical values are:
+            RETRIEVED: Message was successfully delivered to destination. 
+            REJECTED: Message was rejected by the receiver. 
+            ... some others
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.DeliveryReport.ReceiverNumber">
+            <summary>
+            The number of the receiver that the message was originally sent to.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.DeliveryReport.SenderNumber">
+            <summary>
+            The sender number.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.DeliveryReport.Reference">
+            <summary>
+            A unique reference value that corresponds to the Reference value from the Message object
+            from the particular Message that this Delivery Report is related to.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.DeliveryReport.DeliveredDate">
+            <summary>
+            The Date and Time when the message was delivered to the handset (in local MMSC time)
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.MMS.Client.MMSClient">
+            <summary>
+            MMS Client implementation for PSWinCom MMS Gateway
+            </summary>
+        </member>
+        <member name="F:PSWinCom.Gateway.MMS.Client.MMSClient.Messages">
+            <summary>
+            Collection of outgoing Message objects. Add your Message objects to this collection before
+            sending the messages.
+            </summary>
+        </member>
+        <member name="F:PSWinCom.Gateway.MMS.Client.MMSClient.ReceivedMessages">
+            <summary>
+            Collection of incoming Message objects. This collection will contain the received messages
+            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="F:PSWinCom.Gateway.MMS.Client.MMSClient.DeliveryReports">
+            <summary>
+            Collection of received DeliveryReport objects. This collection will contain the received delivery reports
+            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.SendMessages">
+            <summary>
+            Send all messages in the Messages collection. This operation will block while communicating
+            with the Gateway. After it has been completed, the MMSMessage objects in the Messages collection
+            is updated with the Status, (and if applicable, also the Reference or FailedReason properties)
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.HandleIncomingMessages(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            Reads Xml from given stream and retrieves incoming messages or delivery reports
+            within the XML document. The Messages or DeliveryReport are stored in the IncomingMessages
+            or DeliveryReports collection.
+            </summary>
+            <param name="inStream"></param>
+            <param name="outStream"></param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.GetDocumentXml">
+            <summary>
+            Build XmlDocument with messages to send.
+            </summary>
+            <returns>XmlDocument according to DTD for SMS Gateway</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.GetMessageXml(System.Xml.XmlDocument,PSWinCom.Gateway.MMS.Client.MMSMessage,System.Int32,System.Boolean)">
+            <summary>
+            Build Xml for a particular message
+            </summary>
+            <param name="doc">Root Xml Document</param>
+            <param name="m">Message object to transform</param>
+            <param name="id">index in collection</param>
+            <returns>Message as XmlElement</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.CreateElement(System.Xml.XmlDocument,System.String,System.String)">
+            <summary>
+            Create a XmlElement with given name and value
+            </summary>
+            <param name="doc">Xml Document context</param>
+            <param name="name">Name of element</param>
+            <param name="val">Content/value</param>
+            <returns>XmlElement as requested</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.CheckResponse(System.Xml.XmlDocument)">
+            <summary>
+            Check response from Gateway, update Message collection with status
+            </summary>
+            <param name="doc">XmlDocument with response from Gateway</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.CheckRequest(System.Xml.XmlDocument)">
+            <summary>
+            Check request for IncomingMessages/DeliveryReports from Gateway, 
+            update Message collection or DeliveryReport collection
+            </summary>
+            <param name="doc">XmlDocument containing request from gateway</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.GetNodeValue(System.Xml.XmlNode,System.String)">
+            <summary>
+            Return value of given node as by xpath expression, or null if not found
+            </summary>
+            <param name="doc">XmlNode to search from</param>
+            <param name="xpath">XPath expression of desired node</param>
+            <returns>Content of node as string or null if not found</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.GetParts(System.String)">
+            <summary>
+            Decode base 64 data, unzip binary stream and retrieve each part
+            </summary>
+            <param name="base64data">Base 64 encoded data containing MMS message in ZIP file format</param>
+            <returns></returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.HttpPost(System.Xml.XmlDocument,System.String)">
+            <summary>
+            Send a HTTP Post request
+            </summary>
+            <param name="doc">XmlDocument to send</param>
+            <param name="url">Destination URL</param>
+            <returns>XmlDocument with response</returns>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Username">
+            <summary>
+            Username on MMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Password">
+            <summary>
+            Password on MMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.PrimaryGateway">
+            <summary>
+            PSWinCom MMS Gateway Primary address
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.SecondaryGateway">
+            <summary>
+            PSWinCom MMS Gateway Secondary address
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.SessionData">
+            <summary>
+            SessionData. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.AffiliateProgram">
+            <summary>
+             Affiliate program identificator. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Proxy">
+            <summary>
+            Set IWebProxy to be used when sending messages. Only required if you access internet through a Proxy.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.BulkWithIdenticalContent">
+            <summary>
+            If this property is set, the MMSClient will send the content to the MMS Gateway only once per session. That
+            will result in substantial lower transmission time for large sessions. When sending bulk MMS with identical
+            content you should therefore set this property to true. Default value is false.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.MMS.Client.MMSException">
+            <summary>
+            SMSException class for SMS Client related exceptions.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.MMS.Client.MessageStatus">
+            <summary>
+            Enumeration of the various status values a message may have. Only applies to outgoing messages
+            </summary>
+        </member>
+        <member name="F:PSWinCom.Gateway.MMS.Client.MessageStatus.New">
+            <summary>
+            Indicates a newly added message that has not yet been sent.
+            </summary>
+        </member>
+        <member name="F:PSWinCom.Gateway.MMS.Client.MessageStatus.Sent">
+            <summary>
+            Indicates a message that has been successfully sent
+            </summary>
+        </member>
+        <member name="F:PSWinCom.Gateway.MMS.Client.MessageStatus.Failed">
+            <summary>
+            Indicates a message that has been tried sent, but failed
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.MMS.Client.MMSMessage">
+            <summary>
+            An MMSMessage object holds all the settings and values of an MMS message. This class is used both for incoming
+            outgoing messages, but not all properties are valid for incoming messages.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.GetCompressed">
+            <summary>
+            Pack up the content of this MMSMessage as a zip file for suitable transmission
+            to the MMS Gateway
+            </summary>
+            <returns>Byte array containing zipped data</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveParts(System.String)">
+            <summary>
+            Save all content parts to the given path using original filenames for each part
+            </summary>
+            <param name="path">A valid path to a directory</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveCompressed(System.String)">
+            <summary>
+            Save all MMS message parts as one compressed file. Suitable for packing content
+            for storing and later sending.
+            </summary>
+            <param name="filename">Filename to save as.</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveCompressed(System.IO.Stream)">
+            <summary>
+            Save all MMS message parts as a zip to a stream. Suitable for packing content
+            for storing in database or such,
+            </summary>
+            <param name="stream">Stream to save to.</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.LoadCompressed(System.String)">
+            <summary>
+            Loads compressed MMS message parts from file. Existing content in
+            MMSMessage object will be overwritten.
+            </summary>
+            <param name="filename">Filename to load from</param>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.RequestReceipt">
+            <summary>
+            Set to true to request a receipt (Delivery Report) for this message. The delivery report
+            will either be available on the account web or forwarded to your application depending
+            on your account settings on the MMS Gateway.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.Subject">
+            <summary>
+            The subject of the MMS message to send
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.ReceiverNumber">
+            <summary>
+            The number of the receiver. The number must be an internationally formatted number. That is
+            a number that includes country prefix. Any spaces or leading "00" and "+" will be removed and should thus
+            be avoided.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.SenderNumber">
+            <summary>
+            The sender number of the MMS. This will normally be overriden by MMS Gateway to reflect the CPA shortnumer
+            in use.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.Status">
+            <summary>
+            Indicates the status of the message. The MessageStatus enumeration holds the various states that
+            may occur. This property is read-only and is updated only as a result of a SendMessages() operation.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.Reference">
+            <summary>
+            If RequestReceipt is set to true and your Gateway account has been enabled for delivery report
+            forwarding, then the Reference property will hold a unique Reference value for this particular
+            message after successfully issuing a SendMessages() operation. This Reference value can
+            later be used to correlate the Message with a Delivery Report received at a later time.
+            This property is read-only.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.Network">
+            <summary>
+            Can be set to indicate a specific routing of this message. Should only be used for
+            sending of Premium MMS messages where specific routing is required. Other usage of
+            this may result in the message not being delivered.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.Tariff">
+            <summary>
+            Indicated the Premium Price in cents/ører for a message sent as a Premium MMS. This
+            requires that the account has been enabled for CPA/Premium MMS usage.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.FailedReason">
+            <summary>
+            If a message was not accepted by the MMS Gateway you may find a more specific reason
+            for this by checking this property. It will be empty for successfully submitted messages.
+            This property is read-only and is updated only as a result of a SendMessages() operation.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.Address">
+            <summary>
+            For incoming messages the Gateway may include information about the name and address of the
+            person that is registered to the SenderNumber. This is a value-added feature that will
+            require a separate agreement with PSWinCom.
+            </summary>
+        </member>
+        <member name="T:PSWinCom.Gateway.MMS.Client.MMSMessagePart">
+            <summary>
+            An MMSMessagePart object holds the name and content data for each part of the
+            MMS message. It will typically be a picture, sound, text or similar.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.#ctor(System.String)">
+            <summary>
+            Construct new MMSMessagePart from file
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Load(System.String)">
+            <summary>
+            Load content from file into this MMS part
+            </summary>
+            <param name="filename">Complete path and filename of content file to load</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.GetAsString">
+            <summary>
+            Get the content as a string using default (ISO 8859 1) encoding. 
+            Should only be called on parts that are considered
+            to be text-parts (Name ending with .txt or similar)
+            </summary>
+            <returns>String content of part</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.GetAsString(System.Text.Encoding)">
+            <summary>
+            Get the content as a string using a specific encoding. 
+            Should only be called on parts that are considered
+            to be text-parts (Name ending with .txt or similar)
+            </summary>
+            <param name="enc">Encoding to use</param>
+            <returns>String content of part</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Save(System.String)">
+            <summary>
+            Save the content of this part to a file in the given folder using the original filename
+            </summary>
+            <param name="path">A valid path to a directory</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.SaveAs(System.String,System.String)">
+            <summary>
+            Save the content of this part to a file in the given folder using the specified filename
+            </summary>
+            <param name="path">A valid path to a directory</param>
+            <param name="filename">Filename to save as</param>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Name">
+            <summary>
+            Name of this content part. Typically this is the filename of the content file.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.PartId">
+            <summary>
+            Numeric id number of this particular part.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Data">
+            <summary>
+            A byte array holding the data of this content part.
+            </summary>
+        </member>
+    </members>
+</doc>
