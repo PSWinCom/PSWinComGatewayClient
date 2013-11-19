@@ -12,7 +12,7 @@ namespace PSWinCom.Gateway.Client
 {
     public class HttpTransport : IAsyncTransport
     {
-        private readonly Uri _uri;
+        private Uri _uri;
         public static ManualResetEvent allDone = new ManualResetEvent(false);
 
         public HttpTransport(Uri uri)
@@ -46,6 +46,18 @@ namespace PSWinCom.Gateway.Client
             };
 
             return result;
+        }
+
+        public Uri Uri
+        {
+            get
+            {
+                return _uri;
+            }
+            set
+            {
+                _uri = value;
+            }
         }
     }
 }

@@ -11,8 +11,7 @@ namespace PSWinCom.Gateway.Client
 {
     public partial class TcpTransport : ITransport
     {
-        private string _host;
-        private int _port;
+        private Uri _uri;
 
         public TcpTransport()
             :this(new Uri("tcp://gw2-fro.pswin.com:1111"))
@@ -30,13 +29,12 @@ namespace PSWinCom.Gateway.Client
         {
             if (uri.Scheme.ToLower() != "tcp")
                 throw new ArgumentException("Uri scheme must be tcp!");
-            _port = uri.Port;
-            _host = uri.Host;
+            _uri = uri;
         }
 
         public TransportResult Send(XDocument document)
         {
-            var client = new TcpClient(_host, _port);
+            var client = new TcpClient(_uri.Host, _uri.Port);
             using (var sendData = new MemoryStream())
             {
                 using (var xw = XmlWriter.Create(sendData, new XmlWriterSettings() { Encoding = Encoding.GetEncoding("ISO-8859-1") }))
@@ -79,6 +77,18 @@ namespace PSWinCom.Gateway.Client
 
                     return result;
                 }
+            }
+        }
+
+        public Uri Uri
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
             }
         }
     }

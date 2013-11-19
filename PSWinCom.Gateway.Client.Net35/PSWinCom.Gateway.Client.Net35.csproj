@@ -70,17 +70,18 @@
     <Compile Include="..\PSWinCom.Gateway.Client\SmsMessage.cs">
       <Link>SmsMessage.cs</Link>
     </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\TcpTransport.cs">
-      <Link>TcpTransport.cs</Link>
-    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\TransportResult.cs">
       <Link>TransportResult.cs</Link>
     </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransport.cs">
+      <Link>Transports\TcpTransport.cs</Link>
+    </Compile>
     <Compile Include="Gateway.cs" />
-    <Compile Include="HttpTransport.cs" />
+    <Compile Include="Transports\HttpTransport.cs" />
     <Compile Include="GatewayClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

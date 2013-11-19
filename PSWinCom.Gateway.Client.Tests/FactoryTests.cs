@@ -20,12 +20,14 @@ namespace PSWinCom.Gateway.Client.Tests
 
             client.Username.ShouldEqual("yallaballa");
             client.Password.ShouldEqual("ralla");
+            client.Transport.Uri.ShouldEqual(new Uri("http://my.stupid-doma.in/sms"));
         }
 
         [Test]
         public void Should_load_proper_protocol()
         {
             Gateway.Client("http://my.stupid-doma.in/sms").Transport.ShouldBeType<HttpTransport>();
+            Gateway.Client("tcp://1.1.1.1:1234").Transport.ShouldBeType<TcpTransport>();
             Gateway.Client("tcp://1.1.1.1:1234").Transport.ShouldBeType<TcpTransport>();
         }
 

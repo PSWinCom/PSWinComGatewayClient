@@ -7,6 +7,7 @@ namespace PSWinCom.Gateway.Client
 {
     public interface ITransport
     {
+        Uri Uri { get; set; }
         TransportResult Send(XDocument document);
     }
 }

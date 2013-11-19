@@ -6,12 +6,13 @@ using System.Net;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using System.Collections;
 
 namespace PSWinCom.Gateway.Client
 {
     public class HttpTransport : ITransport
     {
-        private readonly Uri _uri;
+        private Uri _uri;
         public HttpTransport(Uri uri)
         {
             _uri = uri;
@@ -71,6 +72,18 @@ namespace PSWinCom.Gateway.Client
             }
 
             return result;
+        }
+
+        public Uri Uri
+        {
+            get
+            {
+                return _uri;
+            }
+            set
+            {
+                _uri = value;
+            }
         }
     }
 }

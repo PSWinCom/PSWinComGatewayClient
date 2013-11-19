@@ -44,9 +44,9 @@
     <Compile Include="Message.cs" />
     <Compile Include="MmsMessage.cs" />
     <Compile Include="NetworkSpecification.cs" />
-    <Compile Include="TcpTransport.cs" />
+    <Compile Include="Transports\TcpTransport.cs" />
     <Compile Include="GatewayFactory.cs" />
-    <Compile Include="HttpTransport.cs" />
+    <Compile Include="Transports\HttpTransport.cs" />
     <Compile Include="Interfaces\IAsyncTransport.cs" />
     <Compile Include="Interfaces\IGatewayClient.cs" />
     <Compile Include="Interfaces\IAsyncGatewayClient.cs" />
@@ -58,7 +58,7 @@
     <Compile Include="GatewayResponse.cs" />
     <Compile Include="SMSException.cs" />
     <Compile Include="Interfaces\ITransport.cs" />
-    <Compile Include="TcpTransportAsync.cs" />
+    <Compile Include="Transports\TcpTransportAsync.cs" />
     <Compile Include="TransportResult.cs" />
   </ItemGroup>
   <ItemGroup>
