@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25D7ECB9-8C97-4E0F-BD35-FD9A22D0D587}</ProjectGuid>
+    <ProjectGuid>{9ED866A2-2118-4B6B-B663-8C8DA1979C0E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PSWinCom.Gateway.Client.Tests</RootNamespace>
-    <AssemblyName>PSWinCom.Gateway.Client.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>PSWinCom.Gateway.Client.Net35.Tests</RootNamespace>
+    <AssemblyName>PSWinCom.Gateway.Client.Net35.Tests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,45 +33,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.1.1311.615, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Moq.4.1.1311.0615\lib\net40\Moq.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.1.1311.0615\lib\net35\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Should, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Should">
       <HintPath>..\packages\Should.1.1.20\lib\Should.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FactoryTests.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\FactoryTests.cs">
+      <Link>FactoryTests.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\MessageTests.cs">
+      <Link>MessageTests.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendingMessages.cs">
+      <Link>SendingMessages.cs</Link>
+    </Compile>
     <Compile Include="FrameworkSpecificFactoryTests.cs" />
-    <Compile Include="SendAsyncTests.cs" />
-    <Compile Include="SendingMessages.cs" />
-    <Compile Include="MessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PSWinCom.Gateway.Client\PSWinCom.Gateway.Client.csproj">
-      <Project>{8bfb0221-2d4b-4268-9df5-eb899211510a}</Project>
-      <Name>PSWinCom.Gateway.Client</Name>
+    <ProjectReference Include="..\PSWinCom.Gateway.Client.Net35\PSWinCom.Gateway.Client.Net35.csproj">
+      <Project>{cf0ea6f6-8921-4ae4-bf2d-26e05885d2d9}</Project>
+      <Name>PSWinCom.Gateway.Client.Net35</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

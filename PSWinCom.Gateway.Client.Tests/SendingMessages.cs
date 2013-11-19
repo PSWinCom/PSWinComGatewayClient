@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using Should;
 using Moq;
 using System.Xml.Linq;
-using System.Net;
 
 namespace PSWinCom.Gateway.Client.Tests
 {
@@ -16,7 +13,7 @@ namespace PSWinCom.Gateway.Client.Tests
     {
         private Mock<ITransport> mockTransport;
         private GatewayClient client;
-        private XDocument last_doc;
+        private XDocument last_request_xml;
 
         [Test]
         public void Should_include_username_and_password()
@@ -26,9 +23,9 @@ namespace PSWinCom.Gateway.Client.Tests
 
             client.Send(new SmsMessage[] { });
 
-            last_doc.Root.Name.ShouldEqual("SESSION");
-            last_doc.Root.Element("CLIENT").Value.ShouldEqual("test");
-            last_doc.Root.Element("PW").Value.ShouldEqual("pass");
+            last_request_xml.Root.Name.ShouldEqual("SESSION");
+            last_request_xml.Root.Element("CLIENT").Value.ShouldEqual("test");
+            last_request_xml.Root.Element("PW").Value.ShouldEqual("pass");
         }
 
         [Test]
@@ -41,10 +38,10 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            last_doc.Root.Name.ShouldEqual("SESSION");
-            last_doc.Root.Element("MSGLST").ShouldNotBeNull();
+            last_request_xml.Root.Name.ShouldEqual("SESSION");
+            last_request_xml.Root.Element("MSGLST").ShouldNotBeNull();
 
-            var elements = last_doc.Root.Element("MSGLST").Elements("MSG");
+            var elements = last_request_xml.Root.Element("MSGLST").Elements("MSG");
             elements.Count().ShouldEqual(2);
 
             elements.First().Element("ID").Value.ShouldEqual("1");
@@ -83,7 +80,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            var message = last_doc.Root.Element("MSGLST").Elements("MSG").First();
+            var message = last_request_xml.Root.Element("MSGLST").Elements("MSG").First();
 
             message.Element("TEXT").Value.ShouldEqual("some text");
             message.Element("SND").Value.ShouldEqual("tester");
@@ -133,7 +130,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            var message = last_doc.Root.Element("MSGLST").Elements("MSG").First();
+            var message = last_request_xml.Root.Element("MSGLST").Elements("MSG").First();
 
             message.Element("TEXT").Value.ShouldEqual("some text");
             message.Element("SND").Value.ShouldEqual("tester");
@@ -147,10 +144,10 @@ namespace PSWinCom.Gateway.Client.Tests
             message.Element("OP").Value.ShouldEqual("13");
             message.Element("MMSFILE").Value.ShouldEqual("VGVzdCB6aXAgZGF0YQ==");
 
-            last_doc.Root.Element("MSGLST").Elements("MSG").Last().Element("MMSFILE").ShouldBeNull();
+            last_request_xml.Root.Element("MSGLST").Elements("MSG").Last().Element("MMSFILE").ShouldBeNull();
         }
 
-        [Test]
+        [Test, Ignore("Removed requirement, not really needed")]
         public void Should_have_DOCTYPE()
         {
             client.Send(
@@ -159,8 +156,8 @@ namespace PSWinCom.Gateway.Client.Tests
                     new SmsMessage { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
-            last_doc.FirstNode.NodeType.ShouldEqual(System.Xml.XmlNodeType.DocumentType);
-            var type = last_doc.FirstNode as XDocumentType;
+            last_request_xml.FirstNode.NodeType.ShouldEqual(System.Xml.XmlNodeType.DocumentType);
+            var type = last_request_xml.FirstNode as XDocumentType;
             type.Name.ShouldEqual("SESSION");
             type.SystemId.ShouldEqual("pswincom_submit.dtd");
         }
@@ -174,7 +171,7 @@ namespace PSWinCom.Gateway.Client.Tests
                     new SmsMessage { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
-            last_doc.Declaration.Encoding.ShouldEqual("iso-8859-1");
+            last_request_xml.Declaration.Encoding.ShouldEqual("iso-8859-1");
         }
 
         [Test]
@@ -191,7 +188,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            last_doc.Descendants("MSG").First().Element("TARIFF").Value.ShouldEqual("100");
+            last_request_xml.Descendants("MSG").First().Element("TARIFF").Value.ShouldEqual("100");
         }
 
         [Test]
@@ -261,13 +258,14 @@ namespace PSWinCom.Gateway.Client.Tests
             mockTransport = new Mock<ITransport>();
             client = new GatewayClient(mockTransport.Object);
 
-            last_doc = new XDocument();
+            last_request_xml
+                = new XDocument();
 
             mockTransport
                 .Setup((t) => t.Send(It.IsAny<XDocument>()))
                 .Returns<XDocument>((xml) =>
                 {
-                    last_doc = xml;
+                    last_request_xml = xml;
                     return new TransportResult()
                     {
                         Content = new XDocument()
