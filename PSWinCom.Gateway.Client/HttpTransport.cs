@@ -35,13 +35,15 @@ namespace PSWinCom.Gateway.Client
 
             content.Headers.Add("Content-Type", "application/xml");
 
-            var request = client.PostAsync(_uri, content);
-            var res = await request;
+            var res = await client.PostAsync(_uri, content);
 
-            var result = new TransportResult();
-            result.Success = (res.StatusCode == HttpStatusCode.OK);
             var contentstring = await res.Content.ReadAsStringAsync();
-            result.Content = XDocument.Parse(contentstring);
+
+            var result = new TransportResult()
+            {
+                Success = (res.StatusCode == HttpStatusCode.OK),
+                Content = XDocument.Parse(contentstring)
+            };
 
             return result;
         }
