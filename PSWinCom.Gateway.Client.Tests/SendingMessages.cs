@@ -100,7 +100,7 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
-        public void Sending_mms()
+        public void Should_support_all_appropriate_properties_when_sending_mms()
         {
             client.Send(
                 new[] { 
@@ -192,7 +192,7 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
-        public void Should_set_num_in_session()
+        public void Should_assign_num_in_session()
         {
             var msg1 = new SmsMessage();
             var msg2 = new SmsMessage();
@@ -209,7 +209,7 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
-        public void Should_return_status_on_messages()
+        public void Should_return_status_on_messages_using_userref_if_possible()
         {
             var msg1 = new SmsMessage { UserReference = "message1" };
             var msg2 = new SmsMessage { UserReference = "message2" };
