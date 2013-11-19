@@ -6,7 +6,7 @@ namespace PSWinCom.Gateway.Client
 {
     public static partial class Gateway
     {
-        private static class GatewayFactory
+        private static class Factory
         {
             private static string _defaultAddress = "http://sms3.pswin.com/sms";
             private static string _defaultUsername = "";
