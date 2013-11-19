@@ -4,12 +4,12 @@ using System.Text;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class SendResult
+    public class GatewayResponse
     {
         public IEnumerable<MessageResult> Results { get; set; }
     }
 
-    public static class SendResultExtensions
+    public static class GatewayResponseExtensions
     {
         public static void Each(this IEnumerable<MessageResult> results, Action<MessageResult> action)
         {

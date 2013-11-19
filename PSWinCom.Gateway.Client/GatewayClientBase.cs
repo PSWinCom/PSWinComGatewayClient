@@ -15,12 +15,12 @@ namespace PSWinCom.Gateway.Client
             Transport = transport;
         }
 
-        public SendResult Send(params Message[] messages)
+        public GatewayResponse Send(params Message[] messages)
         {
             return Send(messages.AsEnumerable());
         }
 
-        public virtual SendResult Send(IEnumerable<Message> messages)
+        public virtual GatewayResponse Send(IEnumerable<Message> messages)
         {
             var messageList = messages.ToList();
             var transportResult = Transport.Send(BuildPayload(messageList));
@@ -104,9 +104,9 @@ namespace PSWinCom.Gateway.Client
             }
         }
 
-        protected static SendResult GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
+        protected static GatewayResponse GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
         {
-            var result = new SendResult();
+            var result = new GatewayResponse();
             var userReferences = messages.ToDictionary((m) => m.NumInSession, m => m);
             result.Results = transportResult
                 .Content

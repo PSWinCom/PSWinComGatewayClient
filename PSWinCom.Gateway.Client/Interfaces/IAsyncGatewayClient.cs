@@ -8,6 +8,6 @@ namespace PSWinCom.Gateway.Client
 {
     public interface IAsyncGatewayClient : IGatewayClient
     {
-        Task<SendResult> SendAsync(IEnumerable<Message> messages);
+        Task<GatewayResponse> SendAsync(IEnumerable<Message> messages);
     }
 }

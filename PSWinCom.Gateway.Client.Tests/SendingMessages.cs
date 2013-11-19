@@ -218,14 +218,14 @@ namespace PSWinCom.Gateway.Client.Tests
                 message_result("2", "OK"), 
                 message_result("1", "FAIL"));
 
-            var result = client.Send(new[] {
+            var response = client.Send(new[] {
                 msg1,
                 msg2
             });
 
-            result.Results.Count().ShouldEqual(2);
-            result.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual("FAIL");
-            result.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual("OK");
+            response.Results.Count().ShouldEqual(2);
+            response.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual("FAIL");
+            response.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual("OK");
         }
 
         private void Transport_returns(params XElement[] results)

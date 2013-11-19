@@ -55,7 +55,7 @@
     <Compile Include="GatewayClientBase.cs" />
     <Compile Include="MessageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendResult.cs" />
+    <Compile Include="GatewayResponse.cs" />
     <Compile Include="SMSException.cs" />
     <Compile Include="Interfaces\ITransport.cs" />
     <Compile Include="TcpTransportAsync.cs" />

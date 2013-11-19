@@ -23,7 +23,7 @@ namespace PSWinCom.Gateway.Client
         }
 
 
-        public async Task<SendResult> SendAsync(IEnumerable<Message> messages)
+        public async Task<GatewayResponse> SendAsync(IEnumerable<Message> messages)
         {
             var transport = Transport as IAsyncTransport;
             if (transport == null)

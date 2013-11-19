@@ -11,7 +11,7 @@ namespace PSWinCom.Gateway.Client
         string Username { get; set; }
         string Password { get; set; }
         ITransport Transport { get; set; }
-        SendResult Send(IEnumerable<Message> messages);
-        SendResult Send(params Message[] messages);
+        GatewayResponse Send(IEnumerable<Message> messages);
+        GatewayResponse Send(params Message[] messages);
     }
 }
