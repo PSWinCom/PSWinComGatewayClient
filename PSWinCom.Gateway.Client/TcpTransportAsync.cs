@@ -10,7 +10,7 @@ namespace PSWinCom.Gateway.Client
     {
         public async Task<TransportResult> SendAsync(System.Xml.Linq.XDocument document)
         {
-            return Send(document);
+            return await Task.FromResult(Send(document));
         }
     }
 }
