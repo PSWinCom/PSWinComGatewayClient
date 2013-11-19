@@ -37,17 +37,15 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gateway.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="MmsMessage.cs" />
     <Compile Include="NetworkSpecification.cs" />
     <Compile Include="TcpTransport.cs" />
-    <Compile Include="Gateway.cs" />
+    <Compile Include="GatewayFactory.cs" />
     <Compile Include="HttpTransport.cs" />
     <Compile Include="Interfaces\IAsyncTransport.cs" />
     <Compile Include="Interfaces\IGatewayClient.cs" />

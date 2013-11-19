@@ -1,68 +1,57 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PSWinCom.Gateway.Client
 {
-    public static class Gateway
+    public static partial class Gateway
     {
-        private static string _defaultGateway = "http://sms3.pswin.com/sms";
         public static string DefaultAddress
         {
-            get
-            {
-                return _defaultGateway;
-            }
-            set
-            {
-                _defaultGateway = value;
-            }
+            get { return GatewayFactory.DefaultAddress; }
+            set { GatewayFactory.DefaultAddress = value; }
         }
 
-        public static IGatewayClient Client()
+        public static string DefaultUsername
         {
-            return Client(_defaultGateway);
+            get { return GatewayFactory.DefaultUsername; }
+            set { GatewayFactory.DefaultUsername = value; }
         }
 
-        public static IGatewayClient Client(string username, string password)
+        public static string DefaultPassword
         {
-            return Client().WithLogin(username, password);
+            get { return GatewayFactory.DefaultPassword; }
+            set { GatewayFactory.DefaultPassword = value; }
         }
 
-        public static IGatewayClient Client(string uri)
+        public static IAsyncGatewayClient Client()
         {
-            return Client(new Uri(uri));
+            return (IAsyncGatewayClient)GatewayFactory.Client();
         }
 
-        public static IGatewayClient Client(string uri, string username, string password)
+        public static IAsyncGatewayClient Client(string username, string password)
         {
-            return Client(uri).WithLogin(username, password);
+            return (IAsyncGatewayClient)GatewayFactory.Client(username, password);
         }
 
-        public static IGatewayClient Client(Uri uri, string username, string password)
+        public static IAsyncGatewayClient Client(string uri)
         {
-            return Client(uri).WithLogin(username, password);
+            return (IAsyncGatewayClient)GatewayFactory.Client(uri);
         }
 
-        public static IGatewayClient Client(Uri uri)
+        public static IAsyncGatewayClient Client(string uri, string username, string password)
         {
-            switch (uri.Scheme)
-            {
-                case "tcp":
-                    return new GatewayClient(new TcpTransport(uri));
-                case "http":
-                case "https":
-                    return new GatewayClient(new HttpTransport(uri));
-                default:
-                    throw new ArgumentException("Uri scheme is not supported");
-            }
+            return (IAsyncGatewayClient)GatewayFactory.Client(uri, username, password);
         }
 
-        public static IGatewayClient WithLogin(this IGatewayClient client, string username, string password)
+        public static IAsyncGatewayClient Client(Uri uri, string username, string password)
         {
-            client.Username = username;
-            client.Password = password;
-            return client;
+            return (IAsyncGatewayClient)GatewayFactory.Client(uri, username, password);
+        }
+
+        public static IAsyncGatewayClient Client(Uri uri)
+        {
+            return (IAsyncGatewayClient)GatewayFactory.Client(uri);
         }
     }
 }
