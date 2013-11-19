@@ -21,9 +21,9 @@ namespace PSWinCom.Gateway.Client
         }
 
         public TcpTransport(string host, int port)
+            : this(new Uri(String.Format("tcp://{0}:{1}", host, port)))
         {
-            _port = port;
-            _host = host;
+
         }
 
         public TcpTransport(Uri uri)
@@ -34,7 +34,7 @@ namespace PSWinCom.Gateway.Client
             _host = uri.Host;
         }
 
-        public TransportResult Send(System.Xml.Linq.XDocument document)
+        public TransportResult Send(XDocument document)
         {
             var client = new TcpClient(_host, _port);
             using (var sendData = new MemoryStream())
