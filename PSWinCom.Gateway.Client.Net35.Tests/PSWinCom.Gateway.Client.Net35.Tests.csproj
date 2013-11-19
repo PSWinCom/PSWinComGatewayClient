@@ -50,11 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\CustomUserReferenceTests.cs">
+      <Link>CustomUserReferenceTests.cs</Link>
+    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client.Tests\FactoryTests.cs">
       <Link>FactoryTests.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client.Tests\MessageTests.cs">
-      <Link>MessageTests.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendingMessages.cs">
       <Link>SendingMessages.cs</Link>

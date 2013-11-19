@@ -57,7 +57,7 @@
     <Compile Include="FrameworkSpecificFactoryTests.cs" />
     <Compile Include="SendAsyncTests.cs" />
     <Compile Include="SendingMessages.cs" />
-    <Compile Include="MessageTests.cs" />
+    <Compile Include="CustomUserReferenceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

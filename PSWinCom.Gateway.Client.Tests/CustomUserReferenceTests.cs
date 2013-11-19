@@ -7,7 +7,7 @@ using Should;
 namespace PSWinCom.Gateway.Client.Tests
 {
     [TestFixture]
-    public class MessageTests
+    public class CustomUserReferenceTests
     {
         [Test]
         public void Should_default_to_num_in_session_if_myreference_is_not_set()
