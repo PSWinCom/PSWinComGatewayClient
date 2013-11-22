@@ -15,6 +15,12 @@ This is Henrik's entry to the Gateway Client competition.
 - No external dependencies
   - Optional MMS generating helper through separate NuGet
 
+## Installing
+
+```
+	PM> Install-Package PSWinCom.Gateway.Client
+```
+
 
 ## Samples
 
@@ -117,3 +123,24 @@ Gateway
 	);
 ```
 
+### Sending messages async (.net 4.5 and up)
+
+```
+var response = await Gateway
+	.Client("http://sms.pswin.com/sms", "username", "password")
+	.SendAsync(
+		new SmsMessage { ... }
+	);
+
+response
+	.Results
+	.Each((r) =>
+    {
+		Console.WriteLine("My ref: {0} Gateway ref: {1} Status: {2} Message: {3} Receiver: {4}",
+			r.UserReference,
+			r.GatewayReference,
+			r.Status,
+			r.StatusText,
+			r.Message.ReceiverNumber);
+    });
+```
