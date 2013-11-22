@@ -7,18 +7,18 @@ namespace PSWinCom.Gateway.Client
 {
     public class NetworkSpecification
     {
-        public NetworkSpecification(short mnc, short mcc)
+        public NetworkSpecification(short mcc, short mnc)
         {
-            Mnc = mnc;
             Mcc = mcc;
+            Mnc = mnc;
         }
 
-        public short Mnc { get; set; }
         public short Mcc { get; set; }
+        public short Mnc { get; set; }
 
         public override string ToString()
         {
-            return String.Format("{0:000}:{1:00}", Mnc, Mcc);
+            return String.Format("{0:000}:{1:00}", Mcc, Mnc);
         }
 
         public static implicit operator NetworkSpecification(string s)
