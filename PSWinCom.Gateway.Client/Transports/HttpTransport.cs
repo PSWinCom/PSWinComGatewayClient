@@ -26,6 +26,28 @@ namespace PSWinCom.Gateway.Client
         }
 
         public async Task<TransportResult> SendAsync(XDocument document) {
+
+            var res = await PostRequest(document);
+
+            var result = new TransportResult()
+            {
+                Success = res.IsSuccessStatusCode,
+            };
+
+            if (res.IsSuccessStatusCode)
+            {
+                var contentstring = await res.Content.ReadAsStringAsync();
+#if (DEBUG)
+                Console.Write(contentstring);
+#endif
+                result.Content = XDocument.Parse(contentstring);
+            }
+
+            return result;
+        }
+
+        private async Task<HttpResponseMessage> PostRequest(XDocument document)
+        {
             var client = new HttpClient();
             var ms = new MemoryStream();
 
@@ -35,17 +57,7 @@ namespace PSWinCom.Gateway.Client
 
             content.Headers.Add("Content-Type", "application/xml");
 
-            var res = await client.PostAsync(_uri, content);
-
-            var contentstring = await res.Content.ReadAsStringAsync();
-
-            var result = new TransportResult()
-            {
-                Success = (res.StatusCode == HttpStatusCode.OK),
-                Content = XDocument.Parse(contentstring)
-            };
-
-            return result;
+            return await client.PostAsync(_uri, content);
         }
 
         public Uri Uri
