@@ -28,7 +28,6 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             Gateway.Client("http://my.stupid-doma.in/sms").Transport.ShouldBeType<HttpTransport>();
             Gateway.Client("tcp://1.1.1.1:1234").Transport.ShouldBeType<TcpTransport>();
-            Gateway.Client("tcp://1.1.1.1:1234").Transport.ShouldBeType<TcpTransport>();
         }
 
         [SetUp]
