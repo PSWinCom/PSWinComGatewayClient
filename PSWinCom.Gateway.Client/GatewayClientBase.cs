@@ -23,7 +23,11 @@ namespace PSWinCom.Gateway.Client
         public virtual GatewayResponse Send(IEnumerable<Message> messages)
         {
             var messageList = messages.ToList();
-            var transportResult = Transport.Send(BuildPayload(messageList));
+            var payload = BuildPayload(messageList);
+#if DEBUG
+            Console.Write(payload);
+#endif
+            var transportResult = Transport.Send(payload);
             return GetSendResult(messageList, transportResult);
         }
 
@@ -36,7 +40,7 @@ namespace PSWinCom.Gateway.Client
                         new XElement("CLIENT", Username),
                         new XElement("PW", Password),
                         new XElement("MSGLST",
-                            GetMessageElements(messages))));
+                            GetMessageElements(messages).ToList())));
         }
 
         private IEnumerable<XElement> GetMessageElements(IEnumerable<Message> messages)
@@ -107,18 +111,30 @@ namespace PSWinCom.Gateway.Client
         protected static GatewayResponse GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
         {
             var result = new GatewayResponse();
-            var userReferences = messages.ToDictionary((m) => m.NumInSession, m => m);
             result.Results = transportResult
                 .Content
                 .Descendants("MSG")
-                .Select((el) => new MessageResult { 
-                    UserReference = userReferences[int.Parse(el.Element("ID").Value)].UserReference, 
-                    Message = userReferences[int.Parse(el.Element("ID").Value)],
-                    GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
-                    Status = el.Element("STATUS").Value, 
-                    StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
+                .Select((el) => {
+                    var id = int.Parse(el.Element("ID").Value);
+                    var message = messages.FirstOrDefault(m => m.NumInSession == id);
+                    return new MessageResult
+                    {
+                        UserReference = message.UserReference,
+                        Message = message,
+                        GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
+                        Status = el.Element("STATUS").Value,
+                        StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
+                    };
                 });
             return result;
+        }
+
+        private static string GetUserReference(IEnumerable<Message> messages, int id)
+        {
+            var message = messages.FirstOrDefault(m => m.NumInSession == id);
+            if (message != null)
+                return message.UserReference;
+            return id.ToString();
         }
 
         public string Password { get; set; }
