@@ -7,6 +7,11 @@ namespace PSWinCom.Gateway.Client
 {
     public abstract class Message
     {
+        public Message()
+        {
+
+        }
+
         private MessageType? _type;
         private string _useryReference;
         internal int NumInSession { get; set; }
@@ -49,5 +54,22 @@ namespace PSWinCom.Gateway.Client
                 _useryReference = value;
             }
         }
+    }
+
+    public enum MessageType
+    {
+        Text = 1,
+        Ringtone = 2,
+        OperatorLogo = 3,
+        CallerGroupGraphic = 4,
+        Picture = 5,
+        vCard = 6,
+        vCalendar = 7,
+        RawBinaryUDH = 8,
+        Unicode = 9,
+        WapPush = 10,
+        OTABookmark = 11,
+        OTASettings = 12,
+        MMSMessage = 13
     }
 }

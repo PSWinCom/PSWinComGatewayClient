@@ -56,8 +56,8 @@ namespace PSWinCom.Gateway.Client
 
         private IEnumerable<XElement> GetMessagePropertyElements(Message msg)
         {
-            var sms = msg as SmsMessage;
-            var mms = msg as MmsMessage;
+            var sms = msg as Sms;
+            var mms = msg as Mms;
 
             yield return new XElement("ID", msg.NumInSession);
             yield return new XElement("TEXT", msg.Text);
@@ -127,14 +127,6 @@ namespace PSWinCom.Gateway.Client
                     };
                 });
             return result;
-        }
-
-        private static string GetUserReference(IEnumerable<Message> messages, int id)
-        {
-            var message = messages.FirstOrDefault(m => m.NumInSession == id);
-            if (message != null)
-                return message.UserReference;
-            return id.ToString();
         }
 
         public string Password { get; set; }

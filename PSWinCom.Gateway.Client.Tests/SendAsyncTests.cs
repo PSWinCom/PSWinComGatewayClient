@@ -21,7 +21,7 @@ namespace PSWinCom.Gateway.Client.Tests
             var client = new PSWinCom.Gateway.Client.GatewayClient(mockTransport.Object);
             try
             {
-                var result = client.SendAsync(new[] { new SmsMessage { Text = "Test", ReceiverNumber = "4790871951" } }).Result;
+                var result = client.SendAsync(new[] { new Sms { Text = "Test", ReceiverNumber = "4790871951" } }).Result;
             }
             catch (AggregateException ex)
             {
@@ -37,7 +37,7 @@ namespace PSWinCom.Gateway.Client.Tests
             Async_transport_returns(message_result("1", "OK"));
 
             var response = await client.SendAsync(new[] { 
-                new SmsMessage { 
+                new Sms { 
                     Text = "Test", 
                     ReceiverNumber = "4790871951" 
                 } 

@@ -6,8 +6,21 @@ using System.Xml.Serialization;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class SmsMessage : Message
+    public class Sms : Message
     {
+        public Sms()
+            : base()
+        {
+
+        }
+
+        public Sms(string from, string to, string text)
+        {
+            SenderNumber = from;
+            ReceiverNumber = to;
+            Text = text;
+        }
+
         public string ServiceCode { get; set; }
         public int? AgeLimit { get; set; }
         public NetworkSpecification Network { get; set; }
@@ -26,20 +39,4 @@ namespace PSWinCom.Gateway.Client
         Set7 = 7
     }
 
-    public enum MessageType
-    {
-        Text = 1,
-        Ringtone = 2,
-        OperatorLogo = 3,
-        CallerGroupGraphic = 4,
-        Picture = 5,
-        vCard = 6,
-        vCalendar = 7,
-        RawBinaryUDH = 8,
-        Unicode = 9,
-        WapPush = 10,
-        OTABookmark = 11,
-        OTASettings = 12,
-        MMSMessage = 13
-    }
 }

@@ -30,31 +30,34 @@ This is Henrik's entry to the Gateway Client competition.
 Gateway
     .Client("http://sms3.pswin.com/sms", "username", "password")
 	.Send(
-	    new SmsMessage { 
-	        Text = "Test æøå", 
-	        ReceiverNumber = "4799999999", 
-	        SenderNumber = "2077"
-	    }
+	    new Sms("2077", "4799999999", "Test æøå")
 	);
 ```
 
 ### Sending MMS
 
+First install the MMS package
+
+```
+PM> Install-Package PSWinCom.Gateway.Client.MMS
+```
+
+Then use this to create MMS file
+
 ```
 Gateway
     .Client("tcp://sms3.pswin.com:1111", "username", "password")
 	.Send(
-	    new MmsMessage { 
-	        Text = "Test æøå", 
-	        ReceiverNumber = "4799999999", 
-	        SenderNumber = "2077", 
-	        MmsData = new MmsFile(
+	    new Mms("2077", "4799999999", "Test æøå", 
+			new MmsFile(
 	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
 	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
 	        )
-	    }
+	    )
     );
 ```
+
+NOTE! If you already have a prepacked zip file for sending mms you do not need to install the MMS package, you can just read the file contents into a byte array and assign this byte array to the MmsData property.
 
 ### Sending multiple/mixed messages
 
@@ -62,7 +65,7 @@ Gateway
 Gateway
     .Client("username", "password")
 	.Send(
-	    new MmsMessage { 
+	    new Mms { 
 	        Text = "Test æøå", 
 	        ReceiverNumber = "4799999999", 
 	        SenderNumber = "26112", 
@@ -71,11 +74,7 @@ Gateway
 	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
 	        )
 	    },
-	    new SmsMessage { 
-	        Text = "Test æøå", 
-	        ReceiverNumber = "4799999998", 
-	        SenderNumber = "26112"
-	    }
+	    new Sms("26112", "4799999998", "Test æøå")
     );
 ```
 
@@ -85,14 +84,14 @@ Gateway
 Gateway
     .Client("http://sms3.pswin.com/sms", "grotle", "prosyna3")
     .Send(
-        new SmsMessage
+        new Sms
         {
             Text = "Test æøå",
             ReceiverNumber = "4799999999",
             SenderNumber = "26112",
             UserReference = "my-ref-1"
         },
-        new SmsMessage
+        new Sms
         {
             Text = "Test æøå",
             ReceiverNumber = "4799999998",
@@ -129,7 +128,7 @@ Gateway
 var response = await Gateway
 	.Client("http://sms.pswin.com/sms", "username", "password")
 	.SendAsync(
-		new SmsMessage { ... }
+		new Sms { ... }
 	);
 
 response
