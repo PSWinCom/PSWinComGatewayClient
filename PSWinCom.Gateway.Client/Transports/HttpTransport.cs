@@ -1,20 +1,18 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
+using System.Collections;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class HttpTransport : IAsyncTransport
+    public partial class HttpTransport : ITransport
     {
         private Uri _uri;
-        public static ManualResetEvent allDone = new ManualResetEvent(false);
-
         public HttpTransport(Uri uri)
         {
             _uri = uri;
@@ -22,42 +20,58 @@ namespace PSWinCom.Gateway.Client
 
         public TransportResult Send(XDocument document)
         {
-            return SendAsync(document).Result;
-        }
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_uri);
 
-        public async Task<TransportResult> SendAsync(XDocument document) {
+            request.ContentType = "application/xml";
 
-            var res = await PostRequest(document);
+            request.Method = "POST";
 
-            var result = new TransportResult()
+            var result = new TransportResult();
+
+            using (var ms = new MemoryStream())
             {
-                Success = res.IsSuccessStatusCode,
-            };
+                using (var sw = new StreamWriter(ms, Encoding.GetEncoding("ISO-8859-1")))
+                {
+                    document.Save(sw);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    var bytes = ms.ToArray();
+                    request.ContentLength = bytes.Length + 1;
 
-            if (res.IsSuccessStatusCode)
+                    Stream requestStream = null;
+                    try
+                    {
+                        requestStream = request.GetRequestStream();
+                        requestStream.Write(bytes, 0, bytes.Length);
+                        requestStream.WriteByte(0x00);
+                    }
+                    finally
+                    {
+                        if (requestStream != null)
+                        {
+                            requestStream.Close();
+                        }
+                    }
+                }
+            }
+
+            try
             {
-                var contentstring = await res.Content.ReadAsStringAsync();
-#if (DEBUG)
-                Console.Write(contentstring);
-#endif
-                result.Content = XDocument.Parse(contentstring);
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    result.Success = (response.StatusCode == HttpStatusCode.OK);
+                    using (var xr = XmlReader.Create(response.GetResponseStream()))
+                    {
+                        var content = XDocument.Load(xr);
+                        result.Content = content;
+                    }
+                }
+            }
+            catch
+            {
+                result.Success = false;
             }
 
             return result;
-        }
-
-        private async Task<HttpResponseMessage> PostRequest(XDocument document)
-        {
-            var client = new HttpClient();
-            var ms = new MemoryStream();
-
-            document.Save(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-            var content = new StreamContent(ms);
-
-            content.Headers.Add("Content-Type", "application/xml");
-
-            return await client.PostAsync(_uri, content);
         }
 
         public Uri Uri

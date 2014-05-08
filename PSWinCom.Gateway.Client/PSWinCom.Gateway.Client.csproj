@@ -44,9 +44,10 @@
     <Compile Include="Message.cs" />
     <Compile Include="MmsMessage.cs" />
     <Compile Include="NetworkSpecification.cs" />
+    <Compile Include="Transports\HttpTransport.cs" />
+    <Compile Include="Transports\HttpTransportAsync.cs" />
     <Compile Include="Transports\TcpTransport.cs" />
     <Compile Include="GatewayFactory.cs" />
-    <Compile Include="Transports\HttpTransport.cs" />
     <Compile Include="Interfaces\IAsyncTransport.cs" />
     <Compile Include="Interfaces\IGatewayClient.cs" />
     <Compile Include="Interfaces\IAsyncGatewayClient.cs" />
@@ -60,9 +61,6 @@
     <Compile Include="Interfaces\ITransport.cs" />
     <Compile Include="Transports\TcpTransportAsync.cs" />
     <Compile Include="TransportResult.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

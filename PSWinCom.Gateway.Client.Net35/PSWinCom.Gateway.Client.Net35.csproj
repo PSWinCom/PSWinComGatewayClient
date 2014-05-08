@@ -73,11 +73,13 @@
     <Compile Include="..\PSWinCom.Gateway.Client\TransportResult.cs">
       <Link>TransportResult.cs</Link>
     </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\HttpTransport.cs">
+      <Link>Transports\HttpTransport.cs</Link>
+    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransport.cs">
       <Link>Transports\TcpTransport.cs</Link>
     </Compile>
     <Compile Include="Gateway.cs" />
-    <Compile Include="Transports\HttpTransport.cs" />
     <Compile Include="GatewayClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

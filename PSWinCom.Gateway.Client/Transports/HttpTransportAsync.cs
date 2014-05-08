@@ -1,47 +1,41 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Xml;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Collections;
 
 namespace PSWinCom.Gateway.Client
 {
-    public class HttpTransport : ITransport
+    public partial class HttpTransport : IAsyncTransport
     {
-        private Uri _uri;
-        public HttpTransport(Uri uri)
-        {
-            _uri = uri;
-        }
+        public static ManualResetEvent allDone = new ManualResetEvent(false);
 
-        public TransportResult Send(XDocument document)
+        public async Task<TransportResult> SendAsync(XDocument document)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_uri);
 
+            var request = (HttpWebRequest)WebRequest.Create(_uri);
             request.ContentType = "application/xml";
-
             request.Method = "POST";
-
             var result = new TransportResult();
 
             using (var ms = new MemoryStream())
             {
                 using (var sw = new StreamWriter(ms, Encoding.GetEncoding("ISO-8859-1")))
                 {
-                    document.Save(sw);
+                    document.Save(ms);
                     ms.Seek(0, SeekOrigin.Begin);
+
                     var bytes = ms.ToArray();
                     request.ContentLength = bytes.Length + 1;
 
                     Stream requestStream = null;
                     try
                     {
-                        requestStream = request.GetRequestStream();
-                        requestStream.Write(bytes, 0, bytes.Length);
+                        requestStream = await request.GetRequestStreamAsync();
+                        await requestStream.WriteAsync(bytes, 0, bytes.Length);
                         requestStream.WriteByte(0x00);
                     }
                     finally
@@ -56,13 +50,17 @@ namespace PSWinCom.Gateway.Client
 
             try
             {
-                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)await request.GetResponseAsync())
                 {
                     result.Success = (response.StatusCode == HttpStatusCode.OK);
-                    using (var xr = XmlReader.Create(response.GetResponseStream()))
+                    if (result.Success)
                     {
-                        var content = XDocument.Load(xr);
-                        result.Content = content;
+                        using (var responseStream = response.GetResponseStream())
+                        using (var sr = new StreamReader(responseStream, Encoding.GetEncoding("ISO-8859-1")))
+                        {
+                            var contentstring = await sr.ReadToEndAsync();
+                            result.Content = XDocument.Parse(contentstring);
+                        }
                     }
                 }
             }
@@ -74,16 +72,5 @@ namespace PSWinCom.Gateway.Client
             return result;
         }
 
-        public Uri Uri
-        {
-            get
-            {
-                return _uri;
-            }
-            set
-            {
-                _uri = value;
-            }
-        }
     }
 }
