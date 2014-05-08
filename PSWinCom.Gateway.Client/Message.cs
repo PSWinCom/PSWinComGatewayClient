@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PSWinCom.Gateway.Client
 {
+    /// <summary>
+    /// Representation of the MSG element in a XML API request to PSWinCom Gateway. https://wiki.pswin.com/Gateway%20XML%20API.ashx#Message:_MSG_11
+    /// </summary>
     public abstract class Message
     {
         public Message()
@@ -16,8 +19,36 @@ namespace PSWinCom.Gateway.Client
         private string _useryReference;
         internal int NumInSession { get; set; }
 
+        /// <summary>
+        /// Contents of the message. For MMS this will be used as subject. Characters in this
+        /// text should exist in the Latin1 (ISO-8859-1) characterset, any other characters may
+        /// not be viewed properly on the receivers handset.
+        /// </summary>
         public string Text { get; set; }
+
+        /// <summary>
+        /// The receiver of the message. Must be a valid msIsdn including countrycode without leading zeros or + sign.
+        /// </summary>
         public string ReceiverNumber { get; set; }
+
+        /** 
+         * <summary>
+         * <para>This is the sender of the message.</para>
+         * </summary>
+         * <value>
+         * <list type="bullet">
+         * <item>
+         * <description>4 or 5 digit short code (digits only)</description>
+         * </item>
+         * <item>
+         * <description>a valid msIsdn including countrycode without leading zeros or + sign</description>
+         * </item>
+         * <item>
+         * <description>an up to 11 characters long alpha numeric string only containing international characters and space</description>
+         * </item>
+         * </list>
+         * </value>
+        */
         public string SenderNumber { get; set; }
 
         public string ShortCode { get; set; }

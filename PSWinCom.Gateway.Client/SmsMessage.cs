@@ -6,6 +6,13 @@ using System.Xml.Serialization;
 
 namespace PSWinCom.Gateway.Client
 {
+    /**
+     * <summary>
+     * Representation of an SMS message that can be sent to the PSWinCom Gateway XML API.
+     * </summary>
+     * <see cref=""/>
+     * <seealso cref="PSWinCom.Gateway.Client.Message"/>
+     */
     public class Sms : Message
     {
         public Sms()
