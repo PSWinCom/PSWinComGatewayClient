@@ -1,8 +1,7 @@
 # PSWinCom Gateway Client V2
-This is Henrik's entry to the Gateway Client competition. 
 
 ## Features
-- Supports Framework 3.5 and up (we could event throw in the original client for 2.0 support)
+- Supports Framework 3.5 and up
   - Maximum code reuse between framework versions
 - Enumerable messages and results
 - MMS and SMS in the same client
@@ -14,6 +13,7 @@ This is Henrik's entry to the Gateway Client competition.
 - Multi-framework NuGet
 - No external dependencies
   - Optional MMS generating helper through separate NuGet
+- NuGet includes Gateway Client V1 for .NET 2.0 support
 
 ## Installing
 
@@ -28,7 +28,7 @@ This is Henrik's entry to the Gateway Client competition.
 
 ```
 Gateway
-    .Client("http://sms3.pswin.com/sms", "username", "password")
+    .Client("https://xml.pswin.com", "username", "password")
 	.Send(
 	    new Sms("2077", "4799999999", "Test æøå")
 	);
@@ -48,7 +48,7 @@ Then use this to create MMS file
 Gateway
     .Client("tcp://sms3.pswin.com:1111", "username", "password")
 	.Send(
-	    new Mms("2077", "4799999999", "Test æøå", 
+	    new Mms("2077", "4799999999", "Test æøå",
 			new MmsFile(
 	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
 	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
@@ -65,10 +65,10 @@ NOTE! If you already have a prepacked zip file for sending mms you do not need t
 Gateway
     .Client("username", "password")
 	.Send(
-	    new Mms { 
-	        Text = "Test æøå", 
-	        ReceiverNumber = "4799999999", 
-	        SenderNumber = "26112", 
+	    new Mms {
+	        Text = "Test æøå",
+	        ReceiverNumber = "4799999999",
+	        SenderNumber = "26112",
 	        MmsData = new MmsFile(
 	            MmsPart.FromFile(@"testfiles\pswinstache.jpg"),
 	            MmsPart.FromText("Husk å støtte PSWin'stache", "message.txt")
@@ -82,7 +82,7 @@ Gateway
 
 ```
 Gateway
-    .Client("http://sms3.pswin.com/sms", "grotle", "prosyna3")
+    .Client("http://xml.pswin.com", "username", "password")
     .Send(
         new Sms
         {
@@ -115,7 +115,7 @@ Gateway
 
 ```
 Gateway
-	.Client("http://sms.pswin.com/sms")
+	.Client("https://xml.pswin.com")
 	.WithLogin("username", "password"
 	.Send(
 		...
@@ -126,7 +126,7 @@ Gateway
 
 ```
 var response = await Gateway
-	.Client("http://sms.pswin.com/sms", "username", "password")
+	.Client("https://xml.pswin.com", "username", "password")
 	.SendAsync(
 		new Sms { ... }
 	);
