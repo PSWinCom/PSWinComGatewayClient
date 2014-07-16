@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>PSWinCom.Gateway.Client.MessageFormatters</id>
+        <version>2.0.0</version>
+        <title>PSWinCom Gateway Client MessageFormatters Helper</title>
+        <authors>PSWinCom AS</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Helpers for generating text for special message types, ready for sending using PSWinCom Gateway Client</description>
+        <dependencies>
+            <group targetFramework=".NETFramework3.5, .NETFramework4.0, .NETFramework4.5">
+                <dependency id="PSWinCom.Gateway.Client" version="2.0.4" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="PSWinCom.Gateway.Client.MessageFormatters\bin\Release\PSWinCom.Gateway.Client.MessageFormatters.dll" target="lib\net35\PSWinCom.Gateway.Client.MessageFormatters.dll" />
+    </files>
+</package>
