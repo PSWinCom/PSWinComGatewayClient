@@ -59,6 +59,15 @@ namespace PSWinCom.Gateway.Client
 				Dictionary.Remove(key);
 			}
 
+            internal MessageCollection Clone() {
+                var clone = new MessageCollection();
+                foreach (int i in Dictionary.Keys)
+                {
+                    clone.Add(i, (Message)Dictionary[i]);
+                }
+                return clone;
+            }
+
 		}
 
 		#endregion
@@ -141,8 +150,9 @@ namespace PSWinCom.Gateway.Client
 		}
 
 		#endregion
-		
-		private string _Username;
+
+		private int _batchSize = 100;
+        private string _Username;
 		private string _Password;
 		private string _PrimaryGateway;
 		private string _SecondaryGateway;
@@ -166,6 +176,20 @@ namespace PSWinCom.Gateway.Client
 		/// after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
 		/// </summary>
 		public DeliveryReportCollection DeliveryReports { get; private set; }
+
+        private MessageCollection _messagesToSend;
+
+        public int BatchSize
+        {
+            get
+            {
+                return _batchSize;
+            }
+            set
+            {
+                _batchSize = value;
+            }
+        }
 
 		#region Accessors
 		/// <summary>
@@ -265,26 +289,34 @@ namespace PSWinCom.Gateway.Client
 		/// </summary>
 		public void SendMessages()
 		{
+            if (_messagesToSend == null || _messagesToSend.Count == 0)
+            {
+                _messagesToSend = Messages.Clone();
+            }
 
-			XmlDocument doc = GetDocumentXml();
-			XmlDocument docResponse = null;
-			try
-			{
-				docResponse = HttpPost(doc, _PrimaryGateway);
-			} 
-			catch(Exception e)
-			{
-				// Failed to post using primary gateway, let's try secondary if given
-				if(_SecondaryGateway != null && _SecondaryGateway.Length > 0)
-				{
-					docResponse = HttpPost(doc, _SecondaryGateway);
-				} 
-				else 
-				{
-					throw;
-				}
-			}
-			CheckResponse(docResponse);
+            while (_messagesToSend.Count > 0)
+            {
+                
+			    XmlDocument doc = GetDocumentXml();
+			    XmlDocument docResponse = null;
+			    try
+			    {
+				    docResponse = HttpPost(doc, _PrimaryGateway);
+			    } 
+			    catch(Exception e)
+			    {
+				    // Failed to post using primary gateway, let's try secondary if given
+				    if(_SecondaryGateway != null && _SecondaryGateway.Length > 0)
+				    {
+					    docResponse = HttpPost(doc, _SecondaryGateway);
+				    } 
+				    else 
+				    {
+					    throw;
+				    }
+			    }
+			    CheckResponse(docResponse);
+            }
 		}
 
 		/// <summary>
@@ -326,11 +358,20 @@ namespace PSWinCom.Gateway.Client
 			if(_AffiliateProgram != null && _AffiliateProgram.Length > 0)
 				elmSession.AppendChild(CreateElement(doc, "AP", _AffiliateProgram));
 
-			XmlElement elmMsgList = doc.CreateElement("MSGLST");
-			foreach(int i in Messages.Keys)
-			{
-				elmMsgList.AppendChild(GetMessageXml(doc, Messages[i], i));
-			}
+            int _currentBatchSize = 0;
+            XmlElement elmMsgList = doc.CreateElement("MSGLST");
+
+            int[] keys = new int[_messagesToSend.Keys.Count];
+            _messagesToSend.Keys.CopyTo(keys, 0);
+
+            foreach (int i in keys)
+            {
+                elmMsgList.AppendChild(GetMessageXml(doc, _messagesToSend[i], i));
+                _messagesToSend.Remove(i);
+                _currentBatchSize++;
+                if (_batchSize > 0 && _currentBatchSize == _batchSize)
+                    break;
+            }
 			elmSession.AppendChild(elmMsgList);
 			doc.AppendChild(elmSession);
 
