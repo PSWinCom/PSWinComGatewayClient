@@ -1,4 +1,4 @@
-# PSWinCom Gateway Client V2
+# PSWinCom Gateway Client
 
 ## Features
 - Supports Framework 3.5 and up
