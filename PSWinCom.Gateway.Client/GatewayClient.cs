@@ -29,7 +29,9 @@ namespace PSWinCom.Gateway.Client
             if (transport == null)
                 throw new ApplicationException("Async operations is not supported by the transport");
             var transportResult = await transport.SendAsync(BuildPayload(messages));
-            return GetSendResult(messages, transportResult);
+            var result = new GatewayResponse();
+            result.Results = ParseTransportResults(messages, transportResult);
+            return result;
         }
     }
 }

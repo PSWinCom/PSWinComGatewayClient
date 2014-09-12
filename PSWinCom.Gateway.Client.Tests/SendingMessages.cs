@@ -9,11 +9,14 @@ using System.Xml.Linq;
 namespace PSWinCom.Gateway.Client.Tests
 {
     [TestFixture]
-    public class SendingMessages
+    public class SendingMessages : SendingMessagesBase
     {
-        private Mock<ITransport> mockTransport;
-        private GatewayClient client;
-        private XDocument last_request_xml;
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void Should_not_accept_an_empty_list_of_messages()
+        {
+            client.Send(new Sms[] { });
+        }
 
         [Test]
         public void Should_include_username_and_password()
@@ -21,7 +24,7 @@ namespace PSWinCom.Gateway.Client.Tests
             client.Username = "test";
             client.Password = "pass";
 
-            client.Send(new Sms[] { });
+            client.Send(new Sms[] { new Sms("26112", "12345678", "A message") });
 
             last_request_xml.Root.Name.ShouldEqual("SESSION");
             last_request_xml.Root.Element("CLIENT").Value.ShouldEqual("test");
@@ -227,50 +230,29 @@ namespace PSWinCom.Gateway.Client.Tests
             response.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual("FAIL");
             response.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual("OK");
         }
+    }
 
-        private void Transport_returns(params XElement[] results)
+    [TestFixture]
+    public class BatchedSending : SendingMessagesBase
+    {
+        [Test]
+        public void Test()
         {
-            mockTransport
-                .Setup((t) => t.Send(It.IsAny<XDocument>()))
-                .Returns(new TransportResult
-                {
-                    Content = new XDocument(
-                        new XElement("SESSION",
-                            new XElement("MSGLST",
-                                results
-                            )
-                        )
-                    )
-                });
+            client.BatchSize = 20;
+            Transport_returns_ok_for_all_messages();
+            var result = client.Send(100.Smses());
+            mockTransport.Verify(t => t.Send(It.IsAny<XDocument>()), Times.Exactly(5));
+            result.Results.Count().ShouldEqual(100);
         }
+    }
 
-        private static XElement message_result(string numInSession, string status)
-        {
-            return new XElement("MSG",
-                new XElement("ID", numInSession),
-                new XElement("STATUS", status)
-            );
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            mockTransport = new Mock<ITransport>();
-            client = new GatewayClient(mockTransport.Object);
-
-            last_request_xml
-                = new XDocument();
-
-            mockTransport
-                .Setup((t) => t.Send(It.IsAny<XDocument>()))
-                .Returns<XDocument>((xml) =>
-                {
-                    last_request_xml = xml;
-                    return new TransportResult()
-                    {
-                        Content = new XDocument()
-                    };
-                });
+    public static class TestHelpers
+    {
+        public static IEnumerable<Message> Smses(this int count) {
+            for (var i = 0; i < count; i++)
+            {
+                yield return new Sms("26112", "12345678", "Message " + i.ToString());
+            }
         }
     }
 }

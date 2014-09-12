@@ -22,13 +22,24 @@ namespace PSWinCom.Gateway.Client
 
         public virtual GatewayResponse Send(IEnumerable<Message> messages)
         {
-            var messageList = messages.ToList();
-            var payload = BuildPayload(messageList);
-#if DEBUG
-            Console.Write(payload);
-#endif
-            var transportResult = Transport.Send(payload);
-            return GetSendResult(messageList, transportResult);
+            if (messages.Count() == 0)
+                throw new ArgumentException("Message list must contain at least one message", "messages");
+
+            var result = new GatewayResponse();
+
+            var thisBatchSize = BatchSize > 0 ? BatchSize : messages.Count();
+
+            var skip = 0;
+            while (messages.Count() > skip)
+            {
+                var messageList = messages.Skip(skip).Take(thisBatchSize).ToList();
+                var transportResult = Transport.Send(BuildPayload(messageList));
+                var batchResults = ParseTransportResults(messageList, transportResult);
+                result.Results = result.Results == null ? batchResults : result.Results.Union(batchResults);
+                skip += thisBatchSize;
+            }
+
+            return result;
         }
 
         protected XDocument BuildPayload(IEnumerable<Message> messages)
@@ -111,25 +122,32 @@ namespace PSWinCom.Gateway.Client
         protected static GatewayResponse GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
         {
             var result = new GatewayResponse();
-            result.Results = transportResult
-                .Content
-                .Descendants("MSG")
-                .Select((el) => {
-                    var id = int.Parse(el.Element("ID").Value);
-                    var message = messages.FirstOrDefault(m => m.NumInSession == id);
-                    return new MessageResult
-                    {
-                        UserReference = message.UserReference,
-                        Message = message,
-                        GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
-                        Status = el.Element("STATUS").Value,
-                        StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
-                    };
-                });
+            result.Results = ParseTransportResults(messages, transportResult);
             return result;
         }
 
+        protected static IEnumerable<MessageResult> ParseTransportResults(IEnumerable<Message> messages, TransportResult transportResult)
+        {
+            return transportResult
+                            .Content
+                            .Descendants("MSG")
+                            .Select((el) =>
+                            {
+                                var id = int.Parse(el.Element("ID").Value);
+                                var message = messages.FirstOrDefault(m => m.NumInSession == id);
+                                return new MessageResult
+                                {
+                                    UserReference = message.UserReference,
+                                    Message = message,
+                                    GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
+                                    Status = el.Element("STATUS").Value,
+                                    StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
+                                };
+                            });
+        }
         public string Password { get; set; }
         public string Username { get; set; }
+
+        public int BatchSize { get; set; }
     }
 }
