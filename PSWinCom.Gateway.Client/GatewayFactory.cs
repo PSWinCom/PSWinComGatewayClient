@@ -77,5 +77,11 @@ namespace PSWinCom.Gateway.Client
             client.Password = password;
             return client;
         }
+
+        public static IGatewayClient Batched(this IGatewayClient client, int batchSize)
+        {
+            client.BatchSize = batchSize;
+            return client;
+        }
     }
 }

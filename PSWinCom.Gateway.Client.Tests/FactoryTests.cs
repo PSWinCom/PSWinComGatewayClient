@@ -36,5 +36,22 @@ namespace PSWinCom.Gateway.Client.Tests
             Gateway.DefaultUsername = "";
             Gateway.DefaultPassword = "";
         }
+
+        [Test]
+        public void Fluid_credentials()
+        {
+            var fluidclient = Gateway.Client().WithLogin("test", "password");
+            fluidclient.Username.ShouldEqual("test");
+            fluidclient.Password.ShouldEqual("password");
+        }
+
+        [Test]
+        public void Fluid_batch_size()
+        {
+            var fluidclient = Gateway.Client().Batched(100);
+            fluidclient.BatchSize.ShouldEqual(100);
+        }
+
     }
+
 }

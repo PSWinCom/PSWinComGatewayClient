@@ -8,6 +8,7 @@ namespace PSWinCom.Gateway.Client
 {
     public interface IGatewayClient
     {
+        int BatchSize { get; set; }
         string Username { get; set; }
         string Password { get; set; }
         ITransport Transport { get; set; }

@@ -129,25 +129,25 @@ namespace PSWinCom.Gateway.Client
         protected static IEnumerable<MessageResult> ParseTransportResults(IEnumerable<Message> messages, TransportResult transportResult)
         {
             return transportResult
-                            .Content
-                            .Descendants("MSG")
-                            .Select((el) =>
-                            {
-                                var id = int.Parse(el.Element("ID").Value);
-                                var message = messages.FirstOrDefault(m => m.NumInSession == id);
-                                return new MessageResult
-                                {
-                                    UserReference = message.UserReference,
-                                    Message = message,
-                                    GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
-                                    Status = el.Element("STATUS").Value,
-                                    StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
-                                };
-                            });
+                .Content
+                .Descendants("MSG")
+                .Select((el) =>
+                {
+                    var id = int.Parse(el.Element("ID").Value);
+                    var message = messages.FirstOrDefault(m => m.NumInSession == id);
+                    return new MessageResult
+                    {
+                        UserReference = message.UserReference,
+                        Message = message,
+                        GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
+                        Status = el.Element("STATUS").Value,
+                        StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
+                    };
+                });
         }
+
         public string Password { get; set; }
         public string Username { get; set; }
-
         public int BatchSize { get; set; }
     }
 }
