@@ -374,6 +374,14 @@
             http://sms3.pswin.com/sms and http://sms3-backup.pswin.com/sms
             </summary>
         </member>
+        <member name="M:PSWinCom.Gateway.Client.SMSClient.SendMessagesBySocket(System.String,System.Int32)">
+            <summary>
+            Sends messages using socket protocol. NOTE! Send status and reference will not be updated when you use this method!
+            </summary>
+            <param name="hostname">Host name of server you are sending to</param>
+            <param name="port">Port to connect to</param>
+            <returns></returns>
+        </member>
         <member name="M:PSWinCom.Gateway.Client.SMSClient.SendMessages">
             <summary>
             Send all messages in the Messages collection. This operation will block while communicating
@@ -461,6 +469,11 @@
             <summary>
             Collection of received DeliveryReport objects. This collection will contain the received delivery reports
             after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.BatchSize">
+            <summary>
+            Controls the size of batches sent to Gateway, defaults to 100. Set it to 0 or less to control batch size on your own.
             </summary>
         </member>
         <member name="P:PSWinCom.Gateway.Client.SMSClient.Username">

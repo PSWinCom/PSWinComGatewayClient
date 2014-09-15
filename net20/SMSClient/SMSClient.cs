@@ -179,6 +179,9 @@ namespace PSWinCom.Gateway.Client
 
         private MessageCollection _messagesToSend;
 
+        /// <summary>
+        /// Controls the size of batches sent to Gateway, defaults to 100. Set it to 0 or less to control batch size on your own.
+        /// </summary>
         public int BatchSize
         {
             get
@@ -245,11 +248,16 @@ namespace PSWinCom.Gateway.Client
 			_ConnectTimeout = 20;
 		}
 
-
-        public bool SendMessagesBySocket(string url, int port)
+        /// <summary>
+        /// Sends messages using socket protocol. NOTE! Send status and reference will not be updated when you use this method!
+        /// </summary>
+        /// <param name="hostname">Host name of server you are sending to</param>
+        /// <param name="port">Port to connect to</param>
+        /// <returns></returns>
+        public bool SendMessagesBySocket(string hostname, int port)
         {
             bool result = false;
-            var Client = new TcpClient(url, port);
+            var Client = new TcpClient(hostname, port);
             Client.SendTimeout = 10000;
             Client.ReceiveTimeout = 10000;
             StringWriter sw = new StringWriter(); 
