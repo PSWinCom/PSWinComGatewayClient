@@ -269,22 +269,34 @@ namespace PSWinCom.Gateway.Client
             var stream = Client.GetStream();
 
             stream.Write(bytes, 0, bytes.Length);
-            /*
+
+            var buffer = new byte[256];
+
+
+            var content = new StringBuilder();
+
             var reader = new StreamReader(stream, Encoding.GetEncoding("iso-8859-1"));
-            string response = null;
+            string response = "";
             try
             {
                 response = reader.ReadToEnd();
-                result = true;
             }
             finally
             {
                 reader.Close();
             }
-            */
-            Client.Close();
 
-            return result;
+            try
+            {
+                var docResponse = new XmlDocument();
+                docResponse.LoadXml(response);
+                CheckResponse(docResponse);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 
