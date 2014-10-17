@@ -256,6 +256,11 @@ namespace PSWinCom.Gateway.Client
         /// <returns></returns>
         public bool SendMessagesBySocket(string hostname, int port)
         {
+            if (_messagesToSend == null || _messagesToSend.Count == 0)
+            {
+                _messagesToSend = Messages.Clone();
+            }
+
             bool result = false;
             var Client = new TcpClient(hostname, port);
             Client.SendTimeout = 10000;
@@ -269,22 +274,34 @@ namespace PSWinCom.Gateway.Client
             var stream = Client.GetStream();
 
             stream.Write(bytes, 0, bytes.Length);
-            /*
+            stream.WriteByte(0);
+            
+            var buffer = new byte[256];
+            
+            var content = new StringBuilder();
+
             var reader = new StreamReader(stream, Encoding.GetEncoding("iso-8859-1"));
-            string response = null;
+            string response = "";
             try
             {
                 response = reader.ReadToEnd();
-                result = true;
             }
             finally
             {
                 reader.Close();
             }
-            */
-            Client.Close();
 
-            return result;
+            try
+            {
+                var docResponse = new XmlDocument();
+                docResponse.LoadXml(response.TrimEnd((char)0));
+                CheckResponse(docResponse);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
 
