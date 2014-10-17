@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8889F3
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+		PSWinCom.Gateway.Client.MessageFormatters.nuspec = PSWinCom.Gateway.Client.MessageFormatters.nuspec
 		PSWinCom.Gateway.Client.Mms.nuspec = PSWinCom.Gateway.Client.Mms.nuspec
 		PSWinCom.Gateway.Client.nuspec = PSWinCom.Gateway.Client.nuspec
 	EndProjectSection
@@ -37,6 +38,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.MessageFormatters", "PSWinCom.Gateway.Client.MessageFormatters\PSWinCom.Gateway.Client.MessageFormatters.csproj", "{127548DA-124F-4635-8181-574DEA7D476E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.WapPush.Tests", "PSWinCom.Gateway.Client.MessageFormatters.Tests\PSWinCom.Gateway.Client.WapPush.Tests.csproj", "{5A61F24E-707E-440F-8728-370B00DF7F42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Receiver", "Receiver", "{603AB63C-2B4B-4323-BB25-E3DA0EBC71FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Receiver", "PSWinCom.Gateway.Receiver\PSWinCom.Gateway.Client.Receiver.csproj", "{66169326-31C7-4C92-BEB8-CBF1A59087A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Receiver.Tests", "PSWinCom.Gateway.Client.Receiver.Tests\PSWinCom.Gateway.Client.Receiver.Tests.csproj", "{4CE233AC-D50C-438B-B85E-94ECB85671B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +87,14 @@ Global
 		{5A61F24E-707E-440F-8728-370B00DF7F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A61F24E-707E-440F-8728-370B00DF7F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A61F24E-707E-440F-8728-370B00DF7F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66169326-31C7-4C92-BEB8-CBF1A59087A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66169326-31C7-4C92-BEB8-CBF1A59087A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66169326-31C7-4C92-BEB8-CBF1A59087A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66169326-31C7-4C92-BEB8-CBF1A59087A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +109,7 @@ Global
 		{40E275A0-37FD-4E38-94BA-C7CC99881AB0} = {8C2AF9CC-6B8F-45F7-A27E-C33B18B8EC3F}
 		{127548DA-124F-4635-8181-574DEA7D476E} = {6415F1EA-FC12-4FBD-9B6A-974DFE1BB740}
 		{5A61F24E-707E-440F-8728-370B00DF7F42} = {6415F1EA-FC12-4FBD-9B6A-974DFE1BB740}
+		{66169326-31C7-4C92-BEB8-CBF1A59087A2} = {603AB63C-2B4B-4323-BB25-E3DA0EBC71FF}
+		{4CE233AC-D50C-438B-B85E-94ECB85671B9} = {603AB63C-2B4B-4323-BB25-E3DA0EBC71FF}
 	EndGlobalSection
 EndGlobal
