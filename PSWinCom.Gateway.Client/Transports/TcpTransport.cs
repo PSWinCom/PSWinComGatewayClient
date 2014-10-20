@@ -55,10 +55,12 @@ namespace PSWinCom.Gateway.Client
                     {
                         read = networkStream.Read(buffer, 0, buffer.Length);
 
-                        // Check if last byte is a zero byte, if so, don't include in receivedData
-                        if (buffer[read - 1] == 0) read--;
-
-                        receivedData.Write(buffer, 0, read);
+                        if (read > 0)
+                        {
+                            // Check if last byte is a zero byte, if so, don't include in receivedData
+                            if (buffer[read - 1] == 0) read--;
+                            receivedData.Write(buffer, 0, read);
+                        }
                     }
                     while (read == buffer.Length);
 
