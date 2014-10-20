@@ -1,6 +1,6 @@
 [![NuGet version](http://img.shields.io/nuget/v/PSWinCom.Gateway.Client.svg)](http://www.nuget.org/packages/PSWinCo.Gateway.Client)
 
-# PSWinCom Gateway Client V2
+# PSWinCom Gateway Client
 
 ## Features
 - Supports Framework 3.5 and up
