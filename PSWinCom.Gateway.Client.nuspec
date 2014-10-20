@@ -7,7 +7,10 @@
         <authors>PSWinCom AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>.net gateway client for the PSWinCom XML api</description>
+        <copyright>PSWinCom AS</copyright>
         <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
+        <tags>pswincom gateway sms messaging</tags>
         <dependencies>
             <group targetFramework=".NETFramework2.0">
                 <dependency id="SharpZipLib" version="0.86.0"/>

@@ -7,7 +7,10 @@
         <authors>PSWinCom AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>MMS helper for PSWinCom .net gateway client</description>
+        <copyright>PSWinCom AS</copyright>
         <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
+        <tags>pswincom gateway mms messaging</tags>
         <dependencies>
             <group targetFramework=".NETFramework2.0, .NETFramework3.0">
                 <dependency id="SharpZipLib" version="2.2.15" />
