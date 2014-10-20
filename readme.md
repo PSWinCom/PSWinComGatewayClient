@@ -1,4 +1,4 @@
-[![NuGet version](http://img.shields.io/nuget/v/PSWinCom.Gateway.Client.svg)](http://www.nuget.org/packages/PSWinCo.Gateway.Client)
+[![NuGet version](http://img.shields.io/nuget/v/PSWinCom.Gateway.Client.svg)](http://www.nuget.org/packages/PSWinCom.Gateway.Client)
 
 # PSWinCom Gateway Client
 
