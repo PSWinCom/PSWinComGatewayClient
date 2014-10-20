@@ -1,3 +1,5 @@
+[![NuGet version](http://img.shields.io/nuget/v/PSWinCom.Gateway.Client.svg)](http://www.nuget.org/packages/PSWinCo.Gateway.Client)
+
 # PSWinCom Gateway Client V2
 
 ## Features
@@ -46,7 +48,7 @@ Then use this to create MMS file
 
 ```
 Gateway
-    .Client("tcp://sms3.pswin.com:1111", "username", "password")
+    .Client("tcp://gw2-fro.pswin.com:1111", "username", "password")
 	.Send(
 	    new Mms("2077", "4799999999", "Test æøå",
 			new MmsFile(
