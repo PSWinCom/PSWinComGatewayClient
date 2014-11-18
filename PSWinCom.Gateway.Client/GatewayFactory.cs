@@ -8,7 +8,7 @@ namespace PSWinCom.Gateway.Client
     {
         private static class Factory
         {
-            private static string _defaultAddress = "http://sms3.pswin.com/sms";
+            private static string _defaultAddress = "http://xml.pswin.com";
             private static string _defaultUsername = "";
             private static string _defaultPassword = "";
 

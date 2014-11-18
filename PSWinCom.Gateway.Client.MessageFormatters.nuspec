@@ -7,6 +7,10 @@
         <authors>PSWinCom AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Helpers for generating text for special message types, ready for sending using PSWinCom Gateway Client</description>
+        <copyright>PSWinCom AS</copyright>
+        <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
+        <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
+        <tags>pswincom gateway sms wappush messaging</tags>
         <dependencies>
             <group targetFramework=".NETFramework3.5, .NETFramework4.0, .NETFramework4.5">
                 <dependency id="PSWinCom.Gateway.Client" version="2.0.4" />
