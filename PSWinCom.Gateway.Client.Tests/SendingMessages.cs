@@ -29,6 +29,17 @@ namespace PSWinCom.Gateway.Client.Tests
             last_request_xml.Root.Name.ShouldEqual("SESSION");
             last_request_xml.Root.Element("CLIENT").Value.ShouldEqual("test");
             last_request_xml.Root.Element("PW").Value.ShouldEqual("pass");
+            last_request_xml.Root.Element("SD").ShouldBeNull();
+        }
+
+        [Test]
+        public void Should_include_session_data_if_specified()
+        {
+            client.Send("My session data", new Sms("26112", "12345678", "A message"));
+
+            last_request_xml.Root.Name.ShouldEqual("SESSION");
+            last_request_xml.Root.Element("SD").Value.ShouldEqual("My session data");
+            
         }
 
         [Test]

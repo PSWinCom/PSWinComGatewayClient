@@ -15,12 +15,22 @@ namespace PSWinCom.Gateway.Client
             Transport = transport;
         }
 
-        public GatewayResponse Send(params Message[] messages)
+        public virtual GatewayResponse Send(params Message[] messages)
         {
-            return Send(messages.AsEnumerable());
+            return Send(String.Empty, messages);
+        }
+
+        public virtual GatewayResponse Send(string sessionData, params Message[] messages)
+        {
+            return Send(sessionData, messages.AsEnumerable());
         }
 
         public virtual GatewayResponse Send(IEnumerable<Message> messages)
+        {
+            return Send(String.Empty, messages);
+        }
+
+        public virtual GatewayResponse Send(string sessionData, IEnumerable<Message> messages)
         {
             if (messages.Count() == 0)
                 throw new ArgumentException("Message list must contain at least one message", "messages");
@@ -33,7 +43,7 @@ namespace PSWinCom.Gateway.Client
             while (messages.Count() > skip)
             {
                 var messageList = messages.Skip(skip).Take(thisBatchSize).ToList();
-                var transportResult = Transport.Send(BuildPayload(messageList));
+                var transportResult = Transport.Send(BuildPayload(sessionData, messageList));
                 var batchResults = ParseTransportResults(messageList, transportResult);
                 result.Results = result.Results == null ? batchResults : result.Results.Union(batchResults);
                 skip += thisBatchSize;
@@ -42,7 +52,7 @@ namespace PSWinCom.Gateway.Client
             return result;
         }
 
-        protected XDocument BuildPayload(IEnumerable<Message> messages)
+        protected XDocument BuildPayload(string sessionData, IEnumerable<Message> messages)
         {
             return 
                 new XDocument(
@@ -50,6 +60,7 @@ namespace PSWinCom.Gateway.Client
                     new XElement("SESSION",
                         new XElement("CLIENT", Username),
                         new XElement("PW", Password),
+                        !String.IsNullOrEmpty(sessionData) ? new XElement("SD", sessionData) : null,
                         new XElement("MSGLST",
                             GetMessageElements(messages).ToList())));
         }

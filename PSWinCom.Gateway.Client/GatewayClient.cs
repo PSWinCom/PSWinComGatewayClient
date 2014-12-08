@@ -25,10 +25,15 @@ namespace PSWinCom.Gateway.Client
 
         public async Task<GatewayResponse> SendAsync(IEnumerable<Message> messages)
         {
+            return await SendAsync(String.Empty, messages);
+        }
+
+        public async Task<GatewayResponse> SendAsync(string sessionData, IEnumerable<Message> messages)
+        {
             var transport = Transport as IAsyncTransport;
             if (transport == null)
                 throw new ApplicationException("Async operations is not supported by the transport");
-            var transportResult = await transport.SendAsync(BuildPayload(messages));
+            var transportResult = await transport.SendAsync(BuildPayload(sessionData, messages));
             var result = new GatewayResponse();
             result.Results = ParseTransportResults(messages, transportResult);
             return result;
