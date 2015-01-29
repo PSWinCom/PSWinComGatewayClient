@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Gateway.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="MessageStatus.cs" />
     <Compile Include="MmsMessage.cs" />
     <Compile Include="NetworkSpecification.cs" />
     <Compile Include="Transports\HttpTransport.cs" />

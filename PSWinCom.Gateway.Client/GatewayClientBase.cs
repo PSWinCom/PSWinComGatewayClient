@@ -151,10 +151,24 @@ namespace PSWinCom.Gateway.Client
                         UserReference = message.UserReference,
                         Message = message,
                         GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
-                        Status = el.Element("STATUS").Value,
+                        Status = GetMessageStatus(el),
                         StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
                     };
                 });
+        }
+
+        private static MessageStatus GetMessageStatus(XElement el)
+        {
+            MessageStatus status = MessageStatus.FAIL;
+            try
+            {
+                status = (MessageStatus)Enum.Parse(typeof(MessageStatus), el.Element("STATUS").Value, true);
+            }
+            catch
+            {
+                status = MessageStatus.FAIL;
+            }
+            return status;
         }
 
         public string Password { get; set; }
