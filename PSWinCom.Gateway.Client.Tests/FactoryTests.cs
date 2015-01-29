@@ -12,21 +12,21 @@ namespace PSWinCom.Gateway.Client.Tests
         [Test]
         public void Should_consider_defaults()
         {
-            Gateway.DefaultAddress = "http://my.stupid-doma.in/sms";
-            Gateway.DefaultUsername = "yallaballa";
-            Gateway.DefaultPassword = "ralla";
+            Gateway.DefaultAddress = "http://my-private-gw.pswin.com/";
+            Gateway.DefaultUsername = "myusername";
+            Gateway.DefaultPassword = "mypassword";
 
             var client = Gateway.Client();
 
-            client.Username.ShouldEqual("yallaballa");
-            client.Password.ShouldEqual("ralla");
-            client.Transport.Uri.ShouldEqual(new Uri("http://my.stupid-doma.in/sms"));
+            client.Username.ShouldEqual("myusername");
+            client.Password.ShouldEqual("mypassword");
+            client.Transport.Uri.ShouldEqual(new Uri("http://my-private-gw.pswin.com/"));
         }
 
         [Test]
         public void Should_load_proper_protocol()
         {
-            Gateway.Client("http://my.stupid-doma.in/sms").Transport.ShouldBeType<HttpTransport>();
+            Gateway.Client("http://my-private-gw.pswin.com/").Transport.ShouldBeType<HttpTransport>();
             Gateway.Client("tcp://1.1.1.1:1234").Transport.ShouldBeType<TcpTransport>();
         }
 
