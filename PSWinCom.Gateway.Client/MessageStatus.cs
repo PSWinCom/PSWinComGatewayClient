@@ -7,7 +7,7 @@ namespace PSWinCom.Gateway.Client
 {
     public enum MessageStatus
     {
-        OK,
-        FAIL
+        Ok,
+        Fail
     }
 }
