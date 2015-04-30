@@ -229,6 +229,7 @@ namespace PSWinCom.Gateway.Client.Tests
             var msg2 = new Sms { UserReference = "message2" };
             var msg3 = new Sms { UserReference = "message3" };
 
+            
             Transport_returns(
                 message_result("2", "OK"), 
                 message_result("1", "FAIL"),
@@ -241,9 +242,19 @@ namespace PSWinCom.Gateway.Client.Tests
             });
 
             response.Results.Count().ShouldEqual(3);
-            response.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual(MessageStatus.FAIL);
-            response.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual(MessageStatus.OK);
-            response.Results.First((m) => m.UserReference == "message3").Status.ShouldEqual(MessageStatus.FAIL);
+            response.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual(MessageStatus.Fail);
+            response.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual(MessageStatus.Ok);
+            response.Results.First((m) => m.UserReference == "message3").Status.ShouldEqual(MessageStatus.Fail);
+        }
+
+        [Test]
+        public void Should_handle_batch_status()
+        {
+            Transport_returns_batch_status("FAIL", "Username or password is incorrect");
+
+            var response = client.Send(new Sms());
+            response.Status.ShouldEqual(BatchStatus.Fail);
+            response.StatusText.ShouldEqual("Username or password is incorrect");
         }
     }
 

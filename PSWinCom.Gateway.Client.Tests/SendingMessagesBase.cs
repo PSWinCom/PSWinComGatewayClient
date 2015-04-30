@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace PSWinCom.Gateway.Client.Tests
 {
     public class SendingMessagesBase
     {
         protected GatewayClient client;
-        protected System.Xml.Linq.XDocument last_request_xml;
+        protected XDocument last_request_xml;
         protected Moq.Mock<ITransport> mockTransport;
 
         [SetUp]
@@ -18,27 +19,71 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             mockTransport = new Moq.Mock<ITransport>();
             client = new GatewayClient(mockTransport.Object);
-            last_request_xml = new System.Xml.Linq.XDocument();
-            mockTransport.Setup((t) => t.Send(It.IsAny<System.Xml.Linq.XDocument>())).Returns<System.Xml.Linq.XDocument>((xml) =>
+            last_request_xml = new XDocument();
+            mockTransport.Setup((t) => t.Send(It.IsAny<XDocument>())).Returns<XDocument>((xml) =>
             {
                 last_request_xml = xml;
-                return new TransportResult() { Content = new System.Xml.Linq.XDocument() };
+                return new TransportResult() { Content = new XDocument() };
             });
         }
         
         protected void Transport_returns_ok_for_all_messages()
         {
-            mockTransport.Setup((t) => t.Send(It.IsAny<System.Xml.Linq.XDocument>())).Returns<System.Xml.Linq.XDocument>((payload) => new TransportResult { Content = new System.Xml.Linq.XDocument(new System.Xml.Linq.XElement("SESSION", new System.Xml.Linq.XElement("MSGLST", payload.Descendants("MSG").Select(msg => new System.Xml.Linq.XElement("MSG", new System.Xml.Linq.XElement("ID", msg.Element("ID").Value), new System.Xml.Linq.XElement("STATUS", "OK")))))) });
+            mockTransport
+                .Setup((t) => t.Send(It.IsAny<XDocument>()))
+                .Returns<XDocument>((payload) => new TransportResult { 
+                    Content = 
+                        new XDocument(
+                            new XElement("SESSION", 
+                                new XElement("LOGON", "OK"), 
+                                new XElement("MSGLST", payload.Descendants("MSG")
+                                    .Select(msg => 
+                                        new XElement("MSG", 
+                                            new XElement("ID", msg.Element("ID").Value), 
+                                            new XElement("STATUS", "OK")
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                });
         }
 
-        protected void Transport_returns(params System.Xml.Linq.XElement[] results)
+        protected void Transport_returns(params XElement[] results)
         {
-            mockTransport.Setup((t) => t.Send(It.IsAny<System.Xml.Linq.XDocument>())).Returns(new TransportResult { Content = new System.Xml.Linq.XDocument(new System.Xml.Linq.XElement("SESSION", new System.Xml.Linq.XElement("MSGLST", results))) });
+            mockTransport
+                .Setup((t) => t.Send(It.IsAny<XDocument>()))
+                .Returns(new TransportResult { 
+                    Content = 
+                        new XDocument(
+                            new XElement("SESSION", 
+                                new XElement("LOGON", "OK"),
+                                new XElement("MSGLST", results)
+                            )
+                        )
+                });
         }
 
-        protected static System.Xml.Linq.XElement message_result(string numInSession, string status)
+        protected void Transport_returns_batch_status(string status, string description, params XElement[] results)
         {
-            return new System.Xml.Linq.XElement("MSG", new System.Xml.Linq.XElement("ID", numInSession), new System.Xml.Linq.XElement("STATUS", status));
+            mockTransport
+                .Setup((t) => t.Send(It.IsAny<XDocument>()))
+                .Returns(new TransportResult
+                {
+                    Content =
+                        new XDocument(
+                            new XElement("SESSION",
+                                new XElement("LOGON", status),
+                                new XElement("REASON", description),
+                                new XElement("MSGLST", results)
+                            )
+                        )
+                });
+        }
+
+        protected static XElement message_result(string numInSession, string status)
+        {
+            return new XElement("MSG", new XElement("ID", numInSession), new XElement("STATUS", status));
         }
     }
 }
