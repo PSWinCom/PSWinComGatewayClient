@@ -44,7 +44,7 @@ namespace PSWinCom.Gateway.Client.Tests
             });
 
             response.Results.First().UserReference.ShouldEqual("1");
-            response.Results.First().Status.ShouldEqual("OK");
+            response.Results.First().Status.ShouldEqual(MessageStatus.Ok);
         }
 
         [SetUp]

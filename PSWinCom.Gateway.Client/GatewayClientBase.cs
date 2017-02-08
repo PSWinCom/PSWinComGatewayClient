@@ -44,8 +44,16 @@ namespace PSWinCom.Gateway.Client
             {
                 var messageList = messages.Skip(skip).Take(thisBatchSize).ToList();
                 var transportResult = Transport.Send(BuildPayload(sessionData, messageList));
-                var batchResults = ParseTransportResults(messageList, transportResult);
-                result.Results = result.Results == null ? batchResults : result.Results.Union(batchResults);
+                var batchResult = GetSendResult(messageList, transportResult);
+
+                if (batchResult.Status == BatchStatus.Ok)
+                    result.Results = result.Results == null ? batchResult.Results : result.Results.Union(batchResult.Results);
+                else
+                {
+                    result.Status = batchResult.Status;
+                    result.StatusText = batchResult.StatusText;
+                }
+
                 skip += thisBatchSize;
             }
 
@@ -133,6 +141,10 @@ namespace PSWinCom.Gateway.Client
         protected static GatewayResponse GetSendResult(IEnumerable<Message> messages, TransportResult transportResult)
         {
             var result = new GatewayResponse();
+            XElement logonElement = transportResult.Content.Descendants("LOGON").FirstOrDefault();
+            XElement reasonElement = transportResult.Content.Descendants("REASON").FirstOrDefault();
+            if (logonElement != null) result.Status = (BatchStatus)System.Enum.Parse(typeof(BatchStatus), logonElement.Value, ignoreCase: true);
+            if (reasonElement != null) result.StatusText = reasonElement.Value;
             result.Results = ParseTransportResults(messages, transportResult);
             return result;
         }
@@ -151,10 +163,24 @@ namespace PSWinCom.Gateway.Client
                         UserReference = message.UserReference,
                         Message = message,
                         GatewayReference = el.Element("REF") != null ? el.Element("REF").Value : null,
-                        Status = el.Element("STATUS").Value,
+                        Status = GetMessageStatus(el),
                         StatusText = el.Element("INFO") != null ? el.Element("INFO").Value : null
                     };
                 });
+        }
+
+        private static MessageStatus GetMessageStatus(XElement el)
+        {
+            MessageStatus status = MessageStatus.Fail;
+            try
+            {
+                status = (MessageStatus)Enum.Parse(typeof(MessageStatus), el.Element("STATUS").Value, true);
+            }
+            catch
+            {
+                status = MessageStatus.Fail;
+            }
+            return status;
         }
 
         public string Password { get; set; }

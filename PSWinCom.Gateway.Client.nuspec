@@ -11,15 +11,9 @@
         <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
         <tags>pswincom gateway sms messaging</tags>
-        <dependencies>
-            <group targetFramework=".NETFramework2.0">
-                <dependency id="SharpZipLib" version="0.86.0"/>
-            </group>            
-        </dependencies>
     </metadata>
     <files>
         <file src="PSWinCom.Gateway.Client\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net45\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net35\bin\Release\PSWinCom.Gateway.Client.Net35.dll" target="lib\net35\PSWinCom.Gateway.Client.dll" />
-        <file src="net20\SMSClient\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net20\PSWinCom.Gateway.Client.dll" />
     </files>
 </package>

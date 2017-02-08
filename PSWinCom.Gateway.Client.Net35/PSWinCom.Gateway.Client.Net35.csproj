@@ -37,6 +37,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client\BatchStatus.cs">
+      <Link>BatchStatus.cs</Link>
+    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\GatewayClientBase.cs">
       <Link>GatewayClientBase.cs</Link>
     </Compile>
@@ -57,6 +60,9 @@
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\MessageResult.cs">
       <Link>MessageResult.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MessageStatus.cs">
+      <Link>MessageStatus.cs</Link>
     </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\MmsMessage.cs">
       <Link>MmsMessage.cs</Link>

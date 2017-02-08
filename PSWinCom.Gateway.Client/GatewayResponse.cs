@@ -6,6 +6,8 @@ namespace PSWinCom.Gateway.Client
 {
     public class GatewayResponse
     {
+        public BatchStatus Status { get; set; }
+        public string StatusText { get; set; }
         public IEnumerable<MessageResult> Results { get; set; }
     }
 
