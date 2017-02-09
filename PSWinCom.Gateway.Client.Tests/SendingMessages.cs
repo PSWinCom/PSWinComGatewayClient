@@ -12,12 +12,6 @@ namespace PSWinCom.Gateway.Client.Tests
     public class SendingMessages : SendingMessagesBase
     {
 
-        [Test, ExpectedException(typeof(ArgumentException))]
-        public void Should_not_accept_an_empty_list_of_messages()
-        {
-            client.Send(new Sms[] { });
-        }
-
         [Test]
         public void Should_include_username_and_password()
         {
@@ -256,6 +250,16 @@ namespace PSWinCom.Gateway.Client.Tests
             response.Status.ShouldEqual(BatchStatus.Fail);
             response.StatusText.ShouldEqual("Username or password is incorrect");
         }
+
+        [Test]
+        public void Should_allow_sending_no_messages_for_authorization_purposes()
+        {
+            Transport_returns_batch_status("OK", "");
+            var response = client.Send();
+            response.Status.ShouldEqual(BatchStatus.Ok);
+            response.StatusText.ShouldEqual("");
+        }
+
     }
 
     [TestFixture]

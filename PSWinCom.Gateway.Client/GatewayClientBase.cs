@@ -32,29 +32,37 @@ namespace PSWinCom.Gateway.Client
 
         public virtual GatewayResponse Send(string sessionData, IEnumerable<Message> messages)
         {
-            if (messages.Count() == 0)
-                throw new ArgumentException("Message list must contain at least one message", "messages");
-
             var result = new GatewayResponse();
 
-            var thisBatchSize = BatchSize > 0 ? BatchSize : messages.Count();
 
-            var skip = 0;
-            while (messages.Count() > skip)
+            if (messages.Count() == 0)
             {
-                var messageList = messages.Skip(skip).Take(thisBatchSize).ToList();
-                var transportResult = Transport.Send(BuildPayload(sessionData, messageList));
-                var batchResult = GetSendResult(messageList, transportResult);
-
-                if (batchResult.Status == BatchStatus.Ok)
-                    result.Results = result.Results == null ? batchResult.Results : result.Results.Union(batchResult.Results);
-                else
+                var transportResult = Transport.Send(BuildPayload(sessionData, messages));
+                var authResult = GetSendResult(messages, transportResult);
+                result.Status = authResult.Status;
+                result.StatusText = authResult.StatusText;
+            }
+            else
+            {
+                var thisBatchSize = BatchSize > 0 ? BatchSize : messages.Count();
+                var skip = 0;
+                while (messages.Count() > skip)
                 {
-                    result.Status = batchResult.Status;
-                    result.StatusText = batchResult.StatusText;
+                    var messageList = messages.Skip(skip).Take(thisBatchSize).ToList();
+                    var transportResult = Transport.Send(BuildPayload(sessionData, messageList));
+                    var batchResult = GetSendResult(messageList, transportResult);
+
+                    if (batchResult.Status == BatchStatus.Ok)
+                        result.Results = result.Results == null ? batchResult.Results : result.Results.Union(batchResult.Results);
+                    else
+                    {
+                        result.Status = batchResult.Status;
+                        result.StatusText = batchResult.StatusText;
+                    }
+
+                    skip += thisBatchSize;
                 }
 
-                skip += thisBatchSize;
             }
 
             return result;
@@ -76,12 +84,11 @@ namespace PSWinCom.Gateway.Client
         private IEnumerable<XElement> GetMessageElements(IEnumerable<Message> messages)
         {
             var numInSession = 1;
-            foreach (var msg in messages)
+            return messages.Select((msg) =>
             {
                 msg.NumInSession = numInSession++;
-                XElement msgElement = new XElement("MSG", GetMessagePropertyElements(msg));
-                yield return msgElement;
-            }
+                return new XElement("MSG", GetMessagePropertyElements(msg));
+            });
         }
 
         private IEnumerable<XElement> GetMessagePropertyElements(Message msg)
