@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA463012-660D-4232-A38E-9B9A2905CCEC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PSWinCom.Gateway.Client</RootNamespace>
+    <AssemblyName>PSWinCom.Gateway.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client.Net35\Gateway.cs">
+      <Link>Gateway.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client.Net35\GatewayClient.cs">
+      <Link>GatewayClient.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\BatchStatus.cs">
+      <Link>BatchStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayClientBase.cs">
+      <Link>GatewayClientBase.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayFactory.cs">
+      <Link>GatewayFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayResponse.cs">
+      <Link>GatewayResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IGatewayClient.cs">
+      <Link>Interfaces\IGatewayClient.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\ITransport.cs">
+      <Link>Interfaces\ITransport.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Message.cs">
+      <Link>Message.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MessageResult.cs">
+      <Link>MessageResult.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MessageStatus.cs">
+      <Link>MessageStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MmsMessage.cs">
+      <Link>MmsMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\NetworkSpecification.cs">
+      <Link>NetworkSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\SMSException.cs">
+      <Link>SMSException.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\SmsMessage.cs">
+      <Link>SmsMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\TransportResult.cs">
+      <Link>TransportResult.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\HttpTransport.cs">
+      <Link>Transports\HttpTransport.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransport.cs">
+      <Link>Transports\TcpTransport.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
