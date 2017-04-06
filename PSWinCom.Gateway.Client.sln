@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Tests", "PSWinCom.Gateway.Client.Tests\PSWinCom.Gateway.Client.Tests.csproj", "{25D7ECB9-8C97-4E0F-BD35-FD9A22D0D587}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8889F343-036C-492C-A0F7-52F377D015E5}"
@@ -44,6 +47,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Receiver", "PSWinCom.Gateway.Receiver\PSWinCom.Gateway.Client.Receiver.csproj", "{66169326-31C7-4C92-BEB8-CBF1A59087A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Receiver.Tests", "PSWinCom.Gateway.Client.Receiver.Tests\PSWinCom.Gateway.Client.Receiver.Tests.csproj", "{4CE233AC-D50C-438B-B85E-94ECB85671B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{72E11F47-DE67-4DBD-8BFC-D54632999DA9}"
+	ProjectSection(SolutionItems) = preProject
+		version.txt = version.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net40", "Net40", "{C9B6EECF-A824-4EEE-BBE1-4C5BB61D1922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Net40", "PSWinCom.Gateway.Client.Net40\PSWinCom.Gateway.Client.Net40.csproj", "{CA463012-660D-4232-A38E-9B9A2905CCEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +107,10 @@ Global
 		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE233AC-D50C-438B-B85E-94ECB85671B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA463012-660D-4232-A38E-9B9A2905CCEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA463012-660D-4232-A38E-9B9A2905CCEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA463012-660D-4232-A38E-9B9A2905CCEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA463012-660D-4232-A38E-9B9A2905CCEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,5 +127,6 @@ Global
 		{5A61F24E-707E-440F-8728-370B00DF7F42} = {6415F1EA-FC12-4FBD-9B6A-974DFE1BB740}
 		{66169326-31C7-4C92-BEB8-CBF1A59087A2} = {603AB63C-2B4B-4323-BB25-E3DA0EBC71FF}
 		{4CE233AC-D50C-438B-B85E-94ECB85671B9} = {603AB63C-2B4B-4323-BB25-E3DA0EBC71FF}
+		{CA463012-660D-4232-A38E-9B9A2905CCEC} = {C9B6EECF-A824-4EEE-BBE1-4C5BB61D1922}
 	EndGlobalSection
 EndGlobal
