@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client.Net35\Gateway.cs">
+      <Link>Gateway.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client.Net35\GatewayClient.cs">
+      <Link>GatewayClient.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\BatchStatus.cs">
+      <Link>BatchStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayClientBase.cs">
+      <Link>GatewayClientBase.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayFactory.cs">
+      <Link>GatewayFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayResponse.cs">
+      <Link>GatewayResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IGatewayClient.cs">
+      <Link>Interfaces\IGatewayClient.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\ITransport.cs">
+      <Link>Interfaces\ITransport.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Message.cs">
+      <Link>Message.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MessageResult.cs">
+      <Link>MessageResult.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MessageStatus.cs">
+      <Link>MessageStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\MmsMessage.cs">
+      <Link>MmsMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\NetworkSpecification.cs">
+      <Link>NetworkSpecification.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\SMSException.cs">
+      <Link>SMSException.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\SmsMessage.cs">
+      <Link>SmsMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\TransportResult.cs">
+      <Link>TransportResult.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\HttpTransport.cs">
+      <Link>Transports\HttpTransport.cs</Link>
+    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransport.cs">
+      <Link>Transports\TcpTransport.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  
+</Project>

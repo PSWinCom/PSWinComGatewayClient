@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>PSWinCom.Gateway.Client</id>
-        <version>2.0.12</version>
+        <version>2.0.13</version>
         <title>PSWinCom Gateway Client</title>
         <authors>PSWinCom AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,5 +16,6 @@
         <file src="PSWinCom.Gateway.Client\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net45\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net40\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net40\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net35\bin\Release\PSWinCom.Gateway.Client.Net35.dll" target="lib\net35\PSWinCom.Gateway.Client.dll" />
+        <file src="PSWinCom.Gateway.Client.NetCore\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.Net35.dll" target="lib\netcore\PSWinCom.Gateway.Client.dll" />
     </files>
 </package>
