@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>PSWinCom.Gateway.Client.MessageFormatters</RootNamespace>
+    <AssemblyName>PSWinCom.Gateway.Client.MessageFormatters</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client.MessageFormatters\WapPush\ServiceIndication.cs" Link="WapPush\ServiceIndication.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.MessageFormatters\WapPush\WapPush.cs" Link="WapPush\WapPush.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.MessageFormatters\WapPush\WBXML.cs" Link="WapPush\WBXML.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.MessageFormatters\WapPush\WDP.cs" Link="WapPush\WDP.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.MessageFormatters\WapPush\WSP.cs" Link="WapPush\WSP.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="WapPush\" />
+  </ItemGroup>
+
+</Project>

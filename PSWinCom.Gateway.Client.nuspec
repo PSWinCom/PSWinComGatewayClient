@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>PSWinCom.Gateway.Client</id>
-        <version>2.0.13</version>
+        <version>2.0.14</version>
         <title>PSWinCom Gateway Client</title>
-        <authors>PSWinCom AS</authors>
+        <authors>LINK Mobility AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>.net gateway client for the PSWinCom XML api</description>
-        <copyright>PSWinCom AS</copyright>
+        <copyright>LINK Mobility AS</copyright>
         <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
         <tags>pswincom gateway sms messaging</tags>
@@ -16,6 +16,6 @@
         <file src="PSWinCom.Gateway.Client\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net45\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net40\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net40\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net35\bin\Release\PSWinCom.Gateway.Client.Net35.dll" target="lib\net35\PSWinCom.Gateway.Client.dll" />
-        <file src="PSWinCom.Gateway.Client.NetCore\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.NetCore.dll" target="lib\netcore\PSWinCom.Gateway.Client.dll" />
+        <file src="PSWinCom.Gateway.Client.NetCoreApp20\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.dll" target="lib\netcoreapp2.0\PSWinCom.Gateway.Client.dll" />
     </files>
 </package>

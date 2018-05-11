@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\CustomUserReferenceTests.cs" Link="CustomUserReferenceTests.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\FactoryTests.cs" Link="FactoryTests.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\FrameworkSpecificFactoryTests.cs" Link="FrameworkSpecificFactoryTests.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\HttpTransportTests.cs" Link="HttpTransportTests.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendAsyncTests.cs" Link="SendAsyncTests.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendingMessages.cs" Link="SendingMessages.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendingMessagesBase.cs" Link="SendingMessagesBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.8.2" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="Should" Version="1.1.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PSWinCom.Gateway.Client.NetCoreApp20\PSWinCom.Gateway.Client.NetCoreApp20.csproj" />
+  </ItemGroup>
+
+</Project>
