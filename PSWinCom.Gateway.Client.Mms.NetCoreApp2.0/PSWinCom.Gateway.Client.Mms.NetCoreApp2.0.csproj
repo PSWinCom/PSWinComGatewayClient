@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>PSWinCom.Gateway.Client.Mms</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PSWinCom.Gateway.Client.Mms\MmsException.cs" Link="MmsException.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Mms\MmsFile.cs" Link="MmsFile.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client.Mms\MmsPart.cs" Link="MmsPart.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpZipLib" Version="1.0.0-alpha2" />
+  </ItemGroup>
+
+</Project>

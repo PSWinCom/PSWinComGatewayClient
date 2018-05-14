@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>PSWinCom.Gateway.Client.MessageFormatters</id>
-        <version>2.0.0</version>
+        <version>2.0.14</version>
         <title>PSWinCom Gateway Client MessageFormatters Helper</title>
-        <authors>PSWinCom AS</authors>
+        <authors>LINK Mobility AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Helpers for generating text for special message types, ready for sending using PSWinCom Gateway Client</description>
-        <copyright>PSWinCom AS</copyright>
+        <copyright>LINK Mobility AS</copyright>
         <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
         <tags>pswincom gateway sms wappush messaging</tags>
@@ -19,5 +19,6 @@
     </metadata>
     <files>
         <file src="PSWinCom.Gateway.Client.MessageFormatters\bin\Release\PSWinCom.Gateway.Client.MessageFormatters.dll" target="lib\net35\PSWinCom.Gateway.Client.MessageFormatters.dll" />
+      <file src="PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.MessageFormatters.dll" target="lib\netcoreapp2.0\PSWinCom.Gateway.Client.MessageFormatters.dll" />
     </files>
 </package>

@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>PSWinCom.Gateway.Client.Mms</id>
-        <version>2.0.2</version>
+        <version>2.0.14</version>
         <title>PSWinCom Gateway Client Mms Helper</title>
-        <authors>PSWinCom AS</authors>
+        <authors>LINK Mobility AS</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>MMS helper for PSWinCom .net gateway client</description>
-        <copyright>PSWinCom AS</copyright>
+        <copyright>LINK Mobility AS</copyright>
         <licenseUrl>https://raw.githubusercontent.com/PSWinCom/PSWinComGatewayClient/master/LICENSE.txt</licenseUrl>
         <projectUrl>https://github.com/PSWinCom/PSWinComGatewayClient</projectUrl>
         <tags>pswincom gateway mms messaging</tags>
@@ -23,5 +23,6 @@
     <files>
         <file src="net20\MMSClient\Client\bin\Release\PSWinCom.Gateway.MMS.Client.dll" target="lib\net20\PSWinCom.Gateway.MMS.Client.dll" />       
         <file src="PSWinCom.Gateway.Client.Mms\bin\Release\PSWinCom.Gateway.Client.Mms.dll" target="lib\net35\PSWinCom.Gateway.Client.Mms.dll" />
+        <file src="PSWinCom.Gateway.Client.Mms.NetCoreApp2.0\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.Mms.dll" target="lib\netcoreapp2.0\PSWinCom.Gateway.Client.Mms.dll" />
     </files>
 </package>

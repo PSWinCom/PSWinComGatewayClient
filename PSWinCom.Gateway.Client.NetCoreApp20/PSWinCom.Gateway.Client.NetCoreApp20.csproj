@@ -2,18 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>PSWinCom.Gateway.Client</AssemblyName>
+    <RootNamespace>PSWinCom.Gateway.Client</RootNamespace>
+    <Company>LINK Mobility AS</Company>
+    <Authors>LINK Mobility AS</Authors>
+    <Copyright>Copyright © 2018</Copyright>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\PSWinCom.Gateway.Client.Net35\Gateway.cs">
-      <Link>Gateway.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client.Net35\GatewayClient.cs">
-      <Link>GatewayClient.cs</Link>
-    </Compile>
     <Compile Include="..\PSWinCom.Gateway.Client\BatchStatus.cs">
       <Link>BatchStatus.cs</Link>
     </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Gateway.cs" Link="Gateway.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\GatewayClient.cs" Link="GatewayClient.cs" />
     <Compile Include="..\PSWinCom.Gateway.Client\GatewayClientBase.cs">
       <Link>GatewayClientBase.cs</Link>
     </Compile>
@@ -23,12 +25,10 @@
     <Compile Include="..\PSWinCom.Gateway.Client\GatewayResponse.cs">
       <Link>GatewayResponse.cs</Link>
     </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IGatewayClient.cs">
-      <Link>Interfaces\IGatewayClient.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\ITransport.cs">
-      <Link>Interfaces\ITransport.cs</Link>
-    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IAsyncGatewayClient.cs" Link="Interfaces\IAsyncGatewayClient.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IAsyncTransport.cs" Link="Interfaces\IAsyncTransport.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\IGatewayClient.cs" Link="Interfaces\IGatewayClient.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\Interfaces\ITransport.cs" Link="Interfaces\ITransport.cs" />
     <Compile Include="..\PSWinCom.Gateway.Client\Message.cs">
       <Link>Message.cs</Link>
     </Compile>
@@ -53,16 +53,22 @@
     <Compile Include="..\PSWinCom.Gateway.Client\TransportResult.cs">
       <Link>TransportResult.cs</Link>
     </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\Transports\HttpTransport.cs">
-      <Link>Transports\HttpTransport.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransport.cs">
-      <Link>Transports\TcpTransport.cs</Link>
-    </Compile>
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\HttpTransport.cs" Link="Transports\HttpTransport.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\HttpTransportAsync.cs" Link="Transports\HttpTransportAsync.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransport.cs" Link="Transports\TcpTransport.cs" />
+    <Compile Include="..\PSWinCom.Gateway.Client\Transports\TcpTransportAsync.cs" Link="Transports\TcpTransportAsync.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\" />
     <Folder Include="Properties\" />
+    <Folder Include="Transports\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
   </ItemGroup>
   
 </Project>
