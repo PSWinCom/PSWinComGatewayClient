@@ -11,7 +11,7 @@ if exist version.txt (
   for /f "delims=" %%x in (version.txt) do set version=%%x
 )
 
-"%env.TEAMCITY_GIT_PATH%" log --decorate=full --simplify-by-decoration --pretty=oneline --first-parent HEAD | findstr /C:"tag: v%version%-rc" > temptags.dat
+"%TEAMCITY_GIT_PATH%" log --decorate=full --simplify-by-decoration --pretty=oneline --first-parent HEAD | findstr /C:"tag: v%version%-rc" > temptags.dat
 
 set postfix=-dev-b%buildno%
 if not x%branch:release-=% == x%branch% (
