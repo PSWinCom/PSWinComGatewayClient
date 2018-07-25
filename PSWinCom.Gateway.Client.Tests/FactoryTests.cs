@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Should;
+using FluentAssertions;
 
 namespace PSWinCom.Gateway.Client.Tests
 {
@@ -18,16 +18,16 @@ namespace PSWinCom.Gateway.Client.Tests
 
             var client = Gateway.Client();
 
-            client.Username.ShouldEqual("myusername");
-            client.Password.ShouldEqual("mypassword");
-            client.Transport.Uri.ShouldEqual(new Uri("http://my-private-gw.pswin.com/"));
+            client.Username.Should().Be("myusername");
+            client.Password.Should().Be("mypassword");
+            client.Transport.Uri.Should().Be(new Uri("http://my-private-gw.pswin.com/"));
         }
 
         [Test]
         public void Should_load_proper_protocol()
         {
-            Gateway.Client("http://my-private-gw.pswin.com/").Transport.ShouldBeType<HttpTransport>();
-            Gateway.Client("tcp://1.1.1.1:1234").Transport.ShouldBeType<TcpTransport>();
+            Gateway.Client("http://my-private-gw.pswin.com/").Transport.Should().BeOfType<HttpTransport>();
+            Gateway.Client("tcp://1.1.1.1:1234").Transport.Should().BeOfType<TcpTransport>();
         }
 
         [SetUp]
@@ -41,15 +41,15 @@ namespace PSWinCom.Gateway.Client.Tests
         public void Fluid_credentials()
         {
             var fluidclient = Gateway.Client().WithLogin("test", "password");
-            fluidclient.Username.ShouldEqual("test");
-            fluidclient.Password.ShouldEqual("password");
+            fluidclient.Username.Should().Be("test");
+            fluidclient.Password.Should().Be("password");
         }
 
         [Test]
         public void Fluid_batch_size()
         {
             var fluidclient = Gateway.Client().Batched(100);
-            fluidclient.BatchSize.ShouldEqual(100);
+            fluidclient.BatchSize.Should().Be(100);
         }
 
     }

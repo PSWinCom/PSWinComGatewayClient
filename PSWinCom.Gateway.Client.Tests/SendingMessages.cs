@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Should;
+using FluentAssertions;
 using Moq;
 using System.Xml.Linq;
 
@@ -20,10 +20,10 @@ namespace PSWinCom.Gateway.Client.Tests
 
             client.Send(new Sms[] { new Sms("26112", "12345678", "A message") });
 
-            last_request_xml.Root.Name.ShouldEqual("SESSION");
-            last_request_xml.Root.Element("CLIENT").Value.ShouldEqual("test");
-            last_request_xml.Root.Element("PW").Value.ShouldEqual("pass");
-            last_request_xml.Root.Element("SD").ShouldBeNull();
+            last_request_xml.Root.Name.Should().Be("SESSION");
+            last_request_xml.Root.Element("CLIENT").Value.Should().Be("test");
+            last_request_xml.Root.Element("PW").Value.Should().Be("pass");
+            last_request_xml.Root.Element("SD").Should().BeNull();
         }
 
         [Test]
@@ -31,8 +31,8 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             client.Send("My session data", new Sms("26112", "12345678", "A message"));
 
-            last_request_xml.Root.Name.ShouldEqual("SESSION");
-            last_request_xml.Root.Element("SD").Value.ShouldEqual("My session data");
+            last_request_xml.Root.Name.Should().Be("SESSION");
+            last_request_xml.Root.Element("SD").Value.Should().Be("My session data");
             
         }
 
@@ -46,21 +46,21 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            last_request_xml.Root.Name.ShouldEqual("SESSION");
-            last_request_xml.Root.Element("MSGLST").ShouldNotBeNull();
+            last_request_xml.Root.Name.Should().Be("SESSION");
+            last_request_xml.Root.Element("MSGLST").Should().NotBeNull();
 
             var elements = last_request_xml.Root.Element("MSGLST").Elements("MSG");
-            elements.Count().ShouldEqual(2);
+            elements.Count().Should().Be(2);
 
-            elements.First().Element("ID").Value.ShouldEqual("1");
-            elements.First().Element("TEXT").Value.ShouldEqual("some text");
-            elements.First().Element("SND").Value.ShouldEqual("tester");
-            elements.First().Element("RCV").Value.ShouldEqual("4799999999");
+            elements.First().Element("ID").Value.Should().Be("1");
+            elements.First().Element("TEXT").Value.Should().Be("some text");
+            elements.First().Element("SND").Value.Should().Be("tester");
+            elements.First().Element("RCV").Value.Should().Be("4799999999");
 
-            elements.Last().Element("ID").Value.ShouldEqual("2");
-            elements.Last().Element("TEXT").Value.ShouldEqual("some text 2");
-            elements.Last().Element("SND").Value.ShouldEqual("tester2");
-            elements.Last().Element("RCV").Value.ShouldEqual("4799999998");
+            elements.Last().Element("ID").Value.Should().Be("2");
+            elements.Last().Element("TEXT").Value.Should().Be("some text 2");
+            elements.Last().Element("SND").Value.Should().Be("tester2");
+            elements.Last().Element("RCV").Value.Should().Be("4799999998");
         }
 
         [Test]
@@ -90,21 +90,21 @@ namespace PSWinCom.Gateway.Client.Tests
 
             var message = last_request_xml.Root.Element("MSGLST").Elements("MSG").First();
 
-            message.Element("TEXT").Value.ShouldEqual("some text");
-            message.Element("SND").Value.ShouldEqual("tester");
-            message.Element("RCV").Value.ShouldEqual("4799999999");
-            message.Element("RCPREQ").Value.ShouldEqual("Y");
-            message.Element("TARIFF").Value.ShouldEqual("100");
-            message.Element("NET").Value.ShouldEqual("012:03");
-            message.Element("TTL").Value.ShouldEqual("60");
-            message.Element("CPATAG").Value.ShouldEqual("Something");
-            message.Element("AGELIMIT").Value.ShouldEqual("17");
-            message.Element("SHORTCODE").Value.ShouldEqual("2027");
-            message.Element("SERVICECODE").Value.ShouldEqual("10001");
-            message.Element("DELIVERYTIME").Value.ShouldEqual("209912312359");
-            message.Element("REPLACE").Value.ShouldEqual("7");
-            message.Element("CLASS").Value.ShouldEqual("0");
-            message.Element("OP").Value.ShouldEqual("6");
+            message.Element("TEXT").Value.Should().Be("some text");
+            message.Element("SND").Value.Should().Be("tester");
+            message.Element("RCV").Value.Should().Be("4799999999");
+            message.Element("RCPREQ").Value.Should().Be("Y");
+            message.Element("TARIFF").Value.Should().Be("100");
+            message.Element("NET").Value.Should().Be("012:03");
+            message.Element("TTL").Value.Should().Be("60");
+            message.Element("CPATAG").Value.Should().Be("Something");
+            message.Element("AGELIMIT").Value.Should().Be("17");
+            message.Element("SHORTCODE").Value.Should().Be("2027");
+            message.Element("SERVICECODE").Value.Should().Be("10001");
+            message.Element("DELIVERYTIME").Value.Should().Be("209912312359");
+            message.Element("REPLACE").Value.Should().Be("7");
+            message.Element("CLASS").Value.Should().Be("0");
+            message.Element("OP").Value.Should().Be("6");
         }
 
         [Test]
@@ -140,19 +140,19 @@ namespace PSWinCom.Gateway.Client.Tests
 
             var message = last_request_xml.Root.Element("MSGLST").Elements("MSG").First();
 
-            message.Element("TEXT").Value.ShouldEqual("some text");
-            message.Element("SND").Value.ShouldEqual("tester");
-            message.Element("RCV").Value.ShouldEqual("4799999999");
-            message.Element("RCPREQ").Value.ShouldEqual("Y");
-            message.Element("TARIFF").Value.ShouldEqual("100");
-            message.Element("TTL").Value.ShouldEqual("60");
-            message.Element("CPATAG").Value.ShouldEqual("Something");
-            message.Element("SHORTCODE").Value.ShouldEqual("2027");
-            message.Element("DELIVERYTIME").Value.ShouldEqual("209912312359");
-            message.Element("OP").Value.ShouldEqual("13");
-            message.Element("MMSFILE").Value.ShouldEqual("VGVzdCB6aXAgZGF0YQ==");
+            message.Element("TEXT").Value.Should().Be("some text");
+            message.Element("SND").Value.Should().Be("tester");
+            message.Element("RCV").Value.Should().Be("4799999999");
+            message.Element("RCPREQ").Value.Should().Be("Y");
+            message.Element("TARIFF").Value.Should().Be("100");
+            message.Element("TTL").Value.Should().Be("60");
+            message.Element("CPATAG").Value.Should().Be("Something");
+            message.Element("SHORTCODE").Value.Should().Be("2027");
+            message.Element("DELIVERYTIME").Value.Should().Be("209912312359");
+            message.Element("OP").Value.Should().Be("13");
+            message.Element("MMSFILE").Value.Should().Be("VGVzdCB6aXAgZGF0YQ==");
 
-            last_request_xml.Root.Element("MSGLST").Elements("MSG").Last().Element("MMSFILE").ShouldBeNull();
+            last_request_xml.Root.Element("MSGLST").Elements("MSG").Last().Element("MMSFILE").Should().BeNull();
         }
 
         [Test, Ignore("Removed requirement, not really needed")]
@@ -164,10 +164,10 @@ namespace PSWinCom.Gateway.Client.Tests
                     new Sms { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
-            last_request_xml.FirstNode.NodeType.ShouldEqual(System.Xml.XmlNodeType.DocumentType);
+            last_request_xml.FirstNode.NodeType.Should().Be(System.Xml.XmlNodeType.DocumentType);
             var type = last_request_xml.FirstNode as XDocumentType;
-            type.Name.ShouldEqual("SESSION");
-            type.SystemId.ShouldEqual("pswincom_submit.dtd");
+            type.Name.Should().Be("SESSION");
+            type.SystemId.Should().Be("pswincom_submit.dtd");
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace PSWinCom.Gateway.Client.Tests
                     new Sms { Text = "some text 2", ReceiverNumber = "4799999998", SenderNumber = "tester2" } 
                 }
             );
-            last_request_xml.Declaration.Encoding.ShouldEqual("iso-8859-1");
+            last_request_xml.Declaration.Encoding.Should().Be("iso-8859-1");
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            last_request_xml.Descendants("MSG").First().Element("TARIFF").Value.ShouldEqual("100");
+            last_request_xml.Descendants("MSG").First().Element("TARIFF").Value.Should().Be("100");
         }
 
         [Test]
@@ -212,8 +212,8 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            msg1.NumInSession.ShouldEqual(1);
-            msg2.NumInSession.ShouldEqual(2);
+            msg1.NumInSession.Should().Be(1);
+            msg2.NumInSession.Should().Be(2);
         }
 
         [Test]
@@ -235,10 +235,10 @@ namespace PSWinCom.Gateway.Client.Tests
                 msg3
             });
 
-            response.Results.Count().ShouldEqual(3);
-            response.Results.First((m) => m.UserReference == "message1").Status.ShouldEqual(MessageStatus.Fail);
-            response.Results.First((m) => m.UserReference == "message2").Status.ShouldEqual(MessageStatus.Ok);
-            response.Results.First((m) => m.UserReference == "message3").Status.ShouldEqual(MessageStatus.Fail);
+            response.Results.Count().Should().Be(3);
+            response.Results.First((m) => m.UserReference == "message1").Status.Should().Be(MessageStatus.Fail);
+            response.Results.First((m) => m.UserReference == "message2").Status.Should().Be(MessageStatus.Ok);
+            response.Results.First((m) => m.UserReference == "message3").Status.Should().Be(MessageStatus.Fail);
         }
 
         [Test]
@@ -247,8 +247,8 @@ namespace PSWinCom.Gateway.Client.Tests
             Transport_returns_batch_status("FAIL", "Username or password is incorrect");
 
             var response = client.Send(new Sms());
-            response.Status.ShouldEqual(BatchStatus.Fail);
-            response.StatusText.ShouldEqual("Username or password is incorrect");
+            response.Status.Should().Be(BatchStatus.Fail);
+            response.StatusText.Should().Be("Username or password is incorrect");
         }
 
         [Test]
@@ -256,8 +256,8 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             Transport_returns_batch_status("OK", "");
             var response = client.Send();
-            response.Status.ShouldEqual(BatchStatus.Ok);
-            response.StatusText.ShouldEqual("");
+            response.Status.Should().Be(BatchStatus.Ok);
+            response.StatusText.Should().Be("");
         }
 
     }
@@ -272,7 +272,7 @@ namespace PSWinCom.Gateway.Client.Tests
             Transport_returns_ok_for_all_messages();
             var result = client.Send(100.Smses());
             mockTransport.Verify(t => t.Send(It.IsAny<XDocument>()), Times.Exactly(5));
-            result.Results.Count().ShouldEqual(100);
+            result.Results.Count().Should().Be(100);
         }
     }
 
