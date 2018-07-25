@@ -1,4 +1,7 @@
-## Latest release (2.0.12)
+## Latest Release 2.0.15
+* Signed assemblies for .net 4.0 and up
+
+## Release 2.0.12
 * Added .net 4.0 framework binaries
 
 ## Release 2.0.11

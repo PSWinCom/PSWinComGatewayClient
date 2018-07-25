@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Should;
+using FluentAssertions;
 using Moq;
 using System.Xml.Linq;
 
@@ -25,7 +25,7 @@ namespace PSWinCom.Gateway.Client.Tests
             }
             catch (AggregateException ex)
             {
-                ex.InnerExceptions.Where(e => e is ApplicationException).Count().ShouldEqual(1);
+                ex.InnerExceptions.Where(e => e is ApplicationException).Count().Should().Be(1);
             }
         }
 
@@ -43,8 +43,8 @@ namespace PSWinCom.Gateway.Client.Tests
                 } 
             });
 
-            response.Results.First().UserReference.ShouldEqual("1");
-            response.Results.First().Status.ShouldEqual(MessageStatus.Ok);
+            response.Results.First().UserReference.Should().Be("1");
+            response.Results.First().Status.Should().Be(MessageStatus.Ok);
         }
 
         [SetUp]

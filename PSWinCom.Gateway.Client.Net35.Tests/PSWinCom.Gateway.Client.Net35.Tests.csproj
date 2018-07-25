@@ -35,6 +35,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\gateway_client.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Moq, Version=4.1.1311.615, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.1.1311.0615\lib\net35\Moq.dll</HintPath>
@@ -53,20 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PSWinCom.Gateway.Client.Tests\CustomUserReferenceTests.cs">
-      <Link>CustomUserReferenceTests.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client.Tests\FactoryTests.cs">
-      <Link>FactoryTests.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendingMessages.cs">
-      <Link>SendingMessages.cs</Link>
-    </Compile>
-    <Compile Include="..\PSWinCom.Gateway.Client.Tests\SendingMessagesBase.cs">
-      <Link>SendingMessagesBase.cs</Link>
-    </Compile>
+    <Compile Include="CustomUserReferenceTests.cs" />
+    <Compile Include="FactoryTests.cs" />
     <Compile Include="FrameworkSpecificFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendingMessages.cs" />
+    <Compile Include="SendingMessagesBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

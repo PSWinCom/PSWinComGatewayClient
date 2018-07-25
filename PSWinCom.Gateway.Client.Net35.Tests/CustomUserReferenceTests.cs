@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using FluentAssertions;
+using Should;
 
 namespace PSWinCom.Gateway.Client.Tests
 {
@@ -14,7 +14,7 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             var msg = new Sms();
             msg.NumInSession = 3;
-            msg.UserReference.Should().Be("3");
+            msg.UserReference.ShouldEqual("3");
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace PSWinCom.Gateway.Client.Tests
             var msg = new Sms();
             msg.NumInSession = 3;
             msg.UserReference = "something";
-            msg.UserReference.Should().Be("something");
+            msg.UserReference.ShouldEqual("something");
         }
     }
 }

@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Rec
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{72E11F47-DE67-4DBD-8BFC-D54632999DA9}"
 	ProjectSection(SolutionItems) = preProject
+		gateway_client.snk = gateway_client.snk
+		latestrelease.md = latestrelease.md
 		version.txt = version.txt
 	EndProjectSection
 EndProject
@@ -69,7 +71,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net35", "Net35", "{CFB2C6D3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCoreApp20", "NetCoreApp20", "{C63B06A7-75FB-462B-8C74-CCCD45054BCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20", "PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20\PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20.csproj", "{2DFDA8A5-BD8C-4EB7-ACC1-888CF03840EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20", "PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20\PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20.csproj", "{2DFDA8A5-BD8C-4EB7-ACC1-888CF03840EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
