@@ -8,6 +8,9 @@
     <Authors>LINK Mobility AS</Authors>
     <Copyright>Copyright © 2018</Copyright>
     <Version>1.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\gateway_client.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <ItemGroup>

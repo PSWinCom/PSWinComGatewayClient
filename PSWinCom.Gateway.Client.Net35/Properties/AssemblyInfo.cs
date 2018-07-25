@@ -36,4 +36,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 // Internals can be used in tests:
-[assembly: InternalsVisibleTo("PSWinCom.Gateway.Client.Net35.Tests")]
+[assembly: InternalsVisibleTo("PSWinCom.Gateway.Client.Net35.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010089fb6d20de27a9" +
+"88eb2f16ab37f786c99470fb49a760205fb1c35d26a8c0abd616868a81400c13c78d4229b3cdbf" +
+"7285cf5af8e358d60ceb8e730c21975de5537ee7d0ccc4519ca9277fa828124e66bdb48c500a4b" +
+"bee93dcf05f965c24aca3cc6c510a3eb8fc23c36c67945346f45c62ba2b046ed01334775c5feff" +
+"fc9a70a4")]

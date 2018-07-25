@@ -328,23 +328,6 @@
             use with the SMSClient for handling incoming messages and delivery reports.
             </summary>
         </member>
-        <member name="M:PSWinCom.Gateway.Client.ServerSocket.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:PSWinCom.Gateway.Client.ServerSocket.StartListening">
-            <summary>
-            Initiate listening on chosen local port. This is a non-blocking operation, and the
-            socket will keep listening until StopListening() is called. Each new connection will
-            generate ConnectionReceived events.
-            </summary>
-        </member>
-        <member name="M:PSWinCom.Gateway.Client.ServerSocket.StopListening">
-            <summary>
-            Terminate the listening.
-            </summary>
-        </member>
         <member name="E:PSWinCom.Gateway.Client.ServerSocket.ConnectionReceived">
             <summary>
             This event is fired whenever a connection is established on the port that the socket server
@@ -363,9 +346,90 @@
             Flag indicating wether socket is listening or not.
             </summary>
         </member>
+        <member name="M:PSWinCom.Gateway.Client.ServerSocket.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.ServerSocket.StartListening">
+            <summary>
+            Initiate listening on chosen local port. This is a non-blocking operation, and the
+            socket will keep listening until StopListening() is called. Each new connection will
+            generate ConnectionReceived events.
+            </summary>
+        </member>
+        <member name="M:PSWinCom.Gateway.Client.ServerSocket.StopListening">
+            <summary>
+            Terminate the listening.
+            </summary>
+        </member>
         <member name="T:PSWinCom.Gateway.Client.SMSClient">
             <summary>
             SMS Client implementation for PSWinCom SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Messages">
+            <summary>
+            Collection of outgoing Message objects. Add your Message objects to this collection before
+            sending the messages.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.ReceivedMessages">
+            <summary>
+            Collection of incoming Message objects. This collection will contain the received messages
+            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.DeliveryReports">
+            <summary>
+            Collection of received DeliveryReport objects. This collection will contain the received delivery reports
+            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.BatchSize">
+            <summary>
+            Controls the size of batches sent to Gateway, defaults to 100. Set it to 0 or less to control batch size on your own.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Username">
+            <summary>
+            Username on SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Password">
+            <summary>
+            Password on SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.PrimaryGateway">
+            <summary>
+            URL to PSWinCom SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.SecondaryGateway">
+            <summary>
+            Backup URL to PSWinCom SMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.SessionData">
+            <summary>
+            SessionData. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.AffiliateProgram">
+            <summary>
+             Affiliate program identificator. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.Proxy">
+            <summary>
+            Set IWebProxy to be used when sending messages. Only required if you access internet through a Proxy.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.Client.SMSClient.ConnectTimeout">
+            <summary>
+            Connect timeout value in seconds. If no response has been received within this time, SendMessages will try failover Gateway.
+            If failover also times out it will exit. Default value is 10 seconds.
             </summary>
         </member>
         <member name="M:PSWinCom.Gateway.Client.SMSClient.#ctor">
@@ -452,70 +516,6 @@
             <param name="doc">XmlDocument to send</param>
             <param name="url">Destination URL</param>
             <returns>XmlDocument with response</returns>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.Messages">
-            <summary>
-            Collection of outgoing Message objects. Add your Message objects to this collection before
-            sending the messages.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.ReceivedMessages">
-            <summary>
-            Collection of incoming Message objects. This collection will contain the received messages
-            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.DeliveryReports">
-            <summary>
-            Collection of received DeliveryReport objects. This collection will contain the received delivery reports
-            after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.BatchSize">
-            <summary>
-            Controls the size of batches sent to Gateway, defaults to 100. Set it to 0 or less to control batch size on your own.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.Username">
-            <summary>
-            Username on SMS Gateway
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.Password">
-            <summary>
-            Password on SMS Gateway
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.PrimaryGateway">
-            <summary>
-            URL to PSWinCom SMS Gateway
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.SecondaryGateway">
-            <summary>
-            Backup URL to PSWinCom SMS Gateway
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.SessionData">
-            <summary>
-            SessionData. Leave empty if not required.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.AffiliateProgram">
-            <summary>
-             Affiliate program identificator. Leave empty if not required.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.Proxy">
-            <summary>
-            Set IWebProxy to be used when sending messages. Only required if you access internet through a Proxy.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.Client.SMSClient.ConnectTimeout">
-            <summary>
-            Connect timeout value in seconds. If no response has been received within this time, SendMessages will try failover Gateway.
-            If failover also times out it will exit. Default value is 10 seconds.
-            </summary>
         </member>
         <member name="T:PSWinCom.Gateway.Client.SMSException">
             <summary>

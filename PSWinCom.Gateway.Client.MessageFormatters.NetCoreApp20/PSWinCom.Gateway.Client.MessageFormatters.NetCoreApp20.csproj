@@ -4,6 +4,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>PSWinCom.Gateway.Client.MessageFormatters</RootNamespace>
     <AssemblyName>PSWinCom.Gateway.Client.MessageFormatters</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\gateway_client.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <ItemGroup>

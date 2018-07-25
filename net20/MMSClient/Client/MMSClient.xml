@@ -66,6 +66,48 @@
             after running HandleIncomingMessages. The collection is emptied by the HandleIncomingMessages() method.
             </summary>
         </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Username">
+            <summary>
+            Username on MMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Password">
+            <summary>
+            Password on MMS Gateway
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.PrimaryGateway">
+            <summary>
+            PSWinCom MMS Gateway Primary address
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.SecondaryGateway">
+            <summary>
+            PSWinCom MMS Gateway Secondary address
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.SessionData">
+            <summary>
+            SessionData. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.AffiliateProgram">
+            <summary>
+             Affiliate program identificator. Leave empty if not required.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Proxy">
+            <summary>
+            Set IWebProxy to be used when sending messages. Only required if you access internet through a Proxy.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.BulkWithIdenticalContent">
+            <summary>
+            If this property is set, the MMSClient will send the content to the MMS Gateway only once per session. That
+            will result in substantial lower transmission time for large sessions. When sending bulk MMS with identical
+            content you should therefore set this property to true. Default value is false.
+            </summary>
+        </member>
         <member name="M:PSWinCom.Gateway.MMS.Client.MMSClient.#ctor">
             <summary>
             Default constructor
@@ -147,48 +189,6 @@
             <param name="url">Destination URL</param>
             <returns>XmlDocument with response</returns>
         </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Username">
-            <summary>
-            Username on MMS Gateway
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Password">
-            <summary>
-            Password on MMS Gateway
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.PrimaryGateway">
-            <summary>
-            PSWinCom MMS Gateway Primary address
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.SecondaryGateway">
-            <summary>
-            PSWinCom MMS Gateway Secondary address
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.SessionData">
-            <summary>
-            SessionData. Leave empty if not required.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.AffiliateProgram">
-            <summary>
-             Affiliate program identificator. Leave empty if not required.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.Proxy">
-            <summary>
-            Set IWebProxy to be used when sending messages. Only required if you access internet through a Proxy.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSClient.BulkWithIdenticalContent">
-            <summary>
-            If this property is set, the MMSClient will send the content to the MMS Gateway only once per session. That
-            will result in substantial lower transmission time for large sessions. When sending bulk MMS with identical
-            content you should therefore set this property to true. Default value is false.
-            </summary>
-        </member>
         <member name="T:PSWinCom.Gateway.MMS.Client.MMSException">
             <summary>
             SMSException class for SMS Client related exceptions.
@@ -224,40 +224,6 @@
             <summary>
             Default constructor
             </summary>
-        </member>
-        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.GetCompressed">
-            <summary>
-            Pack up the content of this MMSMessage as a zip file for suitable transmission
-            to the MMS Gateway
-            </summary>
-            <returns>Byte array containing zipped data</returns>
-        </member>
-        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveParts(System.String)">
-            <summary>
-            Save all content parts to the given path using original filenames for each part
-            </summary>
-            <param name="path">A valid path to a directory</param>
-        </member>
-        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveCompressed(System.String)">
-            <summary>
-            Save all MMS message parts as one compressed file. Suitable for packing content
-            for storing and later sending.
-            </summary>
-            <param name="filename">Filename to save as.</param>
-        </member>
-        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveCompressed(System.IO.Stream)">
-            <summary>
-            Save all MMS message parts as a zip to a stream. Suitable for packing content
-            for storing in database or such,
-            </summary>
-            <param name="stream">Stream to save to.</param>
-        </member>
-        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.LoadCompressed(System.String)">
-            <summary>
-            Loads compressed MMS message parts from file. Existing content in
-            MMSMessage object will be overwritten.
-            </summary>
-            <param name="filename">Filename to load from</param>
         </member>
         <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessage.RequestReceipt">
             <summary>
@@ -326,10 +292,59 @@
             require a separate agreement with PSWinCom.
             </summary>
         </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.GetCompressed">
+            <summary>
+            Pack up the content of this MMSMessage as a zip file for suitable transmission
+            to the MMS Gateway
+            </summary>
+            <returns>Byte array containing zipped data</returns>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveParts(System.String)">
+            <summary>
+            Save all content parts to the given path using original filenames for each part
+            </summary>
+            <param name="path">A valid path to a directory</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveCompressed(System.String)">
+            <summary>
+            Save all MMS message parts as one compressed file. Suitable for packing content
+            for storing and later sending.
+            </summary>
+            <param name="filename">Filename to save as.</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.SaveCompressed(System.IO.Stream)">
+            <summary>
+            Save all MMS message parts as a zip to a stream. Suitable for packing content
+            for storing in database or such,
+            </summary>
+            <param name="stream">Stream to save to.</param>
+        </member>
+        <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessage.LoadCompressed(System.String)">
+            <summary>
+            Loads compressed MMS message parts from file. Existing content in
+            MMSMessage object will be overwritten.
+            </summary>
+            <param name="filename">Filename to load from</param>
+        </member>
         <member name="T:PSWinCom.Gateway.MMS.Client.MMSMessagePart">
             <summary>
             An MMSMessagePart object holds the name and content data for each part of the
             MMS message. It will typically be a picture, sound, text or similar.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Name">
+            <summary>
+            Name of this content part. Typically this is the filename of the content file.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.PartId">
+            <summary>
+            Numeric id number of this particular part.
+            </summary>
+        </member>
+        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Data">
+            <summary>
+            A byte array holding the data of this content part.
             </summary>
         </member>
         <member name="M:PSWinCom.Gateway.MMS.Client.MMSMessagePart.#ctor">
@@ -378,21 +393,6 @@
             </summary>
             <param name="path">A valid path to a directory</param>
             <param name="filename">Filename to save as</param>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Name">
-            <summary>
-            Name of this content part. Typically this is the filename of the content file.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.PartId">
-            <summary>
-            Numeric id number of this particular part.
-            </summary>
-        </member>
-        <member name="P:PSWinCom.Gateway.MMS.Client.MMSMessagePart.Data">
-            <summary>
-            A byte array holding the data of this content part.
-            </summary>
         </member>
     </members>
 </doc>
