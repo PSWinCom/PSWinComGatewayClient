@@ -20,7 +20,7 @@ namespace PSWinCom.Gateway.Client.Tests
 
             client.Send(new Sms[] { new Sms("26112", "12345678", "A message") });
 
-            last_request_xml.Root.Name.Should().Be("SESSION");
+            last_request_xml.Root.Name.ToString().Should().Be("SESSION");
             last_request_xml.Root.Element("CLIENT").Value.Should().Be("test");
             last_request_xml.Root.Element("PW").Value.Should().Be("pass");
             last_request_xml.Root.Element("SD").Should().BeNull();
@@ -31,7 +31,7 @@ namespace PSWinCom.Gateway.Client.Tests
         {
             client.Send("My session data", new Sms("26112", "12345678", "A message"));
 
-            last_request_xml.Root.Name.Should().Be("SESSION");
+            last_request_xml.Root.Name.ToString().Should().Be("SESSION");
             last_request_xml.Root.Element("SD").Value.Should().Be("My session data");
             
         }
@@ -46,7 +46,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 }
             );
 
-            last_request_xml.Root.Name.Should().Be("SESSION");
+            last_request_xml.Root.Name.ToString().Should().Be("SESSION");
             last_request_xml.Root.Element("MSGLST").Should().NotBeNull();
 
             var elements = last_request_xml.Root.Element("MSGLST").Elements("MSG");
@@ -166,7 +166,7 @@ namespace PSWinCom.Gateway.Client.Tests
             );
             last_request_xml.FirstNode.NodeType.Should().Be(System.Xml.XmlNodeType.DocumentType);
             var type = last_request_xml.FirstNode as XDocumentType;
-            type.Name.Should().Be("SESSION");
+            type.Name.ToString().Should().Be("SESSION");
             type.SystemId.Should().Be("pswincom_submit.dtd");
         }
 
