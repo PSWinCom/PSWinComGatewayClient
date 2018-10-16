@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Should;
 using Moq;
 using System.Xml.Linq;
 using System.Net;
 using System.IO;
+using FluentAssertions;
 
 namespace PSWinCom.Gateway.Client.Tests
 {
@@ -31,10 +31,10 @@ namespace PSWinCom.Gateway.Client.Tests
                     transport
                         .Send(document)
                         .Success
-                        .ShouldBeFalse();
+                        .Should().BeFalse();
                     request
                         .Result
-                        .ShouldEqual(expected_string_representation_of(document));
+                        .Should().Be(expected_string_representation_of(document));
                 }
             );
         }
@@ -50,7 +50,7 @@ namespace PSWinCom.Gateway.Client.Tests
                     transport
                         .Send(new XDocument(new XElement("TEST")))
                         .Success
-                        .ShouldBeTrue();
+                        .Should().BeTrue();
                 }
             );
         }
@@ -65,7 +65,7 @@ namespace PSWinCom.Gateway.Client.Tests
                 {
                     transport
                         .Send(new XDocument(new XElement("TEST")))
-                        .Content.Root.Name.ShouldEqual("ROOT");
+                        .Content.Root.Name.Should().Be("ROOT");
                         
                 }
             );
@@ -116,11 +116,13 @@ namespace PSWinCom.Gateway.Client.Tests
         }
         private string expected_string_representation_of(XDocument document)
         {
+            document.Declaration = new XDeclaration("1.0", "iso8859-1", null);
+            
             using (var expectedStream = new MemoryStream())
             {
                 document.Save(expectedStream);
                 expectedStream.Seek(0, SeekOrigin.Begin);
-                return new StreamReader(expectedStream).ReadToEnd();
+                return new StreamReader(expectedStream, Encoding.GetEncoding("iso8859-1")).ReadToEnd();
             }
         }
     }

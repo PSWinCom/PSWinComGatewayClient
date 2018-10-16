@@ -19,6 +19,6 @@
     </metadata>
     <files>
         <file src="PSWinCom.Gateway.Client.MessageFormatters\bin\Release\PSWinCom.Gateway.Client.MessageFormatters.dll" target="lib\net35\PSWinCom.Gateway.Client.MessageFormatters.dll" />
-      <file src="PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.MessageFormatters.dll" target="lib\netcoreapp2.0\PSWinCom.Gateway.Client.MessageFormatters.dll" />
+      <file src="PSWinCom.Gateway.Client.MessageFormatters.NetStandard20\bin\Release\netstandard2.0\PSWinCom.Gateway.Client.MessageFormatters.dll" target="lib\netstandard2.0\PSWinCom.Gateway.Client.MessageFormatters.dll" />
     </files>
 </package>

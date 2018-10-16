@@ -23,6 +23,6 @@
     <files>
         <file src="net20\MMSClient\Client\bin\Release\PSWinCom.Gateway.MMS.Client.dll" target="lib\net20\PSWinCom.Gateway.MMS.Client.dll" />       
         <file src="PSWinCom.Gateway.Client.Mms\bin\Release\PSWinCom.Gateway.Client.Mms.dll" target="lib\net35\PSWinCom.Gateway.Client.Mms.dll" />
-        <file src="PSWinCom.Gateway.Client.Mms.NetCoreApp2.0\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.Mms.dll" target="lib\netcoreapp2.0\PSWinCom.Gateway.Client.Mms.dll" />
+        <file src="PSWinCom.Gateway.Client.Mms.NetStandard2.0\bin\Release\netstandard2.0\PSWinCom.Gateway.Client.Mms.dll" target="lib\netstandard2.0\PSWinCom.Gateway.Client.Mms.dll" />
     </files>
 </package>
