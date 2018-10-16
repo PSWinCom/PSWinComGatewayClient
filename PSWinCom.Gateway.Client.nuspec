@@ -16,6 +16,6 @@
         <file src="PSWinCom.Gateway.Client\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net45\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net40\bin\Release\PSWinCom.Gateway.Client.dll" target="lib\net40\PSWinCom.Gateway.Client.dll" />
         <file src="PSWinCom.Gateway.Client.Net35\bin\Release\PSWinCom.Gateway.Client.Net35.dll" target="lib\net35\PSWinCom.Gateway.Client.dll" />
-        <file src="PSWinCom.Gateway.Client.NetCoreApp20\bin\Release\netcoreapp2.0\PSWinCom.Gateway.Client.dll" target="lib\netcoreapp2.0\PSWinCom.Gateway.Client.dll" />
+        <file src="PSWinCom.Gateway.Client.NetStandard20\bin\Release\netstandard2.0\PSWinCom.Gateway.Client.dll" target="lib\netstandard2.0\PSWinCom.Gateway.Client.dll" />
     </files>
 </package>

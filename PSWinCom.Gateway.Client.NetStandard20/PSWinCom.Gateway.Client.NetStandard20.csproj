@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>PSWinCom.Gateway.Client</AssemblyName>
     <RootNamespace>PSWinCom.Gateway.Client</RootNamespace>
     <Company>LINK Mobility AS</Company>
@@ -66,12 +66,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Properties\" />
     <Folder Include="Transports\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System">
-      <HintPath>System</HintPath>
-    </Reference>
   </ItemGroup>
   
 </Project>

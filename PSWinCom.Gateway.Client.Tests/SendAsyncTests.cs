@@ -30,7 +30,7 @@ namespace PSWinCom.Gateway.Client.Tests
         }
 
         [Test]
-        public async void Should_be_able_to_send_with_async_transport()
+        public async Task Should_be_able_to_send_with_async_transport()
         {
             var client = new PSWinCom.Gateway.Client.GatewayClient(mockAsyncTransport.Object);
 

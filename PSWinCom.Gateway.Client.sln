@@ -55,23 +55,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net40", "Net40", "{C9B6EECF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PSWinCom.Gateway.Client.Net40", "PSWinCom.Gateway.Client.Net40\PSWinCom.Gateway.Client.Net40.csproj", "{CA463012-660D-4232-A38E-9B9A2905CCEC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCoreApp20", "NetCoreApp20", "{FDFB11D8-27D3-487C-BA0A-6C7CED30C844}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetStandard20", "NetStandard20", "{FDFB11D8-27D3-487C-BA0A-6C7CED30C844}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCoreApp2.0", "NetCoreApp2.0", "{C5357CA1-4D68-40E6-9DEB-45F74916607E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetStandard2.0", "NetStandard2.0", "{C5357CA1-4D68-40E6-9DEB-45F74916607E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.Mms.NetCoreApp2.0", "PSWinCom.Gateway.Client.Mms.NetCoreApp2.0\PSWinCom.Gateway.Client.Mms.NetCoreApp2.0.csproj", "{F823A8C4-C0A8-456C-85F1-14016120B7C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.Mms.NetStandard2.0", "PSWinCom.Gateway.Client.Mms.NetStandard2.0\PSWinCom.Gateway.Client.Mms.NetStandard2.0.csproj", "{F823A8C4-C0A8-456C-85F1-14016120B7C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{AC9B4CE1-6F94-4B34-81EB-DE4EA4FCA76A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.NetCoreApp20", "PSWinCom.Gateway.Client.NetCoreApp20\PSWinCom.Gateway.Client.NetCoreApp20.csproj", "{F21ABECD-3959-4D4E-BA8D-1E27B4033FAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.NetStandard20", "PSWinCom.Gateway.Client.NetStandard20\PSWinCom.Gateway.Client.NetStandard20.csproj", "{F21ABECD-3959-4D4E-BA8D-1E27B4033FAF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.NetCoreApp20.Tests", "PSWinCom.Gateway.Client.NetCoreApp20.Tests\PSWinCom.Gateway.Client.NetCoreApp20.Tests.csproj", "{93424367-C710-4A91-8378-D153036F3808}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.NetStandard20.Tests", "PSWinCom.Gateway.Client.NetStandard20.Tests\PSWinCom.Gateway.Client.NetStandard20.Tests.csproj", "{93424367-C710-4A91-8378-D153036F3808}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net35", "Net35", "{CFB2C6D3-1B1C-4EE7-AD6C-FA43D1EE86B9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetCoreApp20", "NetCoreApp20", "{C63B06A7-75FB-462B-8C74-CCCD45054BCA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetStandard20", "NetStandard20", "{C63B06A7-75FB-462B-8C74-CCCD45054BCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20", "PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20\PSWinCom.Gateway.Client.MessageFormatters.NetCoreApp20.csproj", "{2DFDA8A5-BD8C-4EB7-ACC1-888CF03840EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSWinCom.Gateway.Client.MessageFormatters.NetStandard20", "PSWinCom.Gateway.Client.MessageFormatters.NetStandard20\PSWinCom.Gateway.Client.MessageFormatters.NetStandard20.csproj", "{2DFDA8A5-BD8C-4EB7-ACC1-888CF03840EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

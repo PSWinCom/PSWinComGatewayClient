@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>PSWinCom.Gateway.Client.Mms</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpZipLib" Version="1.0.0-alpha2" />
+    <PackageReference Include="SharpZipLib" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
