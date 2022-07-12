@@ -1,3 +1,10 @@
+# DEPRECATED
+This repository and its code is deprecated, and its use is not recommended. Check out the new [LinkMobility.PSWin.Client repository](https://github.com/PSWinCom/LinkMobility.PSWin.Client) instead.
+
+The original README is found below.
+___
+
+
 [![NuGet version](http://img.shields.io/nuget/v/PSWinCom.Gateway.Client.svg)](http://www.nuget.org/packages/PSWinCom.Gateway.Client)
 
 # PSWinCom Gateway Client
